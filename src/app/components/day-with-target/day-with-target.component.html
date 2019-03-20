@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf="Text1">{{Text1}} <span *ngIf="daysExisted">: {{daysExisted}}</span></div>
+  <br>
+  <div *ngIf="Text2">{{Text2}} : {{dayCounter}}</div>
+  <br>
+  <div *ngIf="Text3">{{Text3}} : {{daysToTarget}}</div>
+  <br>
+  <button (click)="nextDay()">End Turn</button>
+  <button (click)="resetCounter()">Use</button>
+</div>
+<div *ngIf="daysToTarget==0">Cured!</div>

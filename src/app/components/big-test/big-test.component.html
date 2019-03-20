@@ -1,0 +1,20 @@
+<!-- <div class="container">
+  <p class="bar" *ngFor="let bar of Bars">
+    <app-bar [bar]=bar></app-bar>
+  </p> -->
+<div class="container">
+  <div class="row">
+    <div class="col " *ngFor="let bar of Bars; let i = index">
+      <app-bar [bar]=bar></app-bar>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="Addictions">
+    <app-addiction [addictionArray]=Addictions></app-addiction>
+  </div>
+ -->
+
+  <div>
+    <app-card [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)" (hideColor)="hideColor()"></app-card>
+  </div>
+</div>

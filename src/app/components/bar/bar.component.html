@@ -1,0 +1,10 @@
+<mat-card [style.background-color]="getBackgroundColor()" class="bar-card">
+  <mat-card-header>
+    <div mat-card-avatar [ngStyle]="barStyle" title="{{bar.type}}"></div>
+    <mat-card-title>{{bar.category}} : {{bar.value}} <span class="my-animation good" *ngIf="bar.showPositive">{{bar.positive}}</span>
+      <span class="my-animation bad" *ngIf="bar.showNegative">{{bar.negative}}</span></mat-card-title>
+  </mat-card-header>
+  <mat-progress-bar vertical="true" class="barStyle" mode="determinate" value="{{bar.value}}" color="{{bar.color}}"></mat-progress-bar>
+  <button (click)="mockCalculateUp()">Up</button>
+  <button (click)="mockCalculateDown()">Down</button>
+</mat-card>

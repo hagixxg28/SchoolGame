@@ -1,0 +1,7 @@
+Number of Addictions: {{addictionArray.length}}
+<br>
+<br>
+<div *ngFor="let addiction of addictionArray">
+  <app-addiction-info [addiction]="addiction"></app-addiction-info>
+  <br>
+</div>

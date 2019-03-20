@@ -1,0 +1,36 @@
+.barStyle {
+  height: 10px;
+  max-width: 350px;
+}
+
+.bar-card {
+  max-height: 100px;
+  margin-bottom: 15px;
+  margin-top: 35px;
+}
+
+span {
+  font-size: 14px;
+  opacity: 0;
+}
+
+.bad {
+  color: red;
+}
+
+.good {
+  color: greenyellow;
+}
+
+.my-animation {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+
+  50% {
+    opacity: 1;
+  }
+
+
+}
