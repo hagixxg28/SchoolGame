@@ -1,26 +1,40 @@
 
 import { Component, OnInit } from '@angular/core';
-import { TestService } from 'src/app/services/test.service';
 import { GameEvent } from 'src/app/models/gameEvent';
 import { Choice } from 'src/app/models/choice';
 import { Bar } from 'src/app/models/bar';
+import { EventsService } from 'src/app/services/events.service';
+import { GameManagerService } from 'src/app/services/game-manager.service';
+import { trigger, state, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-big-test',
   templateUrl: './big-test.component.html',
-  styleUrls: ['./big-test.component.css']
+  styleUrls: ['./big-test.component.css'],
+  animations: [
+    trigger('backGroundHandler', [
+      state('high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #ff5050)' })),
+      state('mid-high', style({ opacity: '0', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
+      state('mid-low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #242424)' })),
+      state('low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #33ccff)' })),
+      transition('0 <=> 1', animate('1000ms ease'))
+    ])]
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private testService: TestService) { }
+  constructor(private eventService: EventsService, private gameManager: GameManagerService) { }
 
   ngOnInit() {
-    this.Bars = this.testService.getFirstBars();
-    // this.SecondBars = this.testService.getSecondBars();
+    this.Bars = this.gameManager.getFirstBars();
+    this.eventService.setUpGameEvents();
     this.pullNext();
+    console.log(this.Bars)
+
   }
 
   loseBoolean: boolean = false;
+  backGroundState: String = "mid-low";
+  allBarsSum = 0;
 
 
   Bars;
@@ -33,9 +47,12 @@ export class BigTestComponent implements OnInit {
 
 
   pullNext() {
-    let pulledEvent = this.testService.pullEvent()
+    let pulledEvent = this.gameManager.pullNextEvent();
     this.event = pulledEvent;
   }
+
+
+
 
 
   choicePreview(choice: Choice) {
@@ -48,12 +65,12 @@ export class BigTestComponent implements OnInit {
       this.previewCalculate(choice.stressBarValue, 0);
     }
 
-    if (choice.schoolBarValue) {
-      this.previewCalculate(choice.schoolBarValue, 1)
+    if (choice.socialBarValue) {
+      this.previewCalculate(choice.socialBarValue, 1)
     }
 
-    if (choice.socialBarValue) {
-      this.previewCalculate(choice.socialBarValue, 2)
+    if (choice.schoolBarValue) {
+      this.previewCalculate(choice.schoolBarValue, 2)
     }
 
     if (choice.parentsBarValue) {
@@ -93,19 +110,20 @@ export class BigTestComponent implements OnInit {
 
     }
 
-    if (choice.schoolBarValue) {
+    if (choice.socialBarValue) {
       messageDelay += messageDuration;
-      secondValue = this.calculate(choice.schoolBarValue, 1)
+      secondValue = this.calculate(choice.socialBarValue, 1)
       setTimeout(() => {
-        this.setView(secondValue, choice.schoolBarValue, 1)
+        this.setView(secondValue, choice.socialBarValue, 1)
       }, messageDelay);
     }
 
-    if (choice.socialBarValue) {
+    if (choice.schoolBarValue) {
       messageDelay += messageDuration;
-      thirdValue = this.calculate(choice.socialBarValue, 2);
+      console.log(choice.schoolBarValue + " at choice sort")
+      thirdValue = this.calculate(choice.schoolBarValue, 2);
       setTimeout(() => {
-        this.setView(thirdValue, choice.socialBarValue, 2)
+        this.setView(thirdValue, choice.schoolBarValue, 2)
       }, messageDelay);
     }
 
@@ -134,6 +152,8 @@ export class BigTestComponent implements OnInit {
     this.Bars[index].value = calculatedValue;
     this.messageShower(dropValue, index)
     this.colorChanger(index);
+    this.calculateBarSum();
+    this.backgroundColorChanger();
     setTimeout(() => {
       this.messageHider(index);
     }, 1000);
@@ -165,38 +185,58 @@ export class BigTestComponent implements OnInit {
 
   previewCalculate(value: number, index: number) {
     if (value >= 20) {
-      this.Bars[index].background = 'green';
+      this.Bars[index].previewIconColor = 'rgb(0, 87, 0)';
+      this.Bars[index].fontSize = '42px';
+      this.Bars[index].top = "12%"
+      this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 19 && value >= 10) {
-      this.Bars[index].background = 'darkolivegreen';
+      this.Bars[index].previewIconColor = 'rgb(8, 168, 34)';
+      this.Bars[index].fontSize = '32px';
+      this.Bars[index].top = "22%"
+      this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 9 && value >= 0) {
-      this.Bars[index].background = 'slategray';
+      this.Bars[index].previewIconColor = 'rgb(71, 163, 86)';
+      this.Bars[index].fontSize = '28px';
+      this.Bars[index].top = "25%"
+      this.Bars[index].previewIcon = true;
       return;
     }
 
     if (value < 0 && value >= -9) {
-      this.Bars[index].background = 'deeppink';
+      this.Bars[index].previewIconColor = 'rgb(238, 75, 107)';
+      this.Bars[index].fontSize = '28px';
+      this.Bars[index].top = "25%"
+      this.Bars[index].previewIcon = true;
       return;
     }
 
     if (value <= -10 && value >= -19) {
-      this.Bars[index].background = 'crimson';
+      this.Bars[index].previewIconColor = 'rgb(233, 16, 59)';
+      this.Bars[index].fontSize = '32px';
+      this.Bars[index].top = "22%"
+      this.Bars[index].previewIcon = true;
       return;
     }
 
     if (value <= -20) {
-      this.Bars[index].background = 'red';
+      this.Bars[index].previewIconColor = 'rgb(180, 6, 41)';
+      this.Bars[index].fontSize = '42px';
+      this.Bars[index].top = "12%"
+      this.Bars[index].previewIcon = true;
       return;
     }
+
+
 
   }
 
   hideColor() {
     for (let index = 0; index < this.Bars.length; index++) {
-      this.Bars[index].background = "rgb(255, 255, 255)";
+      this.Bars[index].previewIcon = false;
     }
   }
 
@@ -233,7 +273,7 @@ export class BigTestComponent implements OnInit {
       console.log(bar.type + " is empty")
       this.loseBoolean = true;
       setTimeout(() => {
-        this.event = this.testService.loseEventsMap.get(bar.type + "LESS")
+        this.event = this.gameManager.pullLoseEvent(bar, calculatedValue)
       }, 1000);
       return;
     }
@@ -241,7 +281,7 @@ export class BigTestComponent implements OnInit {
       console.log(bar.type + " is full")
       this.loseBoolean = true;
       setTimeout(() => {
-        this.event = this.testService.loseEventsMap.get(bar.type + "FULL")
+        this.event = this.gameManager.pullLoseEvent(bar, calculatedValue)
       }, 1000);
       return;
     }
@@ -270,11 +310,6 @@ export class BigTestComponent implements OnInit {
 
   }
 
-
-
-
-
-
   restBars() {
     for (let index = 0; index < this.Bars.length; index++) {
       let bar = this.Bars[index];
@@ -282,6 +317,38 @@ export class BigTestComponent implements OnInit {
       this.colorChanger(index);
     }
   }
+
+  calculateBarSum() {
+    let calculatedSum = 0
+    for (let index = 0; index < this.Bars.length; index++) {
+      let bar = this.Bars[index];
+      calculatedSum += bar.value;
+    }
+    this.allBarsSum = calculatedSum;
+  }
+
+  backgroundColorChanger() {
+    if (this.allBarsSum >= 0 && this.allBarsSum <= 150) {
+      this.backGroundState = 'low'
+      return;
+    }
+
+    if (this.allBarsSum >= 151 && this.allBarsSum <= 199) {
+      this.backGroundState = 'mid-low'
+      return;
+    }
+
+    if (this.allBarsSum >= 201 && this.allBarsSum <= 249) {
+      this.backGroundState = 'mid-high'
+      return;
+    }
+
+    if (this.allBarsSum >= 250) {
+      this.backGroundState = 'high'
+      return;
+    }
+  }
+
 
 
 }
