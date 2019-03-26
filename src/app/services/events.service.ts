@@ -17,7 +17,9 @@ export class EventsService {
   //Event Booleans:
   includeBully = true;
   includeNerd = true;
+  includePopGirl = true;
   includeOther = false;
+  includeFreak = true;
 
 
   //Event Pool variables:
@@ -142,6 +144,91 @@ export class EventsService {
     ),
   ]
 
+  PopGirlEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "You're cute!", "Flirt with her", "No thanks.",
+      new Choice(-10, 15),
+      new Choice(0, -15)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "You wear this to school?", "What's wrong with it?", "I'll do better",
+      new Choice(5, -10),
+      new Choice(5, 5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "Courtney is such a slut", "I know right?", "She's alright",
+      new Choice(-5, 10),
+      new Choice(10, -10)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "Can you like my latest post?", "Sure thing!", "No way.",
+      new Choice(0, 10),
+      new Choice(0, -15)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "I got this new Gucci scarf", "It looks great!", "What a waste of money!",
+      new Choice(0, 15),
+      new Choice(-5, -20)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      "Let's throw a party at your house!", "Let's do it!", "My parents will be mad",
+      new Choice(10, 30, 0, -20),
+      new Choice(15, -20, 0, 10)
+    ),
+
+  ]
+
+  FreakEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      "I listen to real music!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      "Let's get pierced!", "Alright", "No thanks.",
+      new Choice(5, 10, 0, -10),
+      new Choice(5, -10)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      "Let's ditch this class!", "I'm in", "I gotta study",
+      new Choice(-10, 10, 0, -10),
+      new Choice(10, -5, 10)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      "Can you hide my ciggaretes at your place?", "Yeah", "No way",
+      new Choice(10, 5, 0, -10),
+      new Choice(0, -10)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      "Throw a rock into the teacher's lounge!", "Throw a rock", "You do it",
+      new Choice(20, 30, -10, -25),
+      new Choice(5, -10)
+    ),
+
+
+
+  ]
+
 
 
   OtherEvents = [
@@ -173,7 +260,7 @@ export class EventsService {
         "")],
     ["SOCIALFULL",
       new GameEvent(this.charactersData.getCharacter(Characters.SocialFull),
-        "You surrounded yourself with friends and dedicated yourself to the, but for some reason it feels like your missing someone...",
+        "You surrounded yourself with friends and dedicated yourself to them, but for some reason it feels like your missing someone...",
         "It's me!",
         "Who?")],
     ["SOCIALLESS",
@@ -207,17 +294,22 @@ export class EventsService {
   setUpGameEvents() {
     if (this.includeBully) {
       this.CurrentEvents = this.CurrentEvents.concat(this.BullyEvents);
-
     }
 
     if (this.includeNerd) {
       this.CurrentEvents = this.CurrentEvents.concat(this.NerdEvents);
+    }
 
+    if (this.includePopGirl) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.PopGirlEvents);
+    }
+
+    if (this.includeFreak) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.FreakEvents);
     }
 
     if (this.includeOther) {
       this.CurrentEvents = this.CurrentEvents.concat(this.OtherEvents);
-
     }
 
 
