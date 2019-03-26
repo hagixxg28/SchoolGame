@@ -25,16 +25,29 @@ export class BarComponent implements OnInit {
   barStyle = {
   }
 
-  getBackgroundColor() {
-    return this.bar.background;
+  getPreviewIconColor() {
+    let color = '';
+    color += this.bar.previewIconColor;
+    return color;
   }
 
-  mockCalculateUp(){
-    this.bar.value+=10;
+  getFontsize() {
+    let size = '';
+    size += this.bar.fontSize;
+    return size;
   }
 
-  mockCalculateDown(){
-    this.bar.value-=10;
+  getTop() {
+    return this.bar.top;
+
+  }
+
+  mockCalculateUp() {
+    this.bar.value += 10;
+  }
+
+  mockCalculateDown() {
+    this.bar.value -= 10;
   }
 
 
