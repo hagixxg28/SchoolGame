@@ -12,7 +12,7 @@ p {
   /* background-image: url('https://img.freepik.com/free-vector/school-building_23-2147521232.jpg?size=338&ext=jpg'); */
   /* background-color: hotpink; */
   background-repeat: no-repeat;
-
+  height: 685px;
 }
 
 .middle-image {
@@ -36,3 +36,40 @@ p {
 .optionText {
   font-size: 18px;
 }
+
+
+.left-text{
+  color: cadetblue;
+}
+
+.right-text{
+  color:coral;
+}
+
+
+
+.absolute-center{
+  opacity: 0;
+  font-size: 24px;
+  font-weight: bolder;
+  position: absolute;
+  left: 50%;
+  top:35%;
+  margin-top: -12px;
+  margin-left: -90px;
+}
+
+.text-fade-in {
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+
+  60% {
+    opacity: 1;
+  }
+
+
+}
+
+

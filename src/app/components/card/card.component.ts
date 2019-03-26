@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { trigger, keyframes, animate, transition } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as kf from './keyframes';
 import { GameEvent } from 'src/app/models/gameEvent';
+import { SwipeComponent } from '../swipe/swipe.component';
 
 @Component({
     selector: 'app-card',
@@ -30,10 +31,16 @@ export class CardComponent implements OnInit {
     @Output()
     hideColor = new EventEmitter();
 
-    isPressed: boolean = false;
+    @ViewChild("Swipe")
+    private SwipeComponent: SwipeComponent;
 
+    isPressed: boolean = false;
     isHoverLeft: boolean = false;
     isHoverRight: boolean = false;
+    isSwipeLeft: boolean = false;
+    isSwipeRight: boolean = false;
+
+
 
     resetSwipe = false;
 
@@ -48,9 +55,14 @@ export class CardComponent implements OnInit {
         this.setStyle()
     }
 
-    showTextLeft() {
-        this.isHoverLeft = true;
 
+
+    showTextLeft() {
+        if (this.isSwipeRight || this.isSwipeLeft) {
+            return;
+        }
+        this.isHoverLeft = true;
+        this.previewChoiceLeft()
     }
 
     hideTextLeft() {
@@ -59,13 +71,50 @@ export class CardComponent implements OnInit {
     }
 
     showTextRight() {
+        //For a case where your courser reaches the button accidently, we don't want to show button text if you swipe.
+        if (this.isSwipeRight || this.isSwipeLeft) {
+            return;
+        }
         this.isHoverRight = true;
+        this.previewChoiceRight();
     }
 
     hideTextRight() {
         this.isHoverRight = false;
         this.hideColor.emit();
     }
+
+    hideSwipeTextLeft() {
+        this.isSwipeLeft = false;
+        this.hideColor.emit();
+    }
+
+    hideSwipeTextRight() {
+        this.isSwipeRight = false;
+        this.hideColor.emit();
+    }
+
+    showSwipeTextRight() {
+        //Making the other side false to make sure not to show both texts at the same time
+        this.isSwipeLeft = false;
+        this.isSwipeRight = true;
+        this.previewChoiceRight()
+    }
+
+    showSwipeTextLeft() {
+        this.isSwipeRight = false;
+        this.isSwipeLeft = true;
+        this.previewChoiceLeft()
+    }
+
+    hideAllText() {
+        this.hideTextLeft();
+        this.hideTextRight();
+        this.hideSwipeTextLeft();
+        this.hideSwipeTextRight();
+    }
+
+
 
     makeChoiceLeft() {
         this.isPressed = true;
@@ -99,18 +148,11 @@ export class CardComponent implements OnInit {
 
 
     previewChoiceLeft() {
-        this.showTextLeft();
         this.choicePreviewEvent.emit(this.event.leftChoice);
     }
 
     previewChoiceRight() {
-        this.showTextRight();
         this.choicePreviewEvent.emit(this.event.rightChoice);
-    }
-
-    hideAllText() {
-        this.hideTextLeft();
-        this.hideTextRight();
     }
 
     setStyle() {
@@ -119,4 +161,5 @@ export class CardComponent implements OnInit {
         }
         this.characterImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.event.character.iconPath)
     }
+
 }

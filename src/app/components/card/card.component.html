@@ -1,39 +1,41 @@
-<app-swipe (previewSwipeLeft)="previewChoiceLeft()" (previewSwipeRight)="previewChoiceRight()"
-    (hidePreviewSwipeLeft)="hideTextLeft()" (hidePreviewSwipeRight)="hideTextRight()" (swipedLeft)="makeChoiceLeft()"
-    (swipedRight)="makeChoiceRight()" [resetSwipe]="resetSwipe">
-    <mat-card [ngStyle]="cardStyle" class="example-card">
-        <!-- (swiperight)="makeChoiceRight()" (swipeleft)="makeChoiceLeft()" -->
+<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in">{{event.leftText}}</span>
+<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in">{{event.rightText}}</span>
+<!-- <div class="absolute-center">{{event.rightText}}</div> -->
+<app-swipe #swipe (previewSwipeLeft)="showSwipeTextLeft()" (previewSwipeRight)="showSwipeTextRight()"
+  (hidePreviewSwipeLeft)="hideSwipeTextLeft()" (hidePreviewSwipeRight)="hideSwipeTextRight()" (swipedLeft)="makeChoiceLeft()"
+  (swipedRight)="makeChoiceRight()" [resetSwipe]="resetSwipe">
+  <mat-card [ngStyle]="cardStyle" class="example-card">
+    <!-- (swiperight)="makeChoiceRight()" (swipeleft)="makeChoiceLeft()" -->
 
-        <mat-card-header>
-            <mat-card-title *ngIf="event.character" class="headerText">{{event.character.name}}</mat-card-title>
-            <mat-card-subtitle class="eventText">{{event.character.occupation}}</mat-card-subtitle>
-            <mat-card-subtitle class="eventText"> </mat-card-subtitle>
-        </mat-card-header>
+    <mat-card-header>
+      <mat-card-title *ngIf="event.character" class="headerText">{{event.character.name}}</mat-card-title>
+      <mat-card-subtitle class="eventText">{{event.character.occupation}}</mat-card-subtitle>
+      <mat-card-subtitle class="eventText"> </mat-card-subtitle>
+    </mat-card-header>
 
 
-        <img mat-card-image [src]="characterImage" class="middle-image" (mousedown)="$event.preventDefault()">
+    <img mat-card-image [src]="characterImage" class="middle-image" (mousedown)="$event.preventDefault()">
 
-        <mat-card-content>
-            <p class="eventText">
-                {{event.mainText}}
-            </p>
-        </mat-card-content>
+    <mat-card-content>
+      <p class="eventText">
+        {{event.mainText}}
+      </p>
+    </mat-card-content>
 
-        <button [disabled]="isPressed" mat-raised-button color="primary" class="optionText" (click)="makeChoiceLeft()"
-            (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
+    <button [disabled]="isPressed" mat-raised-button color="primary" class="optionText" (click)="swipe.swipeLeft()"
+      (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
 
-        <button mat-raised-button color="primary" class="optionText" *ngIf="!isHoverLeft"
-            (mouseenter)="previewChoiceLeft()">
-            &#171;
-        </button>
+    <button mat-raised-button color="primary" class="optionText" *ngIf="!isHoverLeft" (mouseenter)="showTextLeft()">
+      &#171;
+    </button>
 
-        <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;" class="optionText"
-            (click)="makeChoiceRight()" *ngIf="isHoverRight" (mouseleave)="hideTextRight()">{{event.rightText}}</button>
+    <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;" class="optionText"
+      (click)="swipe.swipeRight()" *ngIf="isHoverRight" (mouseleave)="hideTextRight()">{{event.rightText}}</button>
 
-        <button mat-raised-button color="accent" class="optionText" *ngIf="!isHoverRight"
-            (mouseenter)="previewChoiceRight()" style="float: right;">
-            &#187;
-        </button>
+    <button mat-raised-button color="accent" class="optionText" *ngIf="!isHoverRight" (mouseenter)="showTextRight()"
+      style="float: right;">
+      &#187;
+    </button>
 
-    </mat-card>
+  </mat-card>
 </app-swipe>
