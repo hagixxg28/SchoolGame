@@ -4,10 +4,13 @@ export class Bar {
         public iconSource: string,
         public value: number,
         public color: string,
-        public positive?: string,
-        public negative?: string,
+        public positive: string,
+        public negative: string,
+        public previewIcon?: boolean,
         public showPositive?: boolean,
         public showNegative?: boolean,
-        public background?: string,
+        public previewIconColor?: string,
+        public fontSize?: string,
+        public top?: string
     ) { }
 }    
