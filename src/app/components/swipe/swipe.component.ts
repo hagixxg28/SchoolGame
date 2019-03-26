@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-const SWIPE_MIN_DELTA = 150;
+const SWIPE_MIN_DELTA = 175;
 const SWIPE_ROTATION_X_PER_DEG = 20;
 const SWIPE_DISTANCE_WHEN_DONE = 800;
 
@@ -133,4 +133,5 @@ export class SwipeComponent implements OnChanges {
         this.appearing = true;
         this.updateTransform();
     }
+
 }
