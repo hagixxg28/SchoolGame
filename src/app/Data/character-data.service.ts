@@ -17,6 +17,8 @@ export class CharacterDataService {
     ["McRide", new Character("McRide-Steffan", "Singer", "hotpink", "../assets/images/characters/McRide.jpg")],
     ["Bully", new Character("Bront", "Local Bully", "cornflowerblue", "../assets/images/characters/Bully.jpeg")],
     ["Nerd", new Character("Miles", "Nerd", "blueviolet", "../assets/images/characters/GeekPic.PNG")],
+    ["PopGirl", new Character("Stacy", "Popular", "goldenrod", "../assets/images/characters/PopularGirl.png")],
+    ["Freak", new Character("Jason", "Freak", "rgb(54, 163, 127)", "../assets/images/characters/FreakBoy.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
