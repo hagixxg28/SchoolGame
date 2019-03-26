@@ -15,6 +15,10 @@ export class CharacterDataService {
     ["Shlomi", new Character("Shlomi", "Mock", "green", "../assets/images/characters/shlomi.jpg")],
     ["Jojo", new Character("Jojo", "Punk", "purple", "../assets/images/characters/jojo.jpg")],
     ["McRide", new Character("McRide-Steffan", "Singer", "hotpink", "../assets/images/characters/McRide.jpg")],
+    ["Bully", new Character("Bront", "Local Bully", "cornflowerblue", "../assets/images/characters/Bully.jpeg")],
+    ["Nerd", new Character("Miles", "Nerd", "blueviolet", "../assets/images/characters/GeekPic.PNG")],
+
+    //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
     ["StressLess", new Character("", "", "lightblue", "../assets/images/LoseImages/StressLessLose.jpg")],
     ["SocialFull", new Character("", "", "darkorchid", "../assets/images/LoseImages/SocialFullLose.jpg")],
@@ -23,6 +27,9 @@ export class CharacterDataService {
     ["ParentLess", new Character("", "", "midnightblue", "../assets/images/LoseImages/ParentsEmptyLose.jpg")],
     ["GradeFull", new Character("", "", "slategrey", "../assets/images/LoseImages/GradesFullLose.jpg")],
     ["GradeEmpty", new Character("", "", "slategrey", "../assets/images/LoseImages/GradesEmptyLose.jpg")],
+
+    //Void Character
+    ["GradeEmpty", new Character("", "", "", "")],
   ])
 
 
