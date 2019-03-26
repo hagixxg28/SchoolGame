@@ -17,7 +17,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
       state('mid-high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
       state('mid-low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #242424)' })),
       state('low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #33ccff)' })),
-      transition('0 <=> 1', animate('1000ms ease'))
+      transition('0 <=> 1', animate('1500ms ease'))
     ])]
 })
 export class BigTestComponent implements OnInit {
