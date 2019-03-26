@@ -30,13 +30,13 @@ export class SwipeComponent implements OnChanges {
 
     private x = 0;
     // The translate and rotate style to apply to the card. 
-    private transformStyle = "";
+     transformStyle = "";
     // Reseting - a swipe has been canceled and we want to return the card to the center.
-    private resetting = false;
+     resetting = false;
     // Swiped - prevent anything from happening while the swipe is occurring (like swiping left after swiped right).
-    private swiped = false;
+     swiped = false;
     // Appearing - indicate the appearing animation to kick in.
-    private appearing = true;
+     appearing = true;
 
     ngOnChanges(changes: SimpleChanges): void {
         const { resetSwipe } = changes;
