@@ -14,7 +14,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
   animations: [
     trigger('backGroundHandler', [
       state('high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #ff5050)' })),
-      state('mid-high', style({ opacity: '0', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
+      state('mid-high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
       state('mid-low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #242424)' })),
       state('low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #33ccff)' })),
       transition('0 <=> 1', animate('1000ms ease'))
@@ -328,22 +328,22 @@ export class BigTestComponent implements OnInit {
   }
 
   backgroundColorChanger() {
-    if (this.allBarsSum >= 0 && this.allBarsSum <= 150) {
+    if (this.allBarsSum >= 0 && this.allBarsSum <= 160) {
       this.backGroundState = 'low'
       return;
     }
 
-    if (this.allBarsSum >= 151 && this.allBarsSum <= 199) {
+    if (this.allBarsSum >= 161 && this.allBarsSum <= 189) {
       this.backGroundState = 'mid-low'
       return;
     }
 
-    if (this.allBarsSum >= 201 && this.allBarsSum <= 249) {
+    if (this.allBarsSum >= 190 && this.allBarsSum <= 229) {
       this.backGroundState = 'mid-high'
       return;
     }
 
-    if (this.allBarsSum >= 250) {
+    if (this.allBarsSum >= 230) {
       this.backGroundState = 'high'
       return;
     }
