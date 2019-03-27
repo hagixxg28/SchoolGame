@@ -1,5 +1,5 @@
-<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in">{{event.leftText}}</span>
-<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in">{{event.rightText}}</span>
+<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in" [ngClass]="{'short': isLeftShortText}">{{event.leftText}}</span>
+<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in" [ngClass]="{'short': isRightShortText}">{{event.rightText}}</span>
 <!-- <div class="absolute-center">{{event.rightText}}</div> -->
 <app-swipe #swipe (previewSwipeLeft)="showSwipeTextLeft()" (previewSwipeRight)="showSwipeTextRight()"
   (hidePreviewSwipeLeft)="hideSwipeTextLeft()" (hidePreviewSwipeRight)="hideSwipeTextRight()"
@@ -12,11 +12,9 @@
       <mat-card-subtitle class="eventText">{{event.character.occupation}}</mat-card-subtitle>
       <mat-card-subtitle class="eventText"> </mat-card-subtitle>
     </mat-card-header>
-    <br>
 
     <img mat-card-image [src]="characterImage" class="middle-image" (mousedown)="$event.preventDefault()">
 
-    <br>
     <mat-card-content>
       <p class="eventText">
         {{event.mainText}}

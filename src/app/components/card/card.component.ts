@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { trigger, keyframes, animate, transition } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as kf from './keyframes';
@@ -16,7 +16,17 @@ import { SwipeComponent } from '../swipe/swipe.component';
         ])
     ]
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnChanges {
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const event: SimpleChange = changes.event;
+        if (this.checkLength(event.currentValue.leftText)) {
+            this.isLeftShortText = true;
+        }
+        if (this.checkLength(event.currentValue.rightText)) {
+            this.isRightShortText = true;
+        }
+    }
 
     constructor(private sanitizer: DomSanitizer) { }
 
@@ -39,6 +49,8 @@ export class CardComponent implements OnInit {
     isHoverRight: boolean = false;
     isSwipeLeft: boolean = false;
     isSwipeRight: boolean = false;
+    isLeftShortText: boolean = false;
+    isRightShortText: boolean = false;
 
 
 
@@ -160,6 +172,15 @@ export class CardComponent implements OnInit {
             'background-color': this.event.character.backgroundColor
         }
         this.characterImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.event.character.iconPath)
+    }
+
+    checkLength(text) {
+        console.log(text)
+        console.log(text.length)
+        if (text.length < 15) {
+            return true;
+        }
+        return false;
     }
 
 }
