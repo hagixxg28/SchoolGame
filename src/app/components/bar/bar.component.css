@@ -37,7 +37,7 @@ span {
 
 .previewIcon {
   font-size: 36px;
-  margin-left: 50px;
+  margin-left: 90px;
   position: absolute;
   left: 50%;
   top: 25%;
@@ -71,6 +71,15 @@ span {
     object-fit: cover;
   }
 
+  .previewIcon {
+    font-size: 36px;
+    margin-left: 50px;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    margin-top: -12px;
+  }
+
 
   .bad {
     color: crimson;
@@ -89,21 +98,24 @@ span {
 
 
 
-  @keyframes moveRight {
-    0% {
-      margin-left: 0px;
-      opacity: 0;
-      transform: scale(0.5)
-    }
 
+
+@keyframes moveRight {
+  0% {
+    margin-left: 0px;
+    opacity: 0;
+    transform: scale(0.5)
   }
 
-  @keyframes fadeIn {
+}
 
-    50% {
-      opacity: 1;
-    }
+@keyframes fadeIn {
 
-
+  50% {
+    opacity: 1;
   }
+
+
+}
+
 

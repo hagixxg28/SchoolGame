@@ -175,8 +175,6 @@ export class CardComponent implements OnInit, OnChanges {
     }
 
     checkLength(text) {
-        console.log(text)
-        console.log(text.length)
         if (text.length < 15) {
             return true;
         }
