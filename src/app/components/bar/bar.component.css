@@ -1,17 +1,17 @@
 .barStyle {
   height: 10px;
-  max-width: 350px;
+  /* max-width: 350px; */
 }
 
 .bar-card {
   max-height: 83.98px;
   margin-bottom: 25px;
   margin-top: 50px;
+  width: 250px;
 }
 
 span {
   font-size: 16px;
-
 }
 
 .bad {
@@ -37,7 +37,7 @@ span {
 
 .previewIcon {
   font-size: 36px;
-  margin-left: 70px;
+  margin-left: 50px;
   position: absolute;
   left: 50%;
   top: 25%;
@@ -45,20 +45,62 @@ span {
 }
 
 
-@keyframes moveRight {
-  0% {
-    margin-left: 0px;
+
+@media only screen and (max-width: 600px) {
+  .bar-card {
+    max-height: 83.98px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    width: 150px;
+  }
+
+  span {
+    font-size: 10px;
+  }
+
+  .mat-card-title {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .mat-card-avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+
+  .bad {
+    color: crimson;
+    font-weight: bolder;
     opacity: 0;
-    transform: scale(0.5)
   }
 
-}
-
-@keyframes fadeIn {
-
-  50% {
-    opacity: 1;
+  .good {
+    color: darkcyan;
+    font-weight: bolder;
+    opacity: 0;
   }
 
 
+
+  @keyframes moveRight {
+    0% {
+      margin-left: 0px;
+      opacity: 0;
+      transform: scale(0.5)
+    }
+
+  }
+
+  @keyframes fadeIn {
+
+    50% {
+      opacity: 1;
+    }
+
+
+  }
 }

@@ -1,7 +1,7 @@
 <mat-card class="bar-card">
   <mat-card-header>
     <div mat-card-avatar [ngStyle]="barStyle" title="{{bar.type}}"></div>
-    <mat-card-title> : {{bar.value}} <span class="my-animation good"
+    <mat-card-title> {{bar.value}} <span class="my-animation good"
         *ngIf="bar.showPositive">{{bar.positive}}</span>
       <span class="my-animation bad" *ngIf="bar.showNegative">{{bar.negative}}</span>
       <span *ngIf="bar.previewIcon" class="animation-move-right previewIcon" [style.color]="getPreviewIconColor()"

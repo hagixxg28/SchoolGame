@@ -39,7 +39,6 @@ export class BarComponent implements OnInit {
 
   getTop() {
     return this.bar.top;
-
   }
 
   mockCalculateUp() {
