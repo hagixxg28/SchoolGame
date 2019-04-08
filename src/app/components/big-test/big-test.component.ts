@@ -183,26 +183,23 @@ export class BigTestComponent implements OnInit {
 
   previewCalculate(value: number, index: number) {
 
-    if (window.matchMedia("(max-width: 600px)").matches) {
+    if (window.matchMedia("(max-width: 800px)").matches) {
       this.previewCalculatePhone(value, index);
       return;
     }
     if (value >= 20) {
-      // this.Bars[index].previewIconColor = 'rgb(0, 87, 0)';
       this.Bars[index].fontSize = '42px';
-      this.Bars[index].top = "12%"
+      this.Bars[index].top = "14%"
       this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 19 && value >= 10) {
-      // this.Bars[index].previewIconColor = 'rgb(8, 168, 34)';
       this.Bars[index].fontSize = '32px';
       this.Bars[index].top = "22%"
       this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 9 && value >= 0) {
-      // this.Bars[index].previewIconColor = 'rgb(71, 163, 86)';
       this.Bars[index].fontSize = '28px';
       this.Bars[index].top = "25%"
       this.Bars[index].previewIcon = true;
@@ -210,7 +207,6 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value < 0 && value >= -9) {
-      // this.Bars[index].previewIconColor = 'rgb(238, 75, 107)';
       this.Bars[index].fontSize = '28px';
       this.Bars[index].top = "25%"
       this.Bars[index].previewIcon = true;
@@ -218,7 +214,6 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value <= -10 && value >= -19) {
-      // this.Bars[index].previewIconColor = 'rgb(233, 16, 59)';
       this.Bars[index].fontSize = '32px';
       this.Bars[index].top = "22%"
       this.Bars[index].previewIcon = true;
@@ -226,9 +221,8 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value <= -20) {
-      // this.Bars[index].previewIconColor = 'rgb(180, 6, 41)';
       this.Bars[index].fontSize = '42px';
-      this.Bars[index].top = "12%"
+      this.Bars[index].top = "14%"
       this.Bars[index].previewIcon = true;
       return;
     }
@@ -236,21 +230,18 @@ export class BigTestComponent implements OnInit {
 
   previewCalculatePhone(value: number, index: number) {
     if (value >= 20) {
-      // this.Bars[index].previewIconColor = 'rgb(0, 87, 0)';
       this.Bars[index].fontSize = '38px';
       this.Bars[index].top = "8%"
       this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 19 && value >= 10) {
-      // this.Bars[index].previewIconColor = 'rgb(8, 168, 34)';
       this.Bars[index].fontSize = '32px';
       this.Bars[index].top = "20%"
       this.Bars[index].previewIcon = true;
       return;
     }
     if (value <= 9 && value >= 0) {
-      // this.Bars[index].previewIconColor = 'rgb(71, 163, 86)';
       this.Bars[index].fontSize = '24px';
       this.Bars[index].top = "24%"
       this.Bars[index].previewIcon = true;
@@ -258,7 +249,6 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value < 0 && value >= -9) {
-      // this.Bars[index].previewIconColor = 'rgb(238, 75, 107)';
       this.Bars[index].fontSize = '24px';
       this.Bars[index].top = "24%"
       this.Bars[index].previewIcon = true;
@@ -266,7 +256,6 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value <= -10 && value >= -19) {
-      // this.Bars[index].previewIconColor = 'rgb(233, 16, 59)';
       this.Bars[index].fontSize = '32px';
       this.Bars[index].top = "20%"
       this.Bars[index].previewIcon = true;
@@ -274,7 +263,6 @@ export class BigTestComponent implements OnInit {
     }
 
     if (value <= -20) {
-      // this.Bars[index].previewIconColor = 'rgb(180, 6, 41)';
       this.Bars[index].fontSize = '38px';
       this.Bars[index].top = "8%"
       this.Bars[index].previewIcon = true;
