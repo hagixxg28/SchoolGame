@@ -6,7 +6,7 @@
       <span class="my-animation bad" *ngIf="bar.showNegative">{{bar.negative}}</span>
       <span *ngIf="bar.previewIcon" class="animation-move-right previewIcon" [style.color]="getPreviewIconColor()"
         [style.font-size]="getFontsize()" [style.top]="getTop()">
-        &diams;</span>
+        &bull;</span>
     </mat-card-title>
   </mat-card-header>
   <mat-progress-bar class="barStyle" mode="determinate" value="{{bar.value}}" color="{{bar.color}}">
@@ -14,3 +14,5 @@
   <!-- <button (click)="mockCalculateUp()">Up</button>
   <button (click)="mockCalculateDown()">Down</button> -->
 </mat-card>
+<!--&diams; 
+-->
