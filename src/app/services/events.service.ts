@@ -20,6 +20,7 @@ export class EventsService {
   includePopGirl = true;
   includeOther = false;
   includeFreak = true;
+  includeCounselor = true;
 
 
   //Event Pool variables:
@@ -27,6 +28,11 @@ export class EventsService {
   //Setting it to a void event so my function will work ( I don't want to pull the same character event after event)
   lastEvent = new GameEvent(this.charactersData.getCharacter(Characters.Void), "", "", "");
   loseEvent: GameEvent;
+
+
+  //Event Map
+
+  LastEventMap = new Map([])
 
   Events = [
 
@@ -224,8 +230,55 @@ export class EventsService {
       new Choice(20, 30, -10, -25),
       new Choice(5, -10)
     ),
+  ]
 
+  CounselorEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Counselor),
+      "Are you alright?", "Yeah", "I need to talk abit",
+      new Choice(),
+      new Choice(-5, -10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Counselor),
+      "You see the counselor's door is open and no one is around", "Get in", "Keep walking",
+      new Choice(-10),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Counselor),
+      "Therapy is very important, do you get it?", "Stay Silent", "Therapy is for losers!",
+      new Choice(),
+      new Choice(10, 10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Counselor),
+      "Is there a bully in our school?", "Tell him", "Not that I know of",
+      new Choice(5, -20, 0, 10),
+      new Choice(10)
+    ),
+  ]
 
+  StonerEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Stoner),
+      "Wanna smoke something?", "Sure", "No thanks",
+      new Choice(5, 10, 0, -5),
+      new Choice(0, -10, 0, 5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Stoner),
+      "Wanna go to a 'special' party?", "Ye", "Na",
+      new Choice(-5, 20, 0, -10),
+      new Choice(15, -50)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Stoner),
+      "Wanna go to a 'special' party?", "Ye", "Na",
+      new Choice(-5, 20, 0, -10),
+      new Choice(15, -50)
+    ),
 
   ]
 
@@ -308,6 +361,10 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.FreakEvents);
     }
 
+    if (this.includeCounselor) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.CounselorEvents);
+    }
+
     if (this.includeOther) {
       this.CurrentEvents = this.CurrentEvents.concat(this.OtherEvents);
     }
@@ -323,32 +380,34 @@ export class EventsService {
   }
 
   pullEvent() {
-    let item = this.pullNext()
+    let event = this.pullNext()
     if (!this.lastEvent) {
       this.lastEvent = null;
     }
-    while (this.lastEvent === item || this.secondLastEvent === item || this.lastEvent.character === item.character) {
-      item = this.pullNext()
-    }
-    this.secondLastEvent = this.lastEvent
-    this.lastEvent = item
-    return item;
+    while (this.lastEvent === event || this.secondLastEvent === event || this.lastEvent.character === event.character || event === this.LastEventMap.get(event.character)) {
+    event = this.pullNext()
+  }
+    this.LastEventMap.set(event.character, event)
+this.secondLastEvent = this.lastEvent
+this.lastEvent = event
+return event;
   }
 
 
-  pullLoseEvent(bar: Bar, calculatedValue) {
 
-    if (calculatedValue <= 0) {
-      console.log(bar.type + " is empty")
-      this.loseEvent = this.loseEventsMap.get(bar.type + "LESS")
-    }
+pullLoseEvent(bar: Bar, calculatedValue) {
 
-    if (calculatedValue >= 100) {
-      console.log(bar.type + " is full")
-      this.loseEvent = this.loseEventsMap.get(bar.type + "FULL")
-    }
-    return this.loseEvent;
+  if (calculatedValue <= 0) {
+    console.log(bar.type + " is empty")
+    this.loseEvent = this.loseEventsMap.get(bar.type + "LESS")
   }
+
+  if (calculatedValue >= 100) {
+    console.log(bar.type + " is full")
+    this.loseEvent = this.loseEventsMap.get(bar.type + "FULL")
+  }
+  return this.loseEvent;
+}
 
 
 
