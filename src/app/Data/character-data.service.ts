@@ -19,6 +19,8 @@ export class CharacterDataService {
     ["Nerd", new Character("Miles", "Nerd", "blueviolet", "../assets/images/characters/GeekPic.PNG")],
     ["PopGirl", new Character("Stacy", "Popular", "goldenrod", "../assets/images/characters/PopularGirl.png")],
     ["Freak", new Character("Jason", "Freak", "rgb(54, 163, 127)", "../assets/images/characters/FreakBoy.png")],
+    ["Counselor", new Character("Henry", "Counselor", "rgb(155, 155, 149)", "../assets/images/characters/Counceller.jpg")],
+    ["Stoner", new Character("Frank", "Stoner", "rgb(49, 145, 92)", "../assets/images/characters/StonerBoy.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
