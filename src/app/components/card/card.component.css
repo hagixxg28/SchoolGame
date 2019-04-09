@@ -25,11 +25,12 @@ p {
 }
 
 .headerText {
-  font-size: 30px;
+  font-size: 26px;
+  margin-bottom: 5px !important;
 }
 
 .optionText {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 
@@ -73,6 +74,21 @@ p {
   .short {
     padding-left: 18px
   }
+
+  .example-card {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+    background-repeat: no-repeat;
+    /* transform: scale(0.85); */
+  }
+
+  .eventText {
+    font-size: 16px;
+  }
+
+
 }
 
 
