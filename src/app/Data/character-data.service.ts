@@ -21,6 +21,8 @@ export class CharacterDataService {
     ["Freak", new Character("Jason", "Freak", "rgb(54, 163, 127)", "../assets/images/characters/FreakBoy.png")],
     ["Counselor", new Character("Henry", "Counselor", "rgb(155, 155, 149)", "../assets/images/characters/Counceller.jpg")],
     ["Stoner", new Character("Frank", "Stoner", "rgb(49, 145, 92)", "../assets/images/characters/StonerBoy.png")],
+    ["Mom", new Character("Mom", "Parent", "deeppink", "../assets/images/characters/Mother.jpg")],
+    ["Dad", new Character("Dad", "Parent", "firebrick", "../assets/images/characters/Father.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
