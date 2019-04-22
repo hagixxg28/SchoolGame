@@ -1,0 +1,12 @@
+{
+    "env": {},
+    "dependencies": {},
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm",
+    "resolveModules": {
+        "aliases": {
+            "@": "src",
+            "src": "src"
+        }
+    }
+}
