@@ -1,15 +1,17 @@
-<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in" [ngClass]="{'short': isLeftShortText}">{{event.leftText}}</span>
-<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in" [ngClass]="{'short': isRightShortText}">{{event.rightText}}</span>
+<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in"
+  [ngClass]="{'short': isLeftShortText}">{{event.leftText}}</span>
+<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in"
+  [ngClass]="{'short': isRightShortText}">{{event.rightText}}</span>
 <!-- <div class="absolute-center">{{event.rightText}}</div> -->
 <app-swipe #swipe (previewSwipeLeft)="showSwipeTextLeft()" (previewSwipeRight)="showSwipeTextRight()"
   (hidePreviewSwipeLeft)="hideSwipeTextLeft()" (hidePreviewSwipeRight)="hideSwipeTextRight()"
   (swipedLeft)="makeChoiceLeft()" (swipedRight)="makeChoiceRight()" [resetSwipe]="resetSwipe">
-  <mat-card [ngStyle]="cardStyle" class="example-card">
+  <mat-card [ngStyle]="cardStyle" class="example-card ">
     <!-- (swiperight)="makeChoiceRight()" (swipeleft)="makeChoiceLeft()" -->
 
     <mat-card-header>
       <mat-card-title *ngIf="event.character" class="headerText">{{event.character.name}}</mat-card-title>
-      <mat-card-subtitle class="eventText">{{event.character.occupation}}</mat-card-subtitle>
+      <mat-card-subtitle class="eventText">{{event.character.occupation}} : {{event.dayTime}}</mat-card-subtitle>
       <mat-card-subtitle class="eventText"> </mat-card-subtitle>
     </mat-card-header>
 
@@ -21,11 +23,11 @@
       </p>
     </mat-card-content>
 
-    <button [disabled]="isPressed" mat-raised-button color="primary" class="optionText" (click)="swipe.swipeLeft()"
-      (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
+    <button [disabled]="isPressed" mat-raised-button color="primary" class="optionText textButton"
+      (click)="swipe.swipeLeft()" (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
 
     <button mat-raised-button color="primary" class="optionText" *ngIf="!isHoverLeft" (mouseenter)="showTextLeft()">
-      &#171;
+      {{event.isPerkLeft? "&loz;":"&#171;" }}
     </button>
 
     <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;" class="optionText"
