@@ -25,9 +25,9 @@ export class EventsService {
   //Event Booleans:
   includeBully = true;
   includeNerd = true;
-  includePopGirl = false;
-  includeOther = false;
-  includeFreak = false;
+  includePopGirl = true;
+  includeOther = true;
+  includeFreak = true;
   includeCounselor = true;
   includeParents = true;
 
