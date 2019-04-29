@@ -1,0 +1,31 @@
+.myBox {
+  /* margin-left: 26vw; */
+  /* margin-top: 2vh; */
+}
+
+.myCard {
+  background-color: transparent;
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+
+.rightFloat {
+  float: right;
+}
+
+.statText {
+  animation: fadeIn 1s;
+  color: red;
+}
+
+@keyframes fadeIn {
+
+  60% {
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 800px) {}

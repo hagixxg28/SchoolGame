@@ -1,0 +1,8 @@
+  <mat-card class="myCard">
+    <span *ngIf="currentStatus">Status: {{currentStatus}} </span>
+    <span class="rightFloat statText" *ngIf="gameState?.dayNum">Day:<span> {{gameState.dayNum}} </span></span>
+    <br>
+    <span class="rightFloat statText" *ngIf="gameState?.time"> Time: {{gameState.time}} </span>
+    <span *ngIf="gameState?.perks" class="statText">perks: {{gameState.perks}} </span>
+    <br *ngIf="!gameState?.perks">
+  </mat-card>
