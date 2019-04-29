@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { DayComponent } from '../components/day/day.component';
 import { DayWithTargetComponent } from '../components/day-with-target/day-with-target.component';
@@ -17,6 +19,7 @@ import { CardComponent } from '../components/card/card.component';
 import { BigTestComponent } from '../components/big-test/big-test.component';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import { SwipeComponent } from '../components/swipe/swipe.component';
+import { GameStatusComponent } from '../components/game-status/game-status.component';
 
 
 
@@ -32,6 +35,7 @@ import { SwipeComponent } from '../components/swipe/swipe.component';
         BigTestComponent,
         SafeHtmlPipe,
         SwipeComponent,
+        GameStatusComponent,
     ],
     imports: [
         BrowserModule,
