@@ -48,5 +48,147 @@
         "origin": "AUTHORED",
         "exported": true
     },
+    "swipe": {
+        "files": [
+            {
+                "relativePath": "src/app/components/swipe/swipe.component.ts",
+                "test": false,
+                "name": "swipe.component.ts"
+            }
+        ],
+        "mainFile": "src/app/components/swipe/swipe.component.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "swipecomponent": {
+        "files": [
+            {
+                "relativePath": "src/app/components/swipe/swipe.component.css",
+                "test": false,
+                "name": "swipe.component.css"
+            }
+        ],
+        "mainFile": "src/app/components/swipe/swipe.component.css",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "swipe/swipecomponent": {
+        "files": [
+            {
+                "relativePath": "src/app/components/swipe/swipe.component.html",
+                "test": false,
+                "name": "swipe.component.html"
+            }
+        ],
+        "mainFile": "src/app/components/swipe/swipe.component.html",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "daycomponent": {
+        "files": [
+            {
+                "relativePath": "src/app/components/day/day.component.ts",
+                "test": false,
+                "name": "day.component.ts"
+            }
+        ],
+        "mainFile": "src/app/components/day/day.component.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "day": {
+        "files": [
+            {
+                "relativePath": "src/app/components/day/day.component.css",
+                "test": false,
+                "name": "day.component.css"
+            },
+            {
+                "relativePath": "src/app/components/day/day.component.html",
+                "test": false,
+                "name": "day.component.html"
+            }
+        ],
+        "mainFile": "src/app/components/day/day.component.css",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "addiction": {
+        "files": [
+            {
+                "relativePath": "src/app/models/addiction.ts",
+                "test": false,
+                "name": "addiction.ts"
+            }
+        ],
+        "mainFile": "src/app/models/addiction.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "choicetext": {
+        "files": [
+            {
+                "relativePath": "src/app/models/choice.ts",
+                "test": false,
+                "name": "choice.ts"
+            },
+            {
+                "relativePath": "src/app/models/choiceWithText.ts",
+                "test": false,
+                "name": "choiceWithText.ts"
+            }
+        ],
+        "mainFile": "src/app/models/choiceWithText.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "game/event": {
+        "files": [
+            {
+                "relativePath": "src/app/models/gameEvent.ts",
+                "test": false,
+                "name": "gameEvent.ts"
+            }
+        ],
+        "mainFile": "src/app/models/gameEvent.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "day/times": {
+        "files": [
+            {
+                "relativePath": "src/app/enums/dayTimes.ts",
+                "test": false,
+                "name": "dayTimes.ts"
+            }
+        ],
+        "mainFile": "src/app/enums/dayTimes.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "perks": {
+        "files": [
+            {
+                "relativePath": "src/app/enums/Perks.ts",
+                "test": false,
+                "name": "Perks.ts"
+            }
+        ],
+        "mainFile": "src/app/enums/Perks.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
+    "character": {
+        "files": [
+            {
+                "relativePath": "src/app/models/character.ts",
+                "test": false,
+                "name": "character.ts"
+            }
+        ],
+        "mainFile": "src/app/models/character.ts",
+        "origin": "AUTHORED",
+        "exported": false
+    },
     "version": "14.0.6"
 }
