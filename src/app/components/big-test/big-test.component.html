@@ -1,20 +1,20 @@
-
- <div class="container-hagi" [@backGroundHandler]="backGroundState">
-
-
-   <div class="container">
-     <div class="row">
-       <div class="col " *ngFor="let bar of Bars; let i = index">
-         <app-bar [bar]=bar></app-bar>
-       </div>
-     </div>
+<div class="container-hagi" [@backGroundHandler]="backGroundState">
 
 
-     <div>
+  <div class="container">
+    <div class="row">
+      <div class="col " *ngFor="let bar of Bars; let i = index">
+        <app-bar [bar]=bar></app-bar>
+      </div>
+    </div>
 
-       <app-card  [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)"
-         (hideColor)="hideColor()"></app-card>
-     </div>
-   </div>
- </div>
 
+    <div>
+      <app-card [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)"
+        (hideColor)="hideColor()"></app-card>
+    </div>
+    <div>
+      <app-game-status></app-game-status>
+    </div>
+  </div>
+</div>

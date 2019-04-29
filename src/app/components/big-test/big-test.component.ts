@@ -10,6 +10,8 @@ import { DayService } from 'src/app/services/day.service';
 import { Day } from 'src/app/models/day';
 import { dayTimes } from 'src/app/enums/dayTimes';
 import { Perk } from 'src/app/enums/Perks';
+import { GameState } from 'src/app/models/gameState';
+import { GameStateService } from 'src/app/services/game-state.service';
 
 @Component({
   selector: 'app-big-test',
@@ -34,21 +36,22 @@ import { Perk } from 'src/app/enums/Perks';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService) { }
+  constructor(private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
 
   ngOnInit() {
     this.Bars = this.gameManager.getFirstBars();
     this.eventService.setUpGameEvents();
+    this.initGameState();
     this.eventService.eventSorter();
     this.buildDay();
     this.pullFromDay();
-    // this.pullNext();
   }
+  gameState: GameState;
   loseBoolean: boolean = false;
   backGroundState: String = "morning";
   allBarsSum = 0;
   currentDay: Day;
-  Bars;
+  Bars: Bar[] = [];
   Addictions = [
 
   ];
@@ -64,6 +67,7 @@ export class BigTestComponent implements OnInit {
   pullFromDay() {
     if (this.currentDay.morning) {
       this.event = this.currentDay.morning
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.morning = undefined
@@ -71,6 +75,7 @@ export class BigTestComponent implements OnInit {
     }
     if (this.currentDay.noon) {
       this.event = this.currentDay.noon
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.noon = undefined
@@ -78,6 +83,7 @@ export class BigTestComponent implements OnInit {
     }
     if (this.currentDay.afternoon) {
       this.event = this.currentDay.afternoon
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.afternoon = undefined
@@ -85,6 +91,7 @@ export class BigTestComponent implements OnInit {
     }
     if (this.currentDay.evening) {
       this.event = this.currentDay.evening
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.evening = undefined
@@ -92,6 +99,7 @@ export class BigTestComponent implements OnInit {
     }
     if (this.currentDay.night) {
       this.event = this.currentDay.night
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.night = undefined
@@ -99,6 +107,7 @@ export class BigTestComponent implements OnInit {
     }
     if (this.currentDay.dream) {
       this.event = this.currentDay.dream
+      this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
       this.currentDay.dream = undefined
@@ -106,6 +115,7 @@ export class BigTestComponent implements OnInit {
     }
     console.log("The day is over");
     this.buildDay();
+    this.updateGameStateDay();
     this.pullFromDay();
   }
   buildDay() {
@@ -202,13 +212,13 @@ export class BigTestComponent implements OnInit {
     //Waiting for animation to end
     if (!this.loseBoolean && !choice.nextEvent) {
       setTimeout(() => {
-        this.pullFromDay(); this.backgroundByDay()
+        this.pullFromDay(); this.fullyUpdateAndPushGameState(); this.backgroundByDay()
       }, 1000);
       return;
     }
     if (!this.loseBoolean) {
       setTimeout(() => {
-        this.event = choice.nextEvent; this.backgroundByDay()
+        this.event = choice.nextEvent; this.fullyUpdateAndPushGameState(); this.backgroundByDay()
       }, 1000);
     }
   }
@@ -355,6 +365,7 @@ export class BigTestComponent implements OnInit {
 
   //#endregion
   //#region view methods
+
   messageShower(value, index) {
     if (value > 0) {
       this.Bars[index].showPositive = true;
@@ -487,4 +498,42 @@ export class BigTestComponent implements OnInit {
   //#endregion
 
   //#endregion
+
+  initGameState() {
+    if (!this.gameState) {
+      this.gameState = new GameState(1, dayTimes.morning, this.Perks, this.Bars[0].value, this.Bars[1].value, this.Bars[2].value, this.Bars[3].value);
+    }
+    this.pushGameState()
+  }
+
+  updateGameStateTime() {
+    this.gameState.time = this.event.dayTime;
+  }
+
+  updateGameStateDay() {
+    this.gameState.dayNum += 1;
+  }
+
+  updateGameStateBars() {
+    this.gameState.stressVal = this.Bars[0].value;
+    this.gameState.socialVal = this.Bars[1].value;
+    this.gameState.schoolVal = this.Bars[2].value;
+    this.gameState.parentsVal = this.Bars[3].value;
+  }
+
+  updateGameStatePerks() {
+    this.gameState.perks = this.Perks;
+  }
+
+  fullyUpdateAndPushGameState() {
+    this.updateGameStateTime();
+    this.updateGameStateBars();
+    this.updateGameStatePerks();
+    this.pushGameState();
+  }
+
+  pushGameState() {
+    this.gameStateService.nextGameState(this.gameState)
+  }
+
 }
