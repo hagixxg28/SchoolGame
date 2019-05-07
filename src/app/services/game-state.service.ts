@@ -13,8 +13,6 @@ export class GameStateService {
   public gameStateObservable = new Subject<GameState>();
 
   nextGameState(state) {
-    console.log("I recieved this: ")
-    console.log(state)
     this.gameStateObservable.next(state);
   }
 }
