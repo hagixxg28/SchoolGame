@@ -30,6 +30,7 @@ export class EventsService {
   includeFreak = true;
   includeCounselor = true;
   includeParents = true;
+  includeTeacher = true;
 
 
   //#endregion
@@ -67,6 +68,19 @@ export class EventsService {
   //#endregion
 
   //#region Events
+
+  TeacherEvents = [
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Teacher),
+      dayTimes.noon,
+      "You are late to the class!", "This wont happen again...", "I missed the bus!... Twice!",
+      new Choice(0, 0, -15, -10, undefined, new Map<Perk, choiceWithText>([
+        [Perk.BadStudent, new choiceWithText("Whatever...(Slacker)", new Choice())]
+      ])),
+      new Choice(10)
+    )
+  ]
 
   BullyEvents = [
 
@@ -496,6 +510,9 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.OtherEvents);
     }
 
+    if (this.includeTeacher) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.TeacherEvents);
+    }
 
   }
 
