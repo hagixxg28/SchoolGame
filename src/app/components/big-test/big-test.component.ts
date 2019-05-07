@@ -212,13 +212,13 @@ export class BigTestComponent implements OnInit {
     //Waiting for animation to end
     if (!this.loseBoolean && !choice.nextEvent) {
       setTimeout(() => {
-        this.pullFromDay(); this.fullyUpdateAndPushGameState(); this.backgroundByDay()
+        this.pullFromDay(); this.fullyUpdateAndPushGameState(); this.backgroundByDay();
       }, 1000);
       return;
     }
     if (!this.loseBoolean) {
       setTimeout(() => {
-        this.event = choice.nextEvent; this.fullyUpdateAndPushGameState(); this.backgroundByDay()
+        this.event = choice.nextEvent; this.fullyUpdateAndPushGameState(); this.backgroundByDay();
       }, 1000);
     }
   }
@@ -363,6 +363,7 @@ export class BigTestComponent implements OnInit {
     this.allBarsSum = calculatedSum;
   }
 
+
   //#endregion
   //#region view methods
 
@@ -500,9 +501,7 @@ export class BigTestComponent implements OnInit {
   //#endregion
 
   initGameState() {
-    if (!this.gameState) {
-      this.gameState = new GameState(1, dayTimes.morning, this.Perks, this.Bars[0].value, this.Bars[1].value, this.Bars[2].value, this.Bars[3].value);
-    }
+    this.gameState = new GameState(1, dayTimes.morning, this.Perks, this.Bars[0].value, this.Bars[1].value, this.Bars[2].value, this.Bars[3].value);
     this.pushGameState()
   }
 
@@ -531,6 +530,7 @@ export class BigTestComponent implements OnInit {
     this.updateGameStatePerks();
     this.pushGameState();
   }
+
 
   pushGameState() {
     this.gameStateService.nextGameState(this.gameState)
