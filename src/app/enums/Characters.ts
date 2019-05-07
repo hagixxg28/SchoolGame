@@ -15,6 +15,7 @@ export enum Characters {
     Mom = "Mom",
     Dad = "Dad",
     Void = "Void",
+    Teacher = "Teacher",
     StressFull = "StressFull",
     StressLess = "StressLess",
     SocialFull = "SocialFull",
