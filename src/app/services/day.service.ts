@@ -42,7 +42,6 @@ export class DayService {
 
 
   buildDay() {
-    console.log("building day")
     this.day = new Day();
     this.rollForDream();
     this.rollForNight();
@@ -64,7 +63,6 @@ export class DayService {
     if (this.hasDream) {
       this.pickDreamEvent();
     }
-    console.log('finished building')
   }
 
   rollForNight() {
@@ -177,7 +175,6 @@ export class DayService {
 
   buildAndShowDay() {
     this.buildDay();
-    console.log(this.day);
   }
 
   changeDayCourse(currentTime, targetTime) {
@@ -255,7 +252,6 @@ export class DayService {
         break;
 
       case dayTimes.dream:
-        console.log(this.dayMap.get('dream'))
         if (this.dayMap.get('dream') === event || this.dayMap.get('dream').character === event.character) {
           return true;
         }
