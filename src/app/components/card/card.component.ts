@@ -51,12 +51,22 @@ export class CardComponent implements OnInit, OnChanges {
     isSwipeRight: boolean = false;
     isLeftShortText: boolean = false;
     isRightShortText: boolean = false;
-
-
+    //Animation Variables
+    textAnim = false;
+    nameFade = false;
+    occupationFade = false;
+    imageAnim = false;
+    buttonsAnim = false;
 
     resetSwipe = false;
 
     emptyText = "       ";
+
+    showEventText;
+    showCharName;
+    showCharOccupation;
+    showImage;
+    showButtons;
 
     cardStyle = {
     }
@@ -179,6 +189,48 @@ export class CardComponent implements OnInit, OnChanges {
             return true;
         }
         return false;
+    }
+
+    resetAnimCycle() {
+        this.imageAnim = true;
+    }
+
+    finishedSwipe() {
+        //When we finish swiping, we want to hide the event text so they animation of it appearing afterwards will work normally
+        this.showEventText = false;
+        this.showCharName = false;
+        this.showCharOccupation = false;
+        this.showImage = false;
+        this.showButtons = false;
+    }
+
+    finishedAnim() {
+        //After finishing the appearing animation we want to set the text's class to it's normal value
+        this.textAnim = false;
+        this.showEventText = true;
+        this.buttonsAnim = true;
+    }
+
+    finishedNameAnim() {
+        this.nameFade = false;
+        this.showCharName = true;
+        this.occupationFade = true;
+    }
+
+    finishedOccupationAnim() {
+        this.occupationFade = false;
+        this.showCharOccupation = true;
+        this.textAnim = true;
+    }
+    finishedImageAnim() {
+        this.imageAnim = false;
+        this.showImage = true;
+        this.nameFade = true;
+    }
+
+    finishedButtonsAnim() {
+        this.buttonsAnim = false;
+        this.showButtons = true;
     }
 
 }
