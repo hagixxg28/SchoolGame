@@ -8,6 +8,7 @@
   margin-bottom: 25px;
   margin-top: 50px;
   width: 250px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 span {
@@ -69,6 +70,7 @@ span {
     border-radius: 50%;
     flex-shrink: 0;
     object-fit: cover;
+    opacity: 0.5;
   }
 
   .previewIcon {
@@ -117,5 +119,3 @@ span {
 
 
 }
-
-
