@@ -21,8 +21,18 @@ export class GameStatusComponent implements OnInit {
 
 
   gameState: GameState;
+  lastState: GameState;
 
   currentStatus = "Normie";
+
+  lastStatus = "";
+  lastTime: String = "morning";
+  lastDay = 1;
+
+  appearingStatus = true;
+  appearingDay = true;
+  appearingTime = true;
+  appearingPerks = true;
 
   getState() {
     let ob = this.gameStateService.gameStateObservable
@@ -40,13 +50,43 @@ export class GameStatusComponent implements OnInit {
   }
 
   subFunction(state) {
+    this.captureLastState();
     this.gameState = state;
-    this.calculateStatus()
+    this.checkChanges();
+    this.calculateStatus();
+    this.checkStatChange();
+  }
+
+  finishedAppearingDay() {
+    this.appearingDay = false;
+  }
+  finishedAppearingTime() {
+    this.appearingTime = false;
+  }
+  finishedAppearingPerks() {
+    this.appearingPerks = false;
+  }
+  finishedAppearingStatus() {
+    this.appearingStatus = false;
+  }
+
+  resetDay() {
+    this.appearingDay = true;
+  }
+  resetStatus() {
+    this.appearingStatus = true;
+  }
+  resetPerks() {
+    this.appearingPerks = true;
+  }
+  resetTime() {
+    this.appearingTime = true;
   }
 
 
 
   calculateStatus() {
+    this.lastStatus = this.currentStatus;
     let minVal = Math.min(this.gameState.parentsVal, this.gameState.schoolVal, this.gameState.socialVal, this.gameState.stressVal);
     let maxVal = Math.max(this.gameState.parentsVal, this.gameState.schoolVal, this.gameState.socialVal, this.gameState.stressVal);
     if (maxVal < 60 && minVal > 40) {
@@ -93,5 +133,39 @@ export class GameStatusComponent implements OnInit {
         }
         break;
     }
+  }
+
+  checkStatChange() {
+    if (this.currentStatus !== this.lastStatus) {
+      this.resetStatus();
+    }
+  }
+
+  checkTimeChange() {
+    if (this.lastTime !== this.gameState.time) {
+      this.lastTime = this.gameState.time
+      this.resetTime()
+    }
+  }
+  checkDayChange() {
+    if (this.lastDay !== this.gameState.dayNum) {
+      this.lastDay = this.gameState.dayNum;
+      this.resetDay()
+    }
+  }
+  checkPerksChange() {
+    if (this.lastState.perks !== this.gameState.perks) {
+      this.resetPerks()
+    }
+  }
+
+  checkChanges() {
+    this.checkTimeChange()
+    this.checkDayChange()
+    this.checkPerksChange()
+  }
+
+  captureLastState() {
+    this.lastState = this.gameState;
   }
 }
