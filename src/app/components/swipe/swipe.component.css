@@ -1,19 +1,19 @@
 .resetting {
-    transition: transform .5s;
+  transition: transform .5s;
 }
 
 .swiped {
-    transition: transform .5s, opacity .5s;
-    opacity: 0;
+  transition: transform .5s, opacity .5s;
+  opacity: 0;
 }
 
 .appearing {
-    animation: appear .5s;
+  animation: appear .3s;
 }
 
 @keyframes appear {
-    0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(30deg);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(30deg);
+  }
 }

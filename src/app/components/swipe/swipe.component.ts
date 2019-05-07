@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
 
 const SWIPE_MIN_DELTA = 175;
 const SWIPE_ROTATION_X_PER_DEG = 20;
@@ -10,6 +10,11 @@ const SWIPE_DISTANCE_WHEN_DONE = 800;
     styleUrls: ['./swipe.component.css']
 })
 export class SwipeComponent implements OnChanges {
+
+    constructor(private elementRef: ElementRef) {
+
+    }
+
     @Input() resetSwipe: boolean;
 
     // Preview.
@@ -21,6 +26,10 @@ export class SwipeComponent implements OnChanges {
     hidePreviewSwipeLeft = new EventEmitter();
     @Output()
     hidePreviewSwipeRight = new EventEmitter();
+    @Output()
+    swipeAnimEnd = new EventEmitter();
+    @Output()
+    appearEnd = new EventEmitter();
 
     // Actual swipe.
     @Output()
@@ -30,13 +39,13 @@ export class SwipeComponent implements OnChanges {
 
     private x = 0;
     // The translate and rotate style to apply to the card. 
-     transformStyle = "";
+    transformStyle = "";
     // Reseting - a swipe has been canceled and we want to return the card to the center.
-     resetting = false;
+    resetting = false;
     // Swiped - prevent anything from happening while the swipe is occurring (like swiping left after swiped right).
-     swiped = false;
+    swiped = false;
     // Appearing - indicate the appearing animation to kick in.
-     appearing = true;
+    appearing = true;
 
     ngOnChanges(changes: SimpleChanges): void {
         const { resetSwipe } = changes;
@@ -116,8 +125,12 @@ export class SwipeComponent implements OnChanges {
         this.updateTransform();
     }
 
-    finishedAppearing() {
-        this.appearing = false;
+    finishedAppearing(event) {
+        if (event.animationName == "appear") {
+            this.appearing = false;
+
+            this.appearEnd.emit();
+        }
     }
 
     reset() {
@@ -132,6 +145,12 @@ export class SwipeComponent implements OnChanges {
         this.resetting = false;
         this.appearing = true;
         this.updateTransform();
+    }
+
+    finishedSwiping(event, swipeDiv) {
+        if (event.target === swipeDiv && event.propertyName === "transform" && (this.x == SWIPE_DISTANCE_WHEN_DONE || this.x == -SWIPE_DISTANCE_WHEN_DONE)) {
+            this.swipeAnimEnd.emit();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
-<div (pan)="onTouch($event)" (panend)="onTouchEnd()" [ngStyle]="{transform: transformStyle}"
-    [ngClass]="{'resetting': resetting, 'swiped': swiped, 'appearing': appearing}" (animationend)="finishedAppearing()">
-    <ng-content>
-    </ng-content>
+<div #swipeDiv (pan)="onTouch($event)" (panend)="onTouchEnd()" [ngStyle]="{transform: transformStyle}"
+  [ngClass]="{'resetting': resetting, 'swiped': swiped, 'appearing': appearing}"
+  (animationend)="finishedAppearing($event)" (transitionend)="finishedSwiping($event,swipeDiv)">
+  <ng-content>
+  </ng-content>
 </div>
