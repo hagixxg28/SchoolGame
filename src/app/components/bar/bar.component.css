@@ -50,8 +50,8 @@ span {
 @media only screen and (max-width: 800px) {
   .bar-card {
     max-height: 83.98px;
-    margin-bottom: 5px;
-    margin-top: 10px;
+    margin-bottom: 0.5vh;
+    margin-top: 0.5vh;
     width: 150px;
   }
 
