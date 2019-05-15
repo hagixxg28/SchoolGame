@@ -177,18 +177,23 @@ export class DayService {
     this.buildDay();
   }
 
-  changeDayCourse(currentTime, targetTime) {
-    let currentTimeNumber = this.dayTimeMap.get(currentTime)
-    let targetTimeNumber = this.dayTimeMap.get(targetTime)
+  timeSkipper(currentTimeNumber: number, targetTimeNumber: number) {
     if (currentTimeNumber < targetTimeNumber) {
       for (let index = currentTimeNumber; index < targetTimeNumber; index++) {
         this.dayCleanerSwitch(index)
       }
       return;
     }
-    for (let index = targetTime; index > currentTime; index--) {
+    for (let index = targetTimeNumber; index > currentTimeNumber; index--) {
       this.dayCleanerSwitch(index)
     }
+  }
+
+
+  changeDayCourse(currentTime, targetTime) {
+    let currentTimeNumber = this.dayTimeMap.get(currentTime)
+    let targetTimeNumber = this.dayTimeMap.get(targetTime)
+    this.timeSkipper(currentTimeNumber, targetTimeNumber)
   }
 
   dayCleanerSwitch(index) {
@@ -258,6 +263,13 @@ export class DayService {
         break;
     }
     return false;
+  }
+
+  reBuildDay(currentTime) {
+    this.buildAndShowDay()
+    let currentTimeNumber = this.dayTimeMap.get(currentTime);
+    let targetTimeNumber = currentTimeNumber + 1;
+    this.timeSkipper(currentTimeNumber, targetTimeNumber)
   }
 
 }
