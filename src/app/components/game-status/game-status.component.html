@@ -1,5 +1,5 @@
   <mat-card class="myCard">
-    <span class="test" *ngIf="currentStatus">Status:<span [ngClass]="{'fadeInUp': appearingStatus}"
+    <span *ngIf="currentStatus">Status:<span [ngClass]="{'appearing': appearingStatus}"
         (animationend)="finishedAppearingStatus()"> {{currentStatus}}</span>
     </span>
     <span class="rightFloat" *ngIf="gameState?.dayNum">Day:<span [ngClass]="{'fadeInDown': appearingDay}"
