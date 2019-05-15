@@ -20,6 +20,7 @@ import { BigTestComponent } from '../components/big-test/big-test.component';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import { SwipeComponent } from '../components/swipe/swipe.component';
 import { GameStatusComponent } from '../components/game-status/game-status.component';
+import { LosepageComponent } from '../components/losepage/losepage.component';
 
 
 
@@ -36,6 +37,7 @@ import { GameStatusComponent } from '../components/game-status/game-status.compo
         SafeHtmlPipe,
         SwipeComponent,
         GameStatusComponent,
+        LosepageComponent,
     ],
     imports: [
         BrowserModule,
