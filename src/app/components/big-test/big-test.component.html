@@ -1,20 +1,26 @@
 <div class="container-hagi" [@backGroundHandler]="backGroundState">
 
 
-  <div class="container">
-    <div class="row">
+  <div *ngIf="!showLosePage" class="container ">
+    <div #barsRowDiv class="row {{showBars ? 'shown' : 'hidden'}}" [ngClass]="{'fadeOutUp': fadeOutUp}"
+      (animationend)="fadeOutUpEnd($event,barsRowDiv)">
       <div class="col " *ngFor="let bar of Bars; let i = index">
         <app-bar [bar]=bar></app-bar>
       </div>
     </div>
 
 
-    <div>
+    <div *ngIf="showCard">
       <app-card [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)"
         (hideColor)="hideColor()"></app-card>
     </div>
-    <div>
+    <div #gameStatusDiv class="{{showGameStatus ? 'shown' : 'hidden'}}" [ngClass]="{'fadeOut': fadeOut}"
+      (animationend)="fadeOutEnd($event,gameStatusDiv)">
       <app-game-status></app-game-status>
     </div>
+  </div>
+
+  <div *ngIf="showLosePage" class="container">
+    <app-losepage></app-losepage>
   </div>
 </div>

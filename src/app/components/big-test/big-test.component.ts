@@ -19,6 +19,7 @@ import { GameStateService } from 'src/app/services/game-state.service';
   styleUrls: ['./big-test.component.css'],
   animations: [
     trigger('backGroundHandler', [
+      state('lose', style({ opacity: '1', background: 'linear-gradient(to right, #00416A, #E4E5E6)' })),
       state('high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #ff5050)' })),
       state('mid-high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
       state('mid-low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #242424)' })),
@@ -46,16 +47,19 @@ export class BigTestComponent implements OnInit {
     this.buildDay();
     this.pullFromDay();
   }
+
+  fadeOut: boolean = false;
+  fadeOutUp: boolean = false;
   gameState: GameState;
   loseBoolean: boolean = false;
+  showLosePage: boolean = false;
+  showCard: boolean = true;
+  showBars: boolean = true;
+  showGameStatus: boolean = true;
   backGroundState: String = "morning";
   allBarsSum = 0;
   currentDay: Day;
   Bars: Bar[] = [];
-  Addictions = [
-
-  ];
-  Perks = [Perk.Smoker];
   // SecondBars;
   event: GameEvent;
   //#region event methods
@@ -123,13 +127,19 @@ export class BigTestComponent implements OnInit {
     this.dayService.buildAndShowDay();
     this.currentDay = this.dayService.day;
   }
+
+  updateDay() {
+    this.eventService.updateEventPool(this.gameState);
+    this.dayService.reBuildDay(this.gameState.time)
+    this.currentDay = this.dayService.day
+  }
   //#endregion
   //#region calculation methods
   checkForPerkChoice(choice: Choice) {
     if (!choice.perkChoiceMap) {
       return;
     }
-    this.Perks.forEach(perk => {
+    this.gameState.perks.forEach(perk => {
 
       if (choice.perkChoiceMap.get(perk)) {
         if (this.event.leftChoice === choice) {
@@ -156,6 +166,12 @@ export class BigTestComponent implements OnInit {
 
   choiceSort(choice: Choice) {
 
+    if (this.loseBoolean) {
+      this.fadeOut = true;
+      this.backGroundState = 'lose'
+      return;
+    }
+
     if (!choice) {
       setTimeout(() => {
         this.pullNext();
@@ -171,8 +187,9 @@ export class BigTestComponent implements OnInit {
     let fourthValue
 
 
-    if (choice.addiction) {
-      this.Addictions.push(choice.addiction);
+    if (choice.perk) {
+      this.addPerk(choice.perk)
+      this.updateDay();
     }
 
     if (choice.stressBarValue) {
@@ -222,6 +239,7 @@ export class BigTestComponent implements OnInit {
       }, 1000);
     }
   }
+
   calculate(value: number, index: number) {
     let calculatedValue = 0;
 
@@ -248,21 +266,13 @@ export class BigTestComponent implements OnInit {
       return;
     }
 
-    if (calculatedValue <= 0) {
+    if (calculatedValue <= 0 || calculatedValue >= 100) {
       this.loseBoolean = true;
       setTimeout(() => {
         this.event = this.gameManager.pullLoseEvent(bar, calculatedValue)
       }, 1000);
       return;
     }
-    if (calculatedValue >= 100) {
-      this.loseBoolean = true;
-      setTimeout(() => {
-        this.event = this.gameManager.pullLoseEvent(bar, calculatedValue)
-      }, 1000);
-      return;
-    }
-
   }
 
   previewCalculate(value: number, index: number) {
@@ -501,7 +511,7 @@ export class BigTestComponent implements OnInit {
   //#endregion
 
   initGameState() {
-    this.gameState = new GameState(1, dayTimes.morning, this.Perks, this.Bars[0].value, this.Bars[1].value, this.Bars[2].value, this.Bars[3].value);
+    this.gameState = new GameState(1, dayTimes.morning, [], this.Bars[0].value, this.Bars[1].value, this.Bars[2].value, this.Bars[3].value);
     this.pushGameState()
   }
 
@@ -521,7 +531,26 @@ export class BigTestComponent implements OnInit {
   }
 
   updateGameStatePerks() {
-    this.gameState.perks = this.Perks;
+
+  }
+
+  addPerk(newPerk) {
+    this.gameState.perks.forEach(perk => {
+      if (perk === newPerk) {
+        return;
+      }
+    });
+    this.gameState.perks.push(newPerk)
+  }
+
+  removePerk(oldPerk) {
+    for (let index = 0; index < this.gameState.perks.length; index++) {
+      let perk = this.gameState.perks[index];
+      if (perk === oldPerk) {
+        this.gameState.perks.splice(index)
+        return;
+      }
+    }
   }
 
   fullyUpdateAndPushGameState() {
@@ -534,6 +563,27 @@ export class BigTestComponent implements OnInit {
 
   pushGameState() {
     this.gameStateService.nextGameState(this.gameState)
+  }
+
+  fadeOutEnd(event, gameStatusDiv) {
+    if (event.target === gameStatusDiv) {
+      this.showCard = false;
+      this.showGameStatus = false;
+      this.fadeOut = false;
+      this.fadeOutUp = true;
+    }
+  }
+
+  fadeOutUpEnd(event, barsRowDiv) {
+    if (event.target === barsRowDiv) {
+      this.fadeOutUp = false;
+      this.showBars = false;
+      this.moveToLosePage()
+    }
+  }
+
+  moveToLosePage() {
+    this.showLosePage = true;
   }
 
 }
