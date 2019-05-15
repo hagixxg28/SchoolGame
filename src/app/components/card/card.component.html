@@ -8,15 +8,15 @@
   (appearEnd)="resetAnimCycle()" (swipeAnimEnd)="finishedSwipe()">
   <mat-card [ngStyle]="cardStyle" class="example-card ">
 
-    <mat-card-header>
-      <mat-card-title class="{{showCharName ? 'headerText' : 'hidden'}}" *ngIf="event.character"
-        [ngClass]="{'fadeInDown': nameFade}" (animationend)="finishedNameAnim()">{{event.character.name}}
-      </mat-card-title>
-      <mat-card-subtitle class="{{showCharOccupation ? 'headerText' : 'hidden'}}" *ngIf="event.character"
-        [ngClass]="{'fadeInUp': occupationFade}" (animationend)="finishedOccupationAnim()">
-        {{event.character.occupation}}
-      </mat-card-subtitle>
-    </mat-card-header>
+    <mat-card-title class="alignleft {{showCharName ? 'headerText' : 'hidden'}}" *ngIf="event.character"
+      [ngClass]="{'fadeInDown': nameFade}" (animationend)="finishedNameAnim()">{{event.character.name}}
+    </mat-card-title>
+    <mat-card-subtitle class="alignright {{showCharOccupation ? 'headerText' : 'hidden'}}" *ngIf="event.character"
+      [ngClass]="{'fadeInUp': occupationFade}" (animationend)="finishedOccupationAnim()">
+      {{event.character.occupation}}
+    </mat-card-subtitle>
+
+    <div style="clear: both;"></div>
 
     <img mat-card-image [src]="characterImage" class="{{showImage ? 'middle-image' : 'hiddenImage'}}"
       [ngClass]="{'fadeInLeft': imageAnim}" (mousedown)="$event.preventDefault()" (animationend)="finishedImageAnim()">
@@ -42,7 +42,7 @@
     <button mat-raised-button color="accent" class="{{showButtons ? 'optionText' : 'hiddenOptionText'}}"
       [ngClass]="{'textAnim': buttonsAnim}" *ngIf="!isHoverRight" (mouseenter)="showTextRight()" style="float: right;"
       (animationend)="finishedButtonsAnim()">
-      {{event.isPerkLeft? "&loz;":" &#187;" }}
+      {{event.isPerkRight? "&loz;":" &#187;" }}
 
     </button>
 
