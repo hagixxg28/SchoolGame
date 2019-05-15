@@ -2,6 +2,13 @@ p {
   text-align: center;
 }
 
+.left-button {
+  top: -0.47vh
+}
+
+.right-button {
+  top: -0.4vh
+}
 
 
 .example-card {
@@ -104,6 +111,10 @@ p {
 
 
 @media only screen and (max-width: 800px) {
+
+  .right-button {
+    top: 0.2vh
+  }
 
   .absolute-center {
     opacity: 0;

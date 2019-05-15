@@ -187,10 +187,12 @@ export class BigTestComponent implements OnInit {
     let fourthValue
 
 
-    if (choice.perk) {
-      this.addPerk(choice.perk)
+    if (choice.perk && this.isValidPerk(choice.perk)) {
+      console.log("Is good!")
+      this.addPerk(choice.perk);
       this.updateDay();
     }
+
 
     if (choice.stressBarValue) {
       messageDelay += 150;
@@ -534,12 +536,19 @@ export class BigTestComponent implements OnInit {
 
   }
 
-  addPerk(newPerk) {
+  isValidPerk(newPerk): boolean {
+    let bool = true;
+    console.log("stepping into function")
     this.gameState.perks.forEach(perk => {
+      console.log("Checking for each ")
       if (perk === newPerk) {
-        return;
+        bool = false;
       }
     });
+    return bool;
+  }
+
+  addPerk(newPerk) {
     this.gameState.perks.push(newPerk)
   }
 

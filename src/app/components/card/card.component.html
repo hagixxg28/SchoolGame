@@ -28,19 +28,22 @@
       </p>
     </mat-card-content>
 
-    <button [disabled]="isPressed" mat-raised-button color="primary" class="button-margin optionText textButton"
-      (click)="swipe.swipeLeft()" (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
+    <button [disabled]="isPressed" mat-raised-button color="primary"
+      class="left-button button-margin optionText textButton" (click)="swipe.swipeLeft()" (mouseleave)="hideTextLeft()"
+      *ngIf="isHoverLeft">{{event.leftText}}</button>
 
-    <button mat-raised-button color="primary" class="button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
+    <button mat-raised-button color="primary"
+      class="left-button button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
       [ngClass]="{'textAnim': buttonsAnim}" *ngIf="!isHoverLeft" (mouseenter)="showTextLeft()">
       {{event.isPerkLeft? "&loz;":"&#171;" }}
     </button>
 
     <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;"
-      class="button-margin optionText" (click)="swipe.swipeRight()" *ngIf="isHoverRight"
+      class="right-button button-margin optionText" (click)="swipe.swipeRight()" *ngIf="isHoverRight"
       (mouseleave)="hideTextRight()">{{event.rightText}}</button>
 
-    <button mat-raised-button color="accent" class="button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
+    <button mat-raised-button color="accent"
+      class="right-button button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
       [ngClass]="{'textAnim': buttonsAnim}" *ngIf="!isHoverRight" (mouseenter)="showTextRight()" style="float: right;"
       (animationend)="finishedButtonsAnim()">
       {{event.isPerkRight? "&loz;":" &#187;" }}
