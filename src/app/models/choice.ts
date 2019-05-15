@@ -12,7 +12,7 @@ export class Choice {
         public parentsBarValue?: number,
         public nextEvent?: GameEvent,
         public perkChoiceMap?: Map<Perk, choiceWithText>,
-        public addiction?: Addiction,
+        public perk?: Perk,
         public skipToTime?: dayTimes,
     ) { }
 }    
