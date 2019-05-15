@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body {
-    height: 100%;
-    overflow: hidden;
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.colorTest {
+  color: rgba(255, 105, 103, 0.25);
+  color: rgba(240, 18, 190, 0.65)
 }
