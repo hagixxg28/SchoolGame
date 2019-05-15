@@ -36,7 +36,7 @@ export class CharacterDataService {
     ["GradeEmpty", new Character("", "", "slategrey", "../assets/images/LoseImages/GradesEmptyLose.jpg")],
 
     //Void Character
-    ["GradeEmpty", new Character("", "", "", "")],
+    ["VoidBoi", new Character("", "", "", "")],
   ])
 
 
