@@ -2,10 +2,6 @@ p {
   text-align: center;
 }
 
-.mat-card-content>:first-child,
-.mat-card>:first-child {
-  margin-top: -5px;
-}
 
 
 .example-card {
@@ -122,12 +118,21 @@ p {
     padding-left: 18px
   }
 
+  .middle-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70vw;
+    height: 30vh;
+  }
+
   .example-card {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-width: 400px;
+    max-width: 85vw;
     background-repeat: no-repeat;
+    max-height: 55vh;
     /* transform: scale(0.85); */
   }
 
@@ -138,6 +143,10 @@ p {
   .hiddenText {
     opacity: 0;
     font-size: 16px;
+  }
+
+  .button-margin {
+    margin-top: -12px;
   }
 
 }

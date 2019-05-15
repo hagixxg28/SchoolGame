@@ -49,10 +49,15 @@ span {
 
 @media only screen and (max-width: 800px) {
   .bar-card {
-    max-height: 83.98px;
+    max-height: 8vh;
     margin-bottom: 0.5vh;
     margin-top: 0.5vh;
     width: 150px;
+  }
+
+
+  .mat-card-header {
+    margin-top: -5px;
   }
 
   span {
