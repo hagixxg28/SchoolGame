@@ -1,0 +1,12 @@
+  <div class="container newLine">
+    <div class="middle">
+      <span class="fadeInUp" (animationend)="fadeUpEnd()">
+        {{infoText}}
+      </span>
+    </div>
+    <div>
+      <br>
+      <button (click)="refresh()" class="{{showButton ? 'shown' : 'hidden'}}" [ngClass]="{'fadeInUpFast': fadeInButton}"
+        mat-raised-button color="primary" (animationend)="buttonEnd()">Play Again</button>
+    </div>
+  </div>

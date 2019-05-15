@@ -1,0 +1,78 @@
+.newLine {
+  white-space: pre-wrap;
+}
+
+.container {
+  text-align: center;
+}
+
+.middle {
+  display: inline-block;
+  margin-top: 32%;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+  .middle {
+    display: inline-block;
+    margin-top: 32%;
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+}
+
+
+
+.hidden {
+  opacity: 0;
+}
+
+.shown {
+  opacity: 1;
+}
+
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 1.5s;
+}
+
+.fadeInUpFast {
+  animation: fadeInUp 0.8s;
+}
+
+@keyframes rotateInUpLeft {
+  from {
+    transform-origin: left bottom;
+    transform: rotate3d(0, 0, 1, 45deg);
+    opacity: 0;
+  }
+
+  to {
+    transform-origin: left bottom;
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.rotateInUpLeft {
+  animation: rotateInUpLeft 1s;
+}
