@@ -10,6 +10,7 @@ import { Bar } from '../models/bar';
 import { dayTimes } from '../enums/dayTimes';
 import { Perk } from '../enums/Perks';
 import { choiceWithText } from '../models/choiceWithText';
+import { GameState } from '../models/gameState';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class EventsService {
   includeParents = true;
   includeTeacher = true;
 
+  includeSmoker = false;
+  includeDepressed = false;
+
+  loseType: string;
 
   //#endregion
 
@@ -116,17 +121,10 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.noon,
       "You're such a looser I'm going to kick your ass after school!", "Throw a chair at him", "What did I do to you!?",
-      new Choice(-20, 15, -10, -25),
+      new Choice(-20, 15, -10, -25, undefined, undefined, Perk.Depressed),
       new Choice(10, -15)
     ),
 
-    new GameEvent(
-      this.charactersData.getCharacter(Characters.Bully),
-      dayTimes.noon,
-      "You're such a loser I'm going to kick your ass after school!", "Throw a chair at him", "What did I do to you!?",
-      new Choice(-20, 15, -10, -25),
-      new Choice(10, -15)
-    ),
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.Bully),
@@ -142,7 +140,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.morning,
       "I just scored the top grade in the class", "You're still a loser", "Good for you.",
-      new Choice(-5, 5, -5),
+      new Choice(-5, 5, -5, 0, undefined, undefined, Perk.Smoker),
       new Choice(10)
     ),
 
@@ -150,7 +148,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.noon,
       "Why can't I get a gamer girlfriend?", "Stop acting weird", "I believe in you!",
-      new Choice(0, 5, 0, 0),
+      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(0, -10, 0, 0)
     ),
 
@@ -158,7 +156,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.afternoon,
       "Do you want to hang out? I'll help you with your project", "Sure thing!", "I'm busy",
-      new Choice(-5, -10, 0, +10),
+      new Choice(-5, -10, 0, +10, undefined, undefined, Perk.Smoker),
       new Choice()
     ),
 
@@ -166,7 +164,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.noon,
       "I'm gonna tell the teacher you cheated on the test!", "Slap him", "But I didn't cheat!",
-      new Choice(0, 10, 0, -10),
+      new Choice(0, 10, 0, -10, undefined, undefined, Perk.Smoker),
       new Choice(0, 0, -10, -10)
     ),
 
@@ -184,7 +182,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       "You're cute!", "Flirt with her", "No thanks.",
       dayTimes.morning,
-      new Choice(-10, 15),
+      new Choice(-10, 15, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(0, -15)
     ),
 
@@ -192,7 +190,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
       "You wear this to school?", "What's wrong with it?", "I'll do better",
-      new Choice(5, -10),
+      new Choice(5, -10, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(5, 5)
     ),
 
@@ -216,7 +214,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
       "I got this new Gucci scarf", "It looks great!", "What a waste of money!",
-      new Choice(0, 15),
+      new Choice(0, 15, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(-5, -20)
     ),
 
@@ -414,6 +412,50 @@ export class EventsService {
     ),
   ]
 
+  SmokerEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.noon,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.morning,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.afternoon,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.night,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.dream,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.evening,
+      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
+      new Choice(),
+      new Choice(0, -5)
+    ),
+  ]
   CurrentEvents = this.OtherEvents
 
   morningEvents = [];
@@ -437,7 +479,7 @@ export class EventsService {
     ["STRESSLESS",
       new GameEvent((this.charactersData.getCharacter(Characters.StressLess)),
         dayTimes.reaction,
-        "Nothing seemed to weigh down your soul, the chores the test the pressure meant nothing, you have transcended passed that.",
+        "Nothing seemed to weigh down your soul, the chores, tests. The pressure meant nothing, you have transcended passed that.",
         "",
         "")],
     ["SOCIALFULL",
@@ -514,8 +556,19 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.TeacherEvents);
     }
 
+    if (this.includeSmoker) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.SmokerEvents)
+    }
+
+    if (this.includeDepressed) {
+      //Push the depressed event array
+    }
+
   }
 
+  getLoseType() {
+    return this.loseType;
+  }
 
   pullNext() {
     // let item = this.CurrentEvents[Math.floor(Math.random() * this.CurrentEvents.length)];
@@ -544,11 +597,13 @@ export class EventsService {
     if (calculatedValue <= 0) {
       console.log(bar.type + " is empty")
       this.loseEvent = this.loseEventsMap.get(bar.type + "LESS")
+      this.loseType = bar.type + "LESS"
     }
 
     if (calculatedValue >= 100) {
       console.log(bar.type + " is full")
       this.loseEvent = this.loseEventsMap.get(bar.type + "FULL")
+      this.loseType = bar.type + "FULL"
     }
     return this.loseEvent;
   }
@@ -574,12 +629,6 @@ export class EventsService {
         this.dreamEvents.push(event)
       }
     });
-    // console.log("Morning " + this.morningEvents)
-    // console.log("Noon " + this.noonEvents)
-    // console.log("After " + this.afternoonEvents)
-    // console.log("Evening " + this.eveningEvents)
-    // console.log("Night " + this.nightEvents)
-    // console.log("Dream " + this.dreamEvents)
   }
 
   pullNextFromArray(array) {
@@ -604,6 +653,41 @@ export class EventsService {
   }
   pullDreamEvent() {
     return this.pullNextFromArray(this.dreamEvents);
+  }
+
+
+  resetAllEvents() {
+    this.CurrentEvents = []
+    this.morningEvents = []
+    this.noonEvents = []
+    this.afternoonEvents = []
+    this.eveningEvents = []
+    this.nightEvents = []
+    this.dreamEvents = []
+  }
+
+  includeChecker(gameState) {
+    gameState.perks.forEach(perk => {
+      this.perkIncluder(perk)
+    });
+  }
+
+  perkIncluder(perk) {
+    switch (perk) {
+      case Perk.Smoker:
+        this.includeSmoker = true;
+        break;
+      case Perk.Depressed:
+        this.includeDepressed = true;
+        break;
+    }
+  }
+
+  updateEventPool(gameState: GameState) {
+    this.resetAllEvents();
+    this.includeChecker(gameState)
+    this.setUpGameEvents();
+    this.eventSorter();
   }
 
   //#endregion
