@@ -12,6 +12,7 @@ import { dayTimes } from 'src/app/enums/dayTimes';
 import { Perk } from 'src/app/enums/Perks';
 import { GameState } from 'src/app/models/gameState';
 import { GameStateService } from 'src/app/services/game-state.service';
+import { MusicService } from 'src/app/services/music.service';
 
 @Component({
   selector: 'app-big-test',
@@ -37,9 +38,10 @@ import { GameStateService } from 'src/app/services/game-state.service';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
+  constructor(private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
 
   ngOnInit() {
+    this.musicService.ngOnInit()
     this.Bars = this.gameManager.getFirstBars();
     this.eventService.setUpGameEvents();
     this.initGameState();
@@ -47,6 +49,10 @@ export class BigTestComponent implements OnInit {
     this.buildDay();
     this.pullFromDay();
   }
+
+
+
+
 
   fadeOut: boolean = false;
   fadeOutUp: boolean = false;
@@ -117,7 +123,6 @@ export class BigTestComponent implements OnInit {
       this.currentDay.dream = undefined
       return;
     }
-    console.log("The day is over");
     this.buildDay();
     this.updateGameStateDay();
     this.pullFromDay();
@@ -188,7 +193,6 @@ export class BigTestComponent implements OnInit {
 
 
     if (choice.perk && this.isValidPerk(choice.perk)) {
-      console.log("Is good!")
       this.addPerk(choice.perk);
       this.updateDay();
     }
@@ -270,6 +274,7 @@ export class BigTestComponent implements OnInit {
 
     if (calculatedValue <= 0 || calculatedValue >= 100) {
       this.loseBoolean = true;
+      this.musicService.switchToLose()
       setTimeout(() => {
         this.event = this.gameManager.pullLoseEvent(bar, calculatedValue)
       }, 1000);
@@ -538,9 +543,7 @@ export class BigTestComponent implements OnInit {
 
   isValidPerk(newPerk): boolean {
     let bool = true;
-    console.log("stepping into function")
     this.gameState.perks.forEach(perk => {
-      console.log("Checking for each ")
       if (perk === newPerk) {
         bool = false;
       }
