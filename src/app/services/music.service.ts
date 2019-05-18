@@ -57,50 +57,24 @@ export class MusicService implements OnInit {
       this.currentSound = sound;
     }, 2000);
   }
-
   getState() {
     let ob = this.gameStateService.gameStateObservable
     ob.subscribe(state => { this.subFunction(state) })
   }
-
   subFunction(state) {
-    console.log("sub functioningi")
     this.currentState = state;
     this.checkForSwitch();
   }
-
-  checkForSwitch2() {
-    if (this.currentSound === this.morningSound) {
-      if (this.dayTimeMap.get(this.currentState.time) > 3 && this.dayTimeMap.get(this.currentState.time) - 1 < 3) {
-        console.log("noticed a change")
-        this.switchSound(this.eveningSound);
-      }
-      return;
-    }
-    if (this.currentSound === this.eveningSound) {
-      if (this.dayTimeMap.get(this.currentState.time) < 3 && this.dayTimeMap.get(this.currentState.time) - 1 > 3) {
-        console.log("noticed a change")
-        this.switchSound(this.morningSound);
-      }
-      return;
-    }
-    console.log("no change")
-  }
-
   checkForSwitch() {
     if (this.currentState.time == dayTimes.afternoon) {
-      console.log("noticed a change")
       this.switchSound(this.eveningSound);
       return;
     }
     if (this.currentState.time == dayTimes.morning && this.currentState.dayNum > 1) {
-      console.log("noticed a change")
       this.switchSound(this.morningSound);
       return;
     }
-
   }
-
   switchToLose() {
     this.switchSound(this.loseSound);
   }
