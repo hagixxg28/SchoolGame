@@ -1,15 +1,22 @@
-import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef, OnInit } from '@angular/core';
 
 const SWIPE_MIN_DELTA = 175;
 const SWIPE_ROTATION_X_PER_DEG = 20;
-const SWIPE_DISTANCE_WHEN_DONE = 800;
 
 @Component({
     selector: 'app-swipe',
     templateUrl: './swipe.component.html',
     styleUrls: ['./swipe.component.css']
 })
-export class SwipeComponent implements OnChanges {
+export class SwipeComponent implements OnChanges, OnInit {
+    SWIPE_DISTANCE_WHEN_DONE = 800;
+
+    ngOnInit(): void {
+        if (window.innerWidth < 800) {
+            console.log("switched distance")
+            this.SWIPE_DISTANCE_WHEN_DONE = 260;
+        }
+    }
 
     constructor(private elementRef: ElementRef) {
 
@@ -109,13 +116,13 @@ export class SwipeComponent implements OnChanges {
     }
 
     swipeRight() {
-        this.x = SWIPE_DISTANCE_WHEN_DONE;
+        this.x = this.SWIPE_DISTANCE_WHEN_DONE;
         this.swipedRight.emit();
         this.swipedSide();
     }
 
     swipeLeft() {
-        this.x = -SWIPE_DISTANCE_WHEN_DONE;
+        this.x = -this.SWIPE_DISTANCE_WHEN_DONE;
         this.swipedLeft.emit();
         this.swipedSide();
     }
@@ -148,7 +155,7 @@ export class SwipeComponent implements OnChanges {
     }
 
     finishedSwiping(event, swipeDiv) {
-        if (event.target === swipeDiv && event.propertyName === "transform" && (this.x == SWIPE_DISTANCE_WHEN_DONE || this.x == -SWIPE_DISTANCE_WHEN_DONE)) {
+        if (event.target === swipeDiv && event.propertyName === "transform" && (this.x == this.SWIPE_DISTANCE_WHEN_DONE || this.x == -this.SWIPE_DISTANCE_WHEN_DONE)) {
             this.swipeAnimEnd.emit();
         }
     }
