@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef, OnInit } from '@angular/core';
 
-const SWIPE_MIN_DELTA = 175;
 const SWIPE_ROTATION_X_PER_DEG = 20;
+const SWIPE_DISTANCE_WHEN_DONE = 800
 
 @Component({
     selector: 'app-swipe',
@@ -9,12 +9,11 @@ const SWIPE_ROTATION_X_PER_DEG = 20;
     styleUrls: ['./swipe.component.css']
 })
 export class SwipeComponent implements OnChanges, OnInit {
-    SWIPE_DISTANCE_WHEN_DONE = 800;
-
+    SWIPE_MIN_DELTA = 175;
     ngOnInit(): void {
         if (window.innerWidth < 800) {
             console.log("switched distance")
-            this.SWIPE_DISTANCE_WHEN_DONE = 150;
+            this.SWIPE_MIN_DELTA = 75;
         }
     }
 
@@ -84,11 +83,11 @@ export class SwipeComponent implements OnChanges, OnInit {
     }
 
     canSwipeRight(x = this.x) {
-        return x >= SWIPE_MIN_DELTA;
+        return x >= this.SWIPE_MIN_DELTA;
     }
 
     canSwipeLeft(x = this.x) {
-        return x <= -SWIPE_MIN_DELTA;
+        return x <= -this.SWIPE_MIN_DELTA;
     }
 
     updatePreview(newX: number) {
@@ -116,13 +115,13 @@ export class SwipeComponent implements OnChanges, OnInit {
     }
 
     swipeRight() {
-        this.x = this.SWIPE_DISTANCE_WHEN_DONE;
+        this.x = SWIPE_DISTANCE_WHEN_DONE;
         this.swipedRight.emit();
         this.swipedSide();
     }
 
     swipeLeft() {
-        this.x = -this.SWIPE_DISTANCE_WHEN_DONE;
+        this.x = -SWIPE_DISTANCE_WHEN_DONE;
         this.swipedLeft.emit();
         this.swipedSide();
     }
@@ -155,7 +154,7 @@ export class SwipeComponent implements OnChanges, OnInit {
     }
 
     finishedSwiping(event, swipeDiv) {
-        if (event.target === swipeDiv && event.propertyName === "transform" && (this.x == this.SWIPE_DISTANCE_WHEN_DONE || this.x == -this.SWIPE_DISTANCE_WHEN_DONE)) {
+        if (event.target === swipeDiv && event.propertyName === "transform" && (this.x == SWIPE_DISTANCE_WHEN_DONE || this.x == -SWIPE_DISTANCE_WHEN_DONE)) {
             this.swipeAnimEnd.emit();
         }
     }
