@@ -7,4 +7,5 @@ export enum dayTimes {
     night = "night",
     dream = "dream",
     reaction = "reaction",
+    none = "none"
 }
