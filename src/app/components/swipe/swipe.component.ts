@@ -14,7 +14,7 @@ export class SwipeComponent implements OnChanges, OnInit {
     ngOnInit(): void {
         if (window.innerWidth < 800) {
             console.log("switched distance")
-            this.SWIPE_DISTANCE_WHEN_DONE = 260;
+            this.SWIPE_DISTANCE_WHEN_DONE = 150;
         }
     }
 
