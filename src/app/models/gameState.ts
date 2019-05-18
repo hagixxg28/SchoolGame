@@ -4,7 +4,7 @@ import { Perk } from "../enums/Perks";
 export class GameState {
     public constructor(
         public dayNum: number,
-        public time: String,
+        public time: dayTimes,
         public perks: Perk[],
         public stressVal: number,
         public socialVal: number,

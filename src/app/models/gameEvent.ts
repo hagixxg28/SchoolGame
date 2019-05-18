@@ -1,10 +1,11 @@
 import { Character } from "./character";
 import { Choice } from "./choice";
+import { dayTimes } from "../enums/dayTimes";
 
 export class GameEvent {
     public constructor(
         public character: Character,
-        public dayTime: String,
+        public dayTime: dayTimes,
         public mainText: string,
         public leftText: string,
         public rightText: string,

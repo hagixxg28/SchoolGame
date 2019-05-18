@@ -44,7 +44,7 @@ export class EventsService {
   //Event Pool variables:
   secondLastEvent: GameEvent;
   //Setting it to a void event so my function will work ( I don't want to pull the same character event after event)
-  lastEvent = new GameEvent(this.charactersData.getCharacter(Characters.Void), "", "", "", "");
+  lastEvent = new GameEvent(this.charactersData.getCharacter(Characters.Void), dayTimes.none, "", "", "");
   loseEvent: GameEvent;
 
 
@@ -180,8 +180,8 @@ export class EventsService {
   PopGirlEvents = [
     new GameEvent(
       this.charactersData.getCharacter(Characters.PopGirl),
-      "You're cute!", "Flirt with her", "No thanks.",
       dayTimes.morning,
+      "You're cute!", "Flirt with her", "No thanks.",
       new Choice(-10, 15, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(0, -15)
     ),
@@ -685,9 +685,15 @@ export class EventsService {
 
   updateEventPool(gameState: GameState) {
     this.resetAllEvents();
+    this.resetAllPerks();
     this.includeChecker(gameState)
     this.setUpGameEvents();
     this.eventSorter();
+  }
+
+  resetAllPerks() {
+    this.includeSmoker = false;
+    this.includeDepressed = false;
   }
 
   //#endregion

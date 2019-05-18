@@ -88,7 +88,7 @@ export class DayService {
   pickMorningEvent() {
     let potentialEvent = this.eventService.pullMorningEvent();
     //Null checker....
-    if (!this.dayMap.get('morning')) {
+    if (!(this.dayMap.get('morning'))) {
       this.dayMap.set('morning', potentialEvent);
       this.day.morning = potentialEvent;
       return;
@@ -103,7 +103,7 @@ export class DayService {
 
   pickNoonEvent() {
     let potentialEvent = this.eventService.pullNoonEvent();
-    if (!this.dayMap.get('noon')) {
+    if (!(this.dayMap.get('noon'))) {
       this.dayMap.set('noon', potentialEvent);
       this.day.noon = potentialEvent;
       return;
@@ -118,7 +118,7 @@ export class DayService {
 
   pickAfteroonEvent() {
     let potentialEvent = this.eventService.pullAfternoonEvent();
-    if (!this.dayMap.get('afternoon')) {
+    if (!(this.dayMap.get('afternoon'))) {
       this.dayMap.set('afternoon', potentialEvent);
       this.day.afternoon = potentialEvent;
       return;
@@ -132,7 +132,7 @@ export class DayService {
 
   pickEveningEvent() {
     let potentialEvent = this.eventService.pullEveningEvent();
-    if (!this.dayMap.get('evening')) {
+    if (!(this.dayMap.get('evening'))) {
       this.dayMap.set('evening', potentialEvent);
       this.day.evening = potentialEvent;
       return;
@@ -146,7 +146,7 @@ export class DayService {
 
   pickNightEvent() {
     let potentialEvent = this.eventService.pullNightEvent();
-    if (!this.dayMap.get('night')) {
+    if (!(this.dayMap.get('night'))) {
       this.dayMap.set('night', potentialEvent);
       this.day.night = potentialEvent;
       return;
@@ -160,7 +160,7 @@ export class DayService {
 
   pickDreamEvent() {
     let potentialEvent = this.eventService.pullDreamEvent();
-    if (!this.dayMap.get('dream')) {
+    if (!(this.dayMap.get('dream'))) {
       this.dayMap.set('dream', potentialEvent);
       this.day.dream = potentialEvent;
       return;
