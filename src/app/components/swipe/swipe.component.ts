@@ -12,8 +12,7 @@ export class SwipeComponent implements OnChanges, OnInit {
     SWIPE_MIN_DELTA = 175;
     ngOnInit(): void {
         if (window.innerWidth < 800) {
-            console.log("switched distance")
-            this.SWIPE_MIN_DELTA = 75;
+            this.SWIPE_MIN_DELTA = 65;
         }
     }
 
