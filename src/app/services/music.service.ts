@@ -11,6 +11,7 @@ export class MusicService implements OnInit {
 
   constructor(private gameStateService: GameStateService) { }
 
+  muted = false;
   ngOnInit(): void {
     this.getState();
     this.playMusic();
@@ -53,6 +54,9 @@ export class MusicService implements OnInit {
     this.currentSound.fade(1, 0, 2500);
     setTimeout(() => {
       sound.play()
+      if (this.muted) {
+        sound.mute(true);
+      }
       sound.fade(0, 1, 1500)
       this.currentSound.stop();
       this.currentSound = sound;
@@ -82,10 +86,12 @@ export class MusicService implements OnInit {
 
   mute() {
     this.currentSound.mute(true);
+    this.muted = true;
   }
 
   unMute() {
     this.currentSound.mute(false);
+    this.muted = false;
   }
 
 
