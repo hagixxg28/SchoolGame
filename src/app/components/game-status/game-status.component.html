@@ -14,4 +14,9 @@
           src='assets/images/perkIcons/{{perk.perkName}}.png'></span>
     </span>
     <br>
+    <img *ngIf="!muted" (click)="muteSound()" title="Press to mute" img class="musicIcon"
+      src='assets/images/icons/music/sound-on.png'>
+    <img *ngIf="muted" (click)="unMuteSound()" title="Press to un-mute" img class="musicIcon"
+      src='assets/images/icons/music/sound-off.png'>
+    <br>
   </mat-card>

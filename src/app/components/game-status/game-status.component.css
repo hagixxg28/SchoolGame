@@ -23,6 +23,11 @@
   width: 20px;
 }
 
+.musicIcon {
+  height: 25px;
+  width: 25px;
+}
+
 .appearing {
   animation: hagi-appear .6s;
 }

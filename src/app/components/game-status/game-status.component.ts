@@ -7,6 +7,7 @@ import { dayTimes } from 'src/app/enums/dayTimes';
 import { Perk } from 'src/app/enums/Perks';
 import { PerkDataService } from 'src/app/Data/perk-data.service';
 import { PerkObject } from 'src/app/models/perkObject';
+import { MusicService } from 'src/app/services/music.service';
 
 const PERK_ICON_SIZE = 20;
 const DEFAULT_ICON_STYLE = {
@@ -20,7 +21,7 @@ const DEFAULT_ICON_STYLE = {
 })
 export class GameStatusComponent implements OnInit {
 
-  constructor(private perkData: PerkDataService, private gameStateService: GameStateService, private barService: BarService) { }
+  constructor(private music: MusicService, private perkData: PerkDataService, private gameStateService: GameStateService, private barService: BarService) { }
 
   ngOnInit() {
     this.getState()
@@ -30,7 +31,7 @@ export class GameStatusComponent implements OnInit {
 
   gameState: GameState;
   lastState: GameState;
-
+  muted = false;
   currentStatus = "Normie";
 
   lastStatus = "";
@@ -191,5 +192,19 @@ export class GameStatusComponent implements OnInit {
 
   captureLastState() {
     this.lastState = this.gameState;
+  }
+
+  muteSound() {
+    if (!this.muted) {
+      this.music.mute();
+      this.muted = true;
+    }
+  }
+
+  unMuteSound() {
+    if (this.muted) {
+      this.music.unMute();
+      this.muted = false;
+    }
   }
 }
