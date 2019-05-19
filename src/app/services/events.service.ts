@@ -595,13 +595,11 @@ export class EventsService {
   pullLoseEvent(bar: Bar, calculatedValue) {
 
     if (calculatedValue <= 0) {
-      console.log(bar.type + " is empty")
       this.loseEvent = this.loseEventsMap.get(bar.type + "LESS")
       this.loseType = bar.type + "LESS"
     }
 
     if (calculatedValue >= 100) {
-      console.log(bar.type + " is full")
       this.loseEvent = this.loseEventsMap.get(bar.type + "FULL")
       this.loseType = bar.type + "FULL"
     }

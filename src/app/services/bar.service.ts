@@ -30,11 +30,11 @@ export class BarService {
       "Smooth", "Weird")
     ,
     new Bar("GRADES",
-      this.gradesUrl, 40, "primary",
+      this.gradesUrl, 50, "primary",
       "Smart!", "Another F"),
 
     new Bar("PARENTS",
-      this.parentsUrl, 60, "primary",
+      this.parentsUrl, 40, "primary",
       "Proud", "Dissapointed"),
 
 

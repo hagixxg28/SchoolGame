@@ -18,6 +18,7 @@ export class MusicService implements OnInit {
 
   playMusic() {
     this.morningSound.play();
+    this.morningSound.volume(0.8)
     this.currentSound = this.morningSound;
   }
 

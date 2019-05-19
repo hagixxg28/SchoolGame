@@ -1,6 +1,8 @@
+import { Perk } from "../enums/Perks";
+
 export class PerkObject {
     public constructor(
-        public name: string,
+        public perkName: Perk,
         public daysToRecover: number,
     ) { }
 }    

@@ -41,27 +41,27 @@ export class DayService {
 
 
 
-  buildDay() {
+  buildDay(isPerkAdded?) {
     this.day = new Day();
     this.rollForDream();
     this.rollForNight();
     if (this.hasMorning) {
-      this.pickMorningEvent();
+      this.pickMorningEvent(isPerkAdded);
     }
     if (this.hasNoon) {
-      this.pickNoonEvent();
+      this.pickNoonEvent(isPerkAdded);
     }
     if (this.hasAfternoon) {
-      this.pickAfteroonEvent();
+      this.pickAfteroonEvent(isPerkAdded);
     }
     if (this.hasEvening) {
-      this.pickEveningEvent();
+      this.pickEveningEvent(isPerkAdded);
     }
     if (this.hasNight) {
-      this.pickNightEvent();
+      this.pickNightEvent(isPerkAdded);
     }
     if (this.hasDream) {
-      this.pickDreamEvent();
+      this.pickDreamEvent(isPerkAdded);
     }
   }
 
@@ -85,7 +85,7 @@ export class DayService {
     this.day.dream = undefined;
   }
 
-  pickMorningEvent() {
+  pickMorningEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullMorningEvent();
     //Null checker....
     if (!(this.dayMap.get('morning'))) {
@@ -97,11 +97,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.morning, potentialEvent)) {
       potentialEvent = this.eventService.pullMorningEvent();
     }
-    this.dayMap.set('morning', potentialEvent);
     this.day.morning = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('morning', potentialEvent);
   }
 
-  pickNoonEvent() {
+  pickNoonEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullNoonEvent();
     if (!(this.dayMap.get('noon'))) {
       this.dayMap.set('noon', potentialEvent);
@@ -112,11 +116,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.noon, potentialEvent)) {
       potentialEvent = this.eventService.pullNoonEvent();
     }
-    this.dayMap.set('noon', potentialEvent);
     this.day.noon = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('noon', potentialEvent);
   }
 
-  pickAfteroonEvent() {
+  pickAfteroonEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullAfternoonEvent();
     if (!(this.dayMap.get('afternoon'))) {
       this.dayMap.set('afternoon', potentialEvent);
@@ -126,11 +134,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.afternoon, potentialEvent)) {
       potentialEvent = this.eventService.pullAfternoonEvent();
     }
-    this.dayMap.set('afternoon', potentialEvent);
     this.day.afternoon = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('afternoon', potentialEvent);
   }
 
-  pickEveningEvent() {
+  pickEveningEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullEveningEvent();
     if (!(this.dayMap.get('evening'))) {
       this.dayMap.set('evening', potentialEvent);
@@ -140,11 +152,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.evening, potentialEvent)) {
       potentialEvent = this.eventService.pullEveningEvent();
     }
-    this.dayMap.set('evening', potentialEvent);
     this.day.evening = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('evening', potentialEvent);
   }
 
-  pickNightEvent() {
+  pickNightEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullNightEvent();
     if (!(this.dayMap.get('night'))) {
       this.dayMap.set('night', potentialEvent);
@@ -154,11 +170,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.night, potentialEvent)) {
       potentialEvent = this.eventService.pullNightEvent();
     }
-    this.dayMap.set('night', potentialEvent);
     this.day.night = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('night', potentialEvent);
   }
 
-  pickDreamEvent() {
+  pickDreamEvent(isPerkAdded?) {
     let potentialEvent = this.eventService.pullDreamEvent();
     if (!(this.dayMap.get('dream'))) {
       this.dayMap.set('dream', potentialEvent);
@@ -168,14 +188,15 @@ export class DayService {
     while (this.isValidEvent(dayTimes.dream, potentialEvent)) {
       potentialEvent = this.eventService.pullDreamEvent();
     }
-    this.dayMap.set('dream', potentialEvent);
     this.day.dream = potentialEvent;
+    if (isPerkAdded) {
+      //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
+      return;
+    }
+    this.dayMap.set('dream', potentialEvent);
   }
 
 
-  buildAndShowDay() {
-    this.buildDay();
-  }
 
   timeSkipper(currentTimeNumber: number, targetTimeNumber: number) {
     if (currentTimeNumber < targetTimeNumber) {
@@ -266,7 +287,8 @@ export class DayService {
   }
 
   reBuildDay(currentTime) {
-    this.buildAndShowDay()
+    let isPerkAdded = true;
+    this.buildDay(isPerkAdded)
     let currentTimeNumber = this.dayTimeMap.get(currentTime);
     let targetTimeNumber = currentTimeNumber + 1;
     this.timeSkipper(currentTimeNumber, targetTimeNumber)
