@@ -80,5 +80,13 @@ export class MusicService implements OnInit {
     this.switchSound(this.loseSound);
   }
 
+  mute() {
+    this.currentSound.mute(true);
+  }
+
+  unMute() {
+    this.currentSound.mute(false);
+  }
+
 
 }
