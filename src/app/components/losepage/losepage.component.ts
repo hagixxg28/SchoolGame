@@ -47,9 +47,7 @@ export class LosepageComponent implements OnInit {
    ])
    ngOnInit() {
       this.loseType = this.eventService.getLoseType();
-      console.log(this.loseType)
       this.infoText = this.infoMap.get(this.loseType);
-      console.log(this.infoText)
    }
 
    fadeUpEnd() {
