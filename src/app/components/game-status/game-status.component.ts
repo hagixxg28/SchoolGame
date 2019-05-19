@@ -4,7 +4,15 @@ import { Status } from 'src/app/enums/Status';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { BarService } from 'src/app/services/bar.service';
 import { dayTimes } from 'src/app/enums/dayTimes';
+import { Perk } from 'src/app/enums/Perks';
+import { PerkDataService } from 'src/app/Data/perk-data.service';
+import { PerkObject } from 'src/app/models/perkObject';
 
+const PERK_ICON_SIZE = 20;
+const DEFAULT_ICON_STYLE = {
+  'height': PERK_ICON_SIZE,
+  'width': PERK_ICON_SIZE
+}
 @Component({
   selector: 'app-game-status',
   templateUrl: './game-status.component.html',
@@ -12,7 +20,7 @@ import { dayTimes } from 'src/app/enums/dayTimes';
 })
 export class GameStatusComponent implements OnInit {
 
-  constructor(private gameStateService: GameStateService, private barService: BarService) { }
+  constructor(private perkData: PerkDataService, private gameStateService: GameStateService, private barService: BarService) { }
 
   ngOnInit() {
     this.getState()
@@ -29,6 +37,7 @@ export class GameStatusComponent implements OnInit {
   lastTime: String = "morning";
   lastDay = 1;
 
+  iconStyle = []
   appearingStatus = true;
   appearingDay = true;
   appearingTime = true;
@@ -53,6 +62,7 @@ export class GameStatusComponent implements OnInit {
     this.captureLastState();
     this.gameState = state;
     this.checkChanges();
+    this.updateIconStyle();
     this.calculateStatus();
     this.checkStatChange();
   }
@@ -83,7 +93,21 @@ export class GameStatusComponent implements OnInit {
     this.appearingTime = true;
   }
 
+  setStyleMap() {
+    for (let index = 0; index < this.gameState.perks.length; index++) {
+      this.iconStyle.push({ 'width': PERK_ICON_SIZE, 'height': PERK_ICON_SIZE })
+    }
+  }
 
+  updateIconStyle() {
+    this.setStyleMap()
+  }
+
+  getSize(perk: PerkObject): number {
+    let size = PERK_ICON_SIZE * (perk.daysToRecover / this.perkData.PerkRecoverDayMap.get(perk.perkName))
+    console.log(size)
+    return size;
+  }
 
   calculateStatus() {
     this.lastStatus = this.currentStatus;
