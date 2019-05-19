@@ -10,8 +10,8 @@
         (animationend)="finishedAppearingTime()"> </span>
     <span class="test" *ngIf="gameState?.perks" [ngClass]="{'appearing': appearingPerks}"
       (animationend)="finishedAppearingPerks()">Perks:
-      <span *ngFor="let perk of gameState.perks; let i=index;"><img img title="{{perk.perkName}}"
-          [ngStyle]="iconStyle[i]" src='assets/images/perkIcons/{{perk.perkName}}.png'></span>
+      <span *ngFor="let perk of gameState.perks; let i=index;"><img img title="{{perk.perkName}}" class="perkIcon"
+          src='assets/images/perkIcons/{{perk.perkName}}.png'></span>
     </span>
     <br>
   </mat-card>
