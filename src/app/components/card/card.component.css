@@ -82,10 +82,12 @@ p {
 
 .left-text {
   color: cadetblue;
+  z-index: 5;
 }
 
 .right-text {
   color: coral;
+  z-index: 5;
 }
 
 
@@ -143,7 +145,7 @@ p {
     margin-right: auto;
     max-width: 85vw;
     background-repeat: no-repeat;
-    max-height: 55vh;
+    max-height: 60vh;
     /* transform: scale(0.85); */
   }
 
