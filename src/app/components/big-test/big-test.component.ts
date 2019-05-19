@@ -13,6 +13,8 @@ import { Perk } from 'src/app/enums/Perks';
 import { GameState } from 'src/app/models/gameState';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { MusicService } from 'src/app/services/music.service';
+import { PerkObject } from 'src/app/models/perkObject';
+import { PerkDataService } from 'src/app/Data/perk-data.service';
 
 @Component({
   selector: 'app-big-test',
@@ -38,7 +40,7 @@ import { MusicService } from 'src/app/services/music.service';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
+  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
 
   ngOnInit() {
     this.musicService.ngOnInit()
@@ -123,13 +125,14 @@ export class BigTestComponent implements OnInit {
       this.currentDay.dream = undefined
       return;
     }
+    this.perkCountReducer()
     this.buildDay();
     this.updateGameStateDay();
     this.pullFromDay();
   }
   buildDay() {
     this.currentDay = new Day();
-    this.dayService.buildAndShowDay();
+    this.dayService.buildDay();
     this.currentDay = this.dayService.day;
   }
 
@@ -140,33 +143,7 @@ export class BigTestComponent implements OnInit {
   }
   //#endregion
   //#region calculation methods
-  checkForPerkChoice(choice: Choice) {
-    if (!choice.perkChoiceMap) {
-      return;
-    }
-    this.gameState.perks.forEach(perk => {
 
-      if (choice.perkChoiceMap.get(perk)) {
-        if (this.event.leftChoice === choice) {
-          this.event.leftChoice = choice.perkChoiceMap.get(perk).choice;
-          this.event.leftText = choice.perkChoiceMap.get(perk).text;
-          this.event.isPerkLeft = true;
-          return true;
-        } else {
-          this.event.rightChoice = choice.perkChoiceMap.get(perk).choice;
-          this.event.rightText = choice.perkChoiceMap.get(perk).text;
-          this.event.isPerkRight = true;
-          return true;
-        }
-      }
-    });
-    if (this.event.leftChoice === choice) {
-      this.event.isPerkLeft = false;
-    } else {
-      this.event.isPerkRight = false;
-    }
-
-  }
 
 
   choiceSort(choice: Choice) {
@@ -192,8 +169,8 @@ export class BigTestComponent implements OnInit {
     let fourthValue
 
 
-    if (choice.perk && this.isValidPerk(choice.perk)) {
-      this.addPerk(choice.perk);
+    if (choice.perk && this.isValidPerk(this.perkData.PerksMap.get(choice.perk))) {
+      this.addPerk(this.perkData.PerksMap.get(choice.perk));
       this.updateDay();
     }
 
@@ -381,6 +358,8 @@ export class BigTestComponent implements OnInit {
   }
 
 
+
+
   //#endregion
   //#region view methods
 
@@ -537,38 +516,11 @@ export class BigTestComponent implements OnInit {
     this.gameState.parentsVal = this.Bars[3].value;
   }
 
-  updateGameStatePerks() {
 
-  }
-
-  isValidPerk(newPerk): boolean {
-    let bool = true;
-    this.gameState.perks.forEach(perk => {
-      if (perk === newPerk) {
-        bool = false;
-      }
-    });
-    return bool;
-  }
-
-  addPerk(newPerk) {
-    this.gameState.perks.push(newPerk)
-  }
-
-  removePerk(oldPerk) {
-    for (let index = 0; index < this.gameState.perks.length; index++) {
-      let perk = this.gameState.perks[index];
-      if (perk === oldPerk) {
-        this.gameState.perks.splice(index)
-        return;
-      }
-    }
-  }
 
   fullyUpdateAndPushGameState() {
     this.updateGameStateTime();
     this.updateGameStateBars();
-    this.updateGameStatePerks();
     this.pushGameState();
   }
 
@@ -597,5 +549,85 @@ export class BigTestComponent implements OnInit {
   moveToLosePage() {
     this.showLosePage = true;
   }
+
+  //#region color methods
+
+  checkForPerkChoice(choice: Choice) {
+    if (!choice.perkChoiceMap) {
+      return;
+    }
+    this.gameState.perks.forEach(perk => {
+
+      if (choice.perkChoiceMap.get(perk.perkName)) {
+        if (this.event.leftChoice === choice) {
+          this.event.leftChoice = choice.perkChoiceMap.get(perk.perkName).choice;
+          this.event.leftText = choice.perkChoiceMap.get(perk.perkName).text;
+          this.event.isPerkLeft = true;
+          return true;
+        } else {
+          this.event.rightChoice = choice.perkChoiceMap.get(perk.perkName).choice;
+          this.event.rightText = choice.perkChoiceMap.get(perk.perkName).text;
+          this.event.isPerkRight = true;
+          return true;
+        }
+      }
+    });
+    if (this.event.leftChoice === choice) {
+      this.event.isPerkLeft = false;
+    } else {
+      this.event.isPerkRight = false;
+    }
+
+  }
+
+  perkCountReducer() {
+    this.gameState.perks.forEach(perk => {
+      console.log("reducing from ", perk.perkName)
+      perk.daysToRecover--;
+      console.log(perk.daysToRecover)
+      if (perk.daysToRecover === 0) {
+        this.removePerk(perk)
+      }
+    });
+  }
+
+  isValidPerk(newPerk: PerkObject): boolean {
+    let bool = true;
+    this.gameState.perks.forEach(perk => {
+      if (perk.perkName == newPerk.perkName) {
+        this.renewPerk(perk);
+        bool = false;
+      }
+    });
+    return bool;
+  }
+
+  addPerk(newPerk: PerkObject) {
+    this.gameState.perks.push(newPerk)
+  }
+
+  renewPerk(renewedPerk: PerkObject) {
+    this.gameState.perks.forEach(perk => {
+      if (perk.perkName == renewedPerk.perkName) {
+        console.log("renewing perk counter ", perk.perkName, perk.daysToRecover)
+        perk.daysToRecover = this.perkData.PerkRecoverDayMap.get(perk.perkName);
+        console.log("now its ", perk.daysToRecover)
+        return;
+      }
+    });
+  }
+
+  removePerk(oldPerk: PerkObject) {
+    for (let index = 0; index < this.gameState.perks.length; index++) {
+      let perk = this.gameState.perks[index];
+      if (perk === oldPerk) {
+        console.log("removing ", perk)
+        this.gameState.perks.splice(index)
+        return;
+      }
+    }
+  }
+
+  //#endregion
 
 }
