@@ -81,12 +81,14 @@ p {
 
 
 .left-text {
-  color: cadetblue;
+  color: #0074D9;
+  /* color: cadetblue; */
   z-index: 5;
 }
 
 .right-text {
-  color: coral;
+  color: #FF4136;
+  /* color: coral; */
   z-index: 5;
 }
 
