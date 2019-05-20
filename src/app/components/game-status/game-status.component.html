@@ -10,13 +10,10 @@
         (animationend)="finishedAppearingTime()"> </span>
     <span class="test" *ngIf="gameState?.perks" [ngClass]="{'appearing': appearingPerks}"
       (animationend)="finishedAppearingPerks()">Perks:
-      <span *ngFor="let perk of gameState.perks; let i=index;">
+      <span class="spanMargin" *ngFor="let perk of gameState.perks; let i=index;">
         <app-icon-continer [perk]=perk></app-icon-continer>
       </span>
     </span>
-    <!-- <span *ngFor="let perk of gameState.perks; let i=index;"><img img title="{{perk.perkName}}" class="perkIcon"
-          src='assets/images/perkIcons/{{perk.perkName}}.png'></span>
-    </span> -->
     <br>
     <img *ngIf="!muted" (click)="muteSound()" title="Press to mute" img class="musicIcon"
       src='assets/images/icons/music/sound-on.png'>
