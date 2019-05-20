@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models/bar';
 
+const stressUrl = "./assets/images/barIcons/stress.png"
+const socialUrl = "./assets/images/barIcons/social.png"
+const gradesUrl = "./assets/images/barIcons/grades.png"
+const parentsUrl = "./assets/images/barIcons/parents.png"
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,32 +15,25 @@ export class BarService {
   constructor() { }
 
 
-  //Bar URL images vars
-  //----
-  stressUrl = "./assets/images/barIcons/stress.png"
-  socialUrl = "./assets/images/barIcons/social.png"
-  gradesUrl = "./assets/images/barIcons/grades.png"
-  parentsUrl = "./assets/images/barIcons/parents.png"
-
 
 
   //Bar Section-----
 
   Bars = [
     new Bar("STRESS",
-      this.stressUrl, 30, "primary",
+      stressUrl, 30, "primary",
       "Dangit!", "Relaxing..")
     ,
     new Bar("SOCIAL",
-      this.socialUrl, 40, "primary",
+      socialUrl, 40, "primary",
       "Smooth", "Weird")
     ,
     new Bar("GRADES",
-      this.gradesUrl, 50, "primary",
+      gradesUrl, 50, "primary",
       "Smart!", "Another F"),
 
     new Bar("PARENTS",
-      this.parentsUrl, 40, "primary",
+      parentsUrl, 40, "primary",
       "Proud", "Dissapointed"),
 
 
