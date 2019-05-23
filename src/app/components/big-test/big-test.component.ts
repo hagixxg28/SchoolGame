@@ -139,7 +139,7 @@ export class BigTestComponent implements OnInit {
   updateDay() {
     this.eventService.updateEventPool(this.gameState);
     this.dayService.reBuildDay(this.gameState.time)
-    this.currentDay = this.dayService.day
+    this.currentDay = this.dayService.getDay()
   }
   //#endregion
   //#region calculation methods
@@ -170,7 +170,8 @@ export class BigTestComponent implements OnInit {
 
 
     if (choice.perk && this.isValidPerk(this.perkData.PerksMap.get(choice.perk))) {
-      this.addPerk(this.perkData.PerksMap.get(choice.perk));
+      let newPerk = new PerkObject(choice.perk, this.perkData.getRecoverDay(choice.perk))
+      this.addPerk(newPerk);
       this.updateDay();
     }
 
