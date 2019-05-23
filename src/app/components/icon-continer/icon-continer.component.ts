@@ -11,53 +11,21 @@ const PERK_ICON_SIZE = 20;
 })
 export class IconContinerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private perkData: PerkDataService) { }
 
   isAfterInit = false;
 
   @Input("perk")
   perk: PerkObject
-  totalRecoverDays: number
-
   size;
 
   ngOnInit() {
-    this.totalRecoverDays = this.perk.daysToRecover
     this.updateSize()
-    // this.setStyle()
     this.isAfterInit = true;
   }
 
-  ngOnChanges() {
-    if (this.isAfterInit) {
-      // this.updateStyle();
-      this.updateSize()
-    }
-  }
-
-  // setStyle(size?) {
-  //   if (!size) {
-  //     this.iconStyle = {
-  //       'height': PERK_ICON_SIZE,
-  //       'width': PERK_ICON_SIZE
-  //     }
-  //     console.log(this.iconStyle)
-  //     return;
-  //   }
-  //   this.iconStyle = {
-  //     'height': size,
-  //     'width': size
-  //   }
-  //   console.log(this.iconStyle)
-  // }
-
-  // updateStyle() {
-  //   let size = this.getNewSize();
-  //   this.setStyle(size);
-  // }
-
   getSize() {
-    let divNum = (this.perk.daysToRecover / this.totalRecoverDays)
+    let divNum = (this.perk.daysToRecover / this.perkData.getRecoverDay(this.perk.perkName))
     let size = PERK_ICON_SIZE * divNum;
     return size;
   }
@@ -66,5 +34,8 @@ export class IconContinerComponent implements OnInit {
     let newSize = this.getSize()
     this.size = newSize;
   }
+
+
+
 
 }
