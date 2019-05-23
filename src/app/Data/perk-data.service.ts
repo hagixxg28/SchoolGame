@@ -11,17 +11,23 @@ export class PerkDataService {
 
 
   PerksMap = new Map<string, PerkObject>([
-    [Perk.Smoker, new PerkObject(Perk.Smoker, 3)],
+    [Perk.Smoker, new PerkObject(Perk.Smoker, 2)],
     [Perk.Depressed, new PerkObject(Perk.Depressed, 5)],
     [Perk.BadStudent, new PerkObject(Perk.BadStudent, 3)],
     [Perk.Strong, new PerkObject(Perk.Strong, 8)],
   ])
 
   PerkRecoverDayMap = new Map<Perk, number>([
-    [Perk.Smoker, 3],
+    [Perk.Smoker, 2],
     [Perk.Depressed, 5],
     [Perk.BadStudent, 3],
     [Perk.Strong, 8],
   ])
+
+
+  getRecoverDay(perk: Perk): number {
+    let number = this.PerkRecoverDayMap.get(perk);
+    return number;
+  }
 }
 
