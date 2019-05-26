@@ -11,5 +11,6 @@ export class GameState {
         public socialVal: number,
         public schoolVal: number,
         public parentsVal: number,
+        public status?: string
     ) { }
 }    
