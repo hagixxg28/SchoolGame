@@ -6,7 +6,7 @@
         (animationend)="finishedAppearingDay()"> {{gameState.dayNum}} </span></span>
     <br>
     <span class="rightFloat" *ngIf="gameState?.time"> Time: <img title="{{gameState.time}}" class="icon"
-        src='assets/images/icons/{{gameState.time}}.png' [ngClass]="{'appearing': appearingTime}"
+        src='assets/images/icons/timeIcons/{{gameState.time}}.png' [ngClass]="{'appearing': appearingTime}"
         (animationend)="finishedAppearingTime()"> </span>
     <span class="test" *ngIf="gameState?.perks" [ngClass]="{'appearing': appearingPerks}"
       (animationend)="finishedAppearingPerks()">Perks:
