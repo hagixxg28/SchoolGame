@@ -29,8 +29,8 @@
     </mat-card-content>
 
     <button [disabled]="isPressed" mat-raised-button color="primary"
-      class="left-button button-margin optionText textButton" (click)="swipe.swipeLeft()" (mouseleave)="hideTextLeft()"
-      *ngIf="isHoverLeft">{{event.leftText}}</button>
+      class="left-button button-margin optionText textButton increaseSize" (click)="swipe.swipeLeft()"
+      (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
 
     <button mat-raised-button color="primary"
       class="left-button button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
@@ -39,7 +39,7 @@
     </button>
 
     <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;"
-      class="right-button button-margin optionText" (click)="swipe.swipeRight()" *ngIf="isHoverRight"
+      class="right-button button-margin optionText increaseSize" (click)="swipe.swipeRight()" *ngIf="isHoverRight"
       (mouseleave)="hideTextRight()">{{event.rightText}}</button>
 
     <button mat-raised-button color="accent"

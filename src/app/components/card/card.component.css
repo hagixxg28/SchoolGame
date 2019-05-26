@@ -33,11 +33,22 @@ p {
   margin-right: auto;
   max-width: 300px;
   height: 36vh;
+  border-radius: 20px;
   /* border: solid rgba(228, 228, 228, 0.25) 10px; */
 }
 
 .textButton {
   padding-bottom: 5px;
+}
+
+.increaseSize {
+  animation: increase-font .3s;
+}
+
+@keyframes increase-font {
+  0% {
+    font-size: 0;
+  }
 }
 
 
