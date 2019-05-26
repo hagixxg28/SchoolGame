@@ -22,6 +22,8 @@ import { SwipeComponent } from '../components/swipe/swipe.component';
 import { GameStatusComponent } from '../components/game-status/game-status.component';
 import { LosepageComponent } from '../components/losepage/losepage.component';
 import { IconContinerComponent } from '../components/icon-continer/icon-continer.component';
+import { BackgroundFadeComponent } from '../components/background-fade/background-fade.component';
+import { MultipleBackgroundIconsComponent } from '../components/multiple-background-icons/multiple-background-icons.component';
 
 
 
@@ -40,6 +42,8 @@ import { IconContinerComponent } from '../components/icon-continer/icon-continer
         GameStatusComponent,
         LosepageComponent,
         IconContinerComponent,
+        BackgroundFadeComponent,
+        MultipleBackgroundIconsComponent,
     ],
     imports: [
         BrowserModule,
