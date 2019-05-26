@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models/bar';
 
-const stressUrl = "./assets/images/barIcons/stress.png"
-const socialUrl = "./assets/images/barIcons/social.png"
-const gradesUrl = "./assets/images/barIcons/grades.png"
-const parentsUrl = "./assets/images/barIcons/parents.png"
+const stressUrl = "./assets/images/icons/barIcons/stress.png"
+const socialUrl = "./assets/images/icons/barIcons/social.png"
+const gradesUrl = "./assets/images/icons/barIcons/grades.png"
+const parentsUrl = "./assets/images/icons/barIcons/parents.png"
 
 
 @Injectable({
