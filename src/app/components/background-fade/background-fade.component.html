@@ -1,0 +1,2 @@
+<img #iconImage [src]="currentIcon" class="hidden-icon" [ngStyle]="{'top.%': getPositionY(),'left.%':getPositionX()}"
+  [ngClass]="{'fadeIn-Out': fadeAnimation}" (animationend)="checkIfValidEnd($event,iconImage)">
