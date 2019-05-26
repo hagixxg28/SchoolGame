@@ -1,0 +1,4 @@
+<span *ngFor="let iconAnim of iconAnimArray; let i = index">
+  <img [src]="iconAnim.iconURL" class="hidden-icon" [ngStyle]="{'top.%': getSpecificY(i),'left.%':getSpecificX(i)}"
+    [ngClass]="{'fadeIn-Out': iconAnim.animationBool}" (animationend)="restartAnim($event,i)">
+</span>

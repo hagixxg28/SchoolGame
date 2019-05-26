@@ -1,0 +1,27 @@
+.hidden-icon {
+  position: fixed;
+  height: 40px;
+  width: 40px;
+  opacity: 0;
+  z-index: 0;
+  border-radius: 12px;
+}
+
+.fadeIn-Out {
+  animation: fadeIn-Out 3s;
+}
+
+@keyframes fadeIn-Out {
+  0% {
+    transform: scale(0.5)
+  }
+
+  50% {
+    transform: scale(1.0);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(0.5)
+  }
+}
