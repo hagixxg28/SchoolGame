@@ -15,6 +15,7 @@ import { GameStateService } from 'src/app/services/game-state.service';
 import { MusicService } from 'src/app/services/music.service';
 import { PerkObject } from 'src/app/models/perkObject';
 import { PerkDataService } from 'src/app/Data/perk-data.service';
+import { StatusService } from 'src/app/services/status.service';
 
 @Component({
   selector: 'app-big-test',
@@ -40,9 +41,10 @@ import { PerkDataService } from 'src/app/Data/perk-data.service';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService) { }
+  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService, private statusService: StatusService) { }
 
   ngOnInit() {
+    this.statusService.ngOnInit()
     this.musicService.ngOnInit()
     this.Bars = this.gameManager.getFirstBars();
     this.eventService.setUpGameEvents();

@@ -12,6 +12,9 @@
   color: rgb(54, 163, 127)
 }
 
+.backgroundComp {
+  z-index: -5;
+}
 
 .hidden {
   opacity: 0;

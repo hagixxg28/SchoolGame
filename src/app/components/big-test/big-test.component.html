@@ -1,5 +1,6 @@
 <div class="container-hagi" [@backGroundHandler]="backGroundState">
-
+  <app-multiple-background-icons *ngIf="!showLosePage" class="{{showGameStatus ? 'shown' : 'hidden'}}"
+    [ngClass]="{'fadeOut': fadeOut}"></app-multiple-background-icons>
 
   <div *ngIf="!showLosePage" class="container ">
     <div #barsRowDiv class="row {{showBars ? 'shown' : 'hidden'}}" [ngClass]="{'fadeOutUp': fadeOutUp}"
@@ -23,4 +24,5 @@
   <div *ngIf="showLosePage" class="container">
     <app-losepage></app-losepage>
   </div>
+
 </div>
