@@ -11,3 +11,9 @@ body {
   color: rgba(255, 105, 103, 0.25);
   color: rgba(240, 18, 190, 0.65)
 }
+
+body .mat-card,
+body .mat-button,
+body .mat-raised-button {
+  border-radius: 30px;
+}
