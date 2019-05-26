@@ -65,11 +65,7 @@ export class GameStatusComponent implements OnInit {
     this.checkChanges();
     this.updateIconStyle();
     this.calculateStatus();
-    this.updateStatus();
     this.checkStatChange();
-  }
-  updateStatus() {
-    this.gameStateService.setStatus(this.currentStatus)
   }
 
   finishedAppearingDay() {
@@ -166,7 +162,6 @@ export class GameStatusComponent implements OnInit {
         }
         break;
     }
-    this.gameStateService.setStatus(this.currentStatus)
   }
 
   checkStatChange() {
