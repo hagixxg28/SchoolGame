@@ -46,7 +46,7 @@ export class SwipeComponent implements OnChanges, OnInit {
     private x = 0;
     // The translate and rotate style to apply to the card. 
     transformStyle = "";
-    // opacityStyle = "";
+    opacityStyle = "";
     // Reseting - a swipe has been canceled and we want to return the card to the center.
     resetting = false;
     // Swiped - prevent anything from happening while the swipe is occurring (like swiping left after swiped right).
@@ -118,7 +118,11 @@ export class SwipeComponent implements OnChanges, OnInit {
         const rotate = `rotateZ(${deg}deg)`;
         const opacity = `${opacityCalc}`
         this.transformStyle = `${translate} ${rotate}`;
-        // this.opacityStyle = `${opacity}`
+        if (!this.swiped) {
+            this.opacityStyle = `${opacity}`
+            return;
+        }
+        this.opacityStyle = ``;
     }
 
     swipeRight() {
