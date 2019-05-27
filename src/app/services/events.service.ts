@@ -66,7 +66,7 @@ export class EventsService {
   BullyReactionEventMap = new Map<String, GameEvent>([
     ["pushBack", new GameEvent(
       this.charactersData.getCharacter(Characters.Bully),
-      dayTimes.reaction,
+      dayTimes.noon,
       "Where did you get the balls to push me?", "I'm only starting", "You can't push me for no reason!",
       new Choice(10, 15, 0, -5),
       new Choice(5, -5, 0, 10)
@@ -79,40 +79,40 @@ export class EventsService {
       dayTimes.afternoon,
       "I did not say such things! You better watch your mouth!", "I’m sorry!", "Don’t try lying! I heard you!",
       new Choice(0, 0, -5),
-      new Choice(0, 0, 0, -10,
+      new Choice(0, 0, -10, 0,
         new GameEvent(
           this.charactersData.getCharacter(Characters.Principal),
           dayTimes.afternoon,
           "You’re just another petty student, you don’t know what you heard.", "Forget it…", "A petty student? You’re a perverted piece of shit!",
           new Choice(0),
-          new Choice(0, 0, 0, -10,
+          new Choice(0, 0, -10, 0,
             new GameEvent(
               this.charactersData.getCharacter(Characters.Principal),
               dayTimes.afternoon,
               "Watch it, or I’ll make your life within this school a living hell.", "Walk away", "People are going to hear about this.",
               new Choice(0),
-              new Choice(5, 0, 0, -5,
+              new Choice(5, 0, -5, 0,
                 new GameEvent(
                   this.charactersData.getCharacter(Characters.Principal),
                   dayTimes.afternoon,
                   "Oh! You’re threatening me? Even though none will believe you?", "Walk away", "I’m not going to go down alone.",
                   new Choice(0),
-                  new Choice(0, 0, 0, -10,
+                  new Choice(0, 0, -10, 0,
                     new GameEvent(
                       this.charactersData.getCharacter(Characters.Principal),
                       dayTimes.afternoon,
                       "I’m giving you a last chance, walk away and I’ll forget about this.", "Walk away", "I recorded you with my phone (bluff)",
                       new Choice(0),
-                      new Choice(10, 0, 0, -5,
+                      new Choice(10, 0, -5, 0,
                         new GameEvent(
                           this.charactersData.getCharacter(Characters.Principal),
                           dayTimes.afternoon,
                           "You’re right, I’m sorry, I shouldn’t talk like that", "Good boy..", "We’re not done, raise my grades, or else.",
                           new Choice(0, 20),
-                          new Choice(0, 0, 0, 40))))))))))))
+                          new Choice(0, 0, 40, 0))))))))))))
     ]
   ]);
-
+  z
   //#endregion
 
   //#region Events
