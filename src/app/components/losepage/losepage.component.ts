@@ -23,7 +23,7 @@ export class LosepageComponent implements OnInit {
    infoMap = new Map<string, string>([
       ["STRESSFULL", `The main reasons for child suicide are school-related issues such as demanding school work or bullying.
  These problems lead children to depression.
- Reports say that in Japan 1 in 12 primary school students and 1 in 4 secondary school students suffer from depression, which causes many of them to commit suicide`],
+ Reports say that in Japan, 1 in 12 primary school students and 1 in 4 secondary school students suffer from depression, which causes many of them to commit suicide`],
 
       ["STRESSLESS", `We often think of stress, especially in kids, as a negative.
  Research helps us see that some stress is a normal part of development and it actually helps propel development forward`],
