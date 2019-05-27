@@ -155,7 +155,7 @@ export class EventsService {
     new GameEvent(
       this.charactersData.getCharacter(Characters.Principal),
       dayTimes.morning,
-      "I got a report that you broke the table in your class", "Take the blame for something you did not do", "That’s fucking bullshit! I didn’t do it!",
+      "I got a report that you broke the table in your class", "Take the blame", "That’s fucking bullshit!",
       new Choice(5, 0, -5, -10),
       new Choice(10, 0, -10, -5)
     ),
