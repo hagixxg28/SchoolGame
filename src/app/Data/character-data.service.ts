@@ -20,7 +20,7 @@ export class CharacterDataService {
     ["Dad", new Character("Dad", "Parent", "rgba(165, 42, 42,0.65)", "../assets/images/characters/Father.png")],
     ["Coach", new Character("David", "Coach", "rgba(99, 22, 200, 0.65)", "../assets/images/characters/gymTeacher.png")],
     ["Teacher", new Character("Teacher", "Teacher", "#001f3f", "../assets/images/characters/Giovanna.png")],
-    ["Principal", new Character("Sebastian", "Principal/Overlord", "#AAAAAA", "../assets/images/characters/principal2.png")],
+    ["Principal", new Character("Sebastian", "Principal", "#AAAAAA", "../assets/images/characters/principal2.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
