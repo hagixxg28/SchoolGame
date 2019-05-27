@@ -11,6 +11,7 @@ import { dayTimes } from '../enums/dayTimes';
 import { Perk } from '../enums/Perks';
 import { choiceWithText } from '../models/choiceWithText';
 import { GameState } from '../models/gameState';
+import { EventReactionService } from './event-reaction.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ import { GameState } from '../models/gameState';
 export class EventsService {
 
   //#region Include Varriables
-  constructor(private charactersData: CharacterDataService) { }
+  constructor(private charactersData: CharacterDataService, private reactionService: EventReactionService) { }
 
   //Event Booleans:
   includeBully = true;
@@ -32,6 +33,8 @@ export class EventsService {
   includeCounselor = true;
   includeParents = true;
   includeTeacher = true;
+  includeCoach = true;
+  includePrincipal = true;
 
   includeSmoker = false;
   includeDepressed = false;
@@ -70,6 +73,46 @@ export class EventsService {
     )],
   ])
 
+  PrincipalReactionMap = new Map<String, GameEvent>([
+    ["confront", new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.afternoon,
+      "I did not say such things! You better watch your mouth!", "I’m sorry!", "Don’t try lying! I heard you!",
+      new Choice(0, 0, -5),
+      new Choice(0, 0, 0, -10,
+        new GameEvent(
+          this.charactersData.getCharacter(Characters.Principal),
+          dayTimes.afternoon,
+          "You’re just another petty student, you don’t know what you heard.", "Forget it…", "A petty student? You’re a perverted piece of shit!",
+          new Choice(0),
+          new Choice(0, 0, 0, -10,
+            new GameEvent(
+              this.charactersData.getCharacter(Characters.Principal),
+              dayTimes.afternoon,
+              "Watch it, or I’ll make your life within this school a living hell.", "Walk away", "People are going to hear about this.",
+              new Choice(0),
+              new Choice(5, 0, 0, -5,
+                new GameEvent(
+                  this.charactersData.getCharacter(Characters.Principal),
+                  dayTimes.afternoon,
+                  "Oh! You’re threatening me? Even though none will believe you?", "Walk away", "I’m not going to go down alone.",
+                  new Choice(0),
+                  new Choice(0, 0, 0, -10,
+                    new GameEvent(
+                      this.charactersData.getCharacter(Characters.Principal),
+                      dayTimes.afternoon,
+                      "I’m giving you a last chance, walk away and I’ll forget about this.", "Walk away", "I recorded you with my phone (bluff)",
+                      new Choice(0),
+                      new Choice(10, 0, 0, -5,
+                        new GameEvent(
+                          this.charactersData.getCharacter(Characters.Principal),
+                          dayTimes.afternoon,
+                          "You’re right, I’m sorry, I shouldn’t talk like that", "Good boy..", "We’re not done, raise my grades, or else.",
+                          new Choice(0, 20),
+                          new Choice(0, 0, 0, 40))))))))))))
+    ]
+  ]);
+
   //#endregion
 
   //#region Events
@@ -85,6 +128,87 @@ export class EventsService {
       ])),
       new Choice(10)
     )
+  ]
+
+  PrincipalEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.morning,
+      "Don’t test me punk", "Stay silent", "Go check the teacher’s lounge, I left a nice ‘test’ there.",
+      new Choice(0, -10),
+      new Choice(0, 15, -10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.noon,
+      "You kids aren’t getting good grades! Try harder!", "He’s right!", "Try harder at being a principal!",
+      new Choice(0, -10, 10),
+      new Choice(0, 5, -10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.noon,
+      "If you’ll act nicely next to the inspector I’ll raise your average", "You got a deal!", "I’d rather spit on him",
+      new Choice(0, 0, 10),
+      new Choice(0, 10, 10, -10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.morning,
+      "I got a report that you broke the table in your class", "Take the blame for something you did not do", "That’s fucking bullshit! I didn’t do it!",
+      new Choice(5, 0, -5, -10),
+      new Choice(10, 0, -10, -5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.afternoon,
+      "You hear the principal saying inappropriate things about Stacy’s body", "Ignore it", "Confront him",
+      new Choice(),
+      new Choice(0, 0, 0, 0, this.PrincipalReactionMap.get("confront"))
+    ),
+  ]
+
+  CoachEvents = [
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.noon,
+      "We’re doing a 2km run today", "Alright Coach", "I can’t run I don’t feel so good!",
+      new Choice(0, 0, +5),
+      new Choice(0, -5, -5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.noon,
+      "Where’s the rest of the class?", "I’ll call them", "I don’t know",
+      new Choice(0, -10, +10),
+      new Choice(0, 0, -5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "Can you fill the attendance for me?", "Fill it honestly", "Lie to cover up others",
+      new Choice(),
+      new Choice(0, 10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.noon,
+      "Is it true that our class is canceled for today?", "Not that I heard", "Yeah I heard it from the principal (lie)",
+      new Choice(),
+      new Choice(0, 10, -10)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.noon,
+      "That weird fat kid is getting on my nerves..", "I heard he dosen’t really have asthma", "Ignore the remark",
+      new Choice(0, 10, -5, -5),
+      new Choice(0, 10, -10)
+    ),
   ]
 
   BullyEvents = [
@@ -140,7 +264,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.morning,
       "I just scored the top grade in the class", "You're still a loser", "Good for you.",
-      new Choice(-5, 5, -5, 0, undefined, undefined, Perk.Smoker),
+      new Choice(-5, 5, -5, 0, undefined, undefined),
       new Choice(10)
     ),
 
@@ -148,7 +272,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.noon,
       "Why can't I get a gamer girlfriend?", "Stop acting weird", "I believe in you!",
-      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(0, 5, 0, 0, undefined, undefined),
       new Choice(0, -10, 0, 0)
     ),
 
@@ -156,7 +280,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.afternoon,
       "Do you want to hang out? I'll help you with your project", "Sure thing!", "I'm busy",
-      new Choice(-5, -10, 0, +10, undefined, undefined, Perk.Smoker),
+      new Choice(-5, -10, 0, +10, undefined, undefined),
       new Choice()
     ),
 
@@ -164,7 +288,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Nerd),
       dayTimes.noon,
       "I'm gonna tell the teacher you cheated on the test!", "Slap him", "But I didn't cheat!",
-      new Choice(0, 10, 0, -10, undefined, undefined, Perk.Smoker),
+      new Choice(0, 10, 0, -10, undefined, undefined),
       new Choice(0, 0, -10, -10)
     ),
 
@@ -555,6 +679,12 @@ export class EventsService {
     if (this.includeTeacher) {
       this.CurrentEvents = this.CurrentEvents.concat(this.TeacherEvents);
     }
+    if (this.includeCoach) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.CoachEvents);
+    }
+    if (this.includePrincipal) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.PrincipalEvents);
+    }
 
     if (this.includeSmoker) {
       this.CurrentEvents = this.CurrentEvents.concat(this.SmokerEvents)
@@ -668,6 +798,11 @@ export class EventsService {
     gameState.perks.forEach(perk => {
       this.perkIncluder(perk)
     });
+  }
+
+  getPrincipalReactMap(): Map<String, GameEvent> {
+    let map = this.PrincipalReactionMap
+    return map;
   }
 
   perkIncluder(perk) {
