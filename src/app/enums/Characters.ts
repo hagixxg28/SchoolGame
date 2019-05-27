@@ -1,11 +1,6 @@
 
 export enum Characters {
     Hagi = "Hagi",
-    Shlomi = "Shlomi",
-    Bobby = "Bobby",
-    Elad = "Elad",
-    Jojo = "Jojo",
-    McRide = "McRide",
     Bully = "Bully",
     Nerd = "Nerd",
     PopGirl = "PopGirl",
@@ -16,6 +11,8 @@ export enum Characters {
     Dad = "Dad",
     Void = "Void",
     Teacher = "Teacher",
+    Coach = "Coach",
+    Principal = "Principal",
     StressFull = "StressFull",
     StressLess = "StressLess",
     SocialFull = "SocialFull",
