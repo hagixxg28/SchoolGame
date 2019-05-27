@@ -29,7 +29,7 @@ export class BarService {
       "Smooth", "Weird")
     ,
     new Bar("GRADES",
-      gradesUrl, 50, "primary",
+      gradesUrl, 55, "primary",
       "Smart!", "Another F"),
 
     new Bar("PARENTS",
