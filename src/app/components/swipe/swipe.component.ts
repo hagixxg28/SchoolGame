@@ -11,6 +11,7 @@ const SWIPE_DISTANCE_WHEN_DONE = 800
 export class SwipeComponent implements OnChanges, OnInit {
     SWIPE_MIN_DELTA = 175;
     ngOnInit(): void {
+        this.windowSize = window.innerWidth;
         if (window.innerWidth < 800) {
             this.SWIPE_MIN_DELTA = 65;
         }
@@ -45,12 +46,16 @@ export class SwipeComponent implements OnChanges, OnInit {
     private x = 0;
     // The translate and rotate style to apply to the card. 
     transformStyle = "";
+    // opacityStyle = "";
     // Reseting - a swipe has been canceled and we want to return the card to the center.
     resetting = false;
     // Swiped - prevent anything from happening while the swipe is occurring (like swiping left after swiped right).
     swiped = false;
     // Appearing - indicate the appearing animation to kick in.
     appearing = true;
+
+    //WindowSize- the opacity of the card
+    windowSize = 1;
 
     ngOnChanges(changes: SimpleChanges): void {
         const { resetSwipe } = changes;
@@ -109,8 +114,11 @@ export class SwipeComponent implements OnChanges, OnInit {
         const translate = `translate(${this.x}px)`;
         // This means that the farther the card goes, the more it rotates.
         const deg = this.x / SWIPE_ROTATION_X_PER_DEG;
+        const opacityCalc = 1 - Math.abs(this.x / this.windowSize)
         const rotate = `rotateZ(${deg}deg)`;
+        const opacity = `${opacityCalc}`
         this.transformStyle = `${translate} ${rotate}`;
+        // this.opacityStyle = `${opacity}`
     }
 
     swipeRight() {
