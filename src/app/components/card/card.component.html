@@ -1,7 +1,7 @@
-<span *ngIf="isSwipeLeft" class="absolute-center left-text text-fade-in"
-  [ngClass]="{'short': isLeftShortText}">{{event.leftText}}</span>
-<span *ngIf="isSwipeRight" class="absolute-center right-text text-fade-in"
-  [ngClass]="{'short': isRightShortText}">{{event.rightText}}</span>
+<span *ngIf="isSwipeLeft" class="absolute-center left-text-morning text-fade-in"
+  [ngClass]="{'short': isLeftShortText, 'left-text-evening':eveningText}">{{event.leftText}}</span>
+<span *ngIf="isSwipeRight" class="absolute-center right-text-morning text-fade-in"
+  [ngClass]="{'short': isRightShortText, 'right-text-evening':eveningText}">{{event.rightText}}</span>
 <app-swipe #swipe (previewSwipeLeft)="showSwipeTextLeft()" (previewSwipeRight)="showSwipeTextRight()"
   (hidePreviewSwipeLeft)="hideSwipeTextLeft()" (hidePreviewSwipeRight)="hideSwipeTextRight()"
   (swipedLeft)="makeChoiceLeft()" (swipedRight)="makeChoiceRight()" [resetSwipe]="resetSwipe"

@@ -4,6 +4,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import * as kf from './keyframes';
 import { GameEvent } from 'src/app/models/gameEvent';
 import { SwipeComponent } from '../swipe/swipe.component';
+import { DayService } from 'src/app/services/day.service';
+import { dayTimes } from 'src/app/enums/dayTimes';
 
 @Component({
     selector: 'app-card',
@@ -28,7 +30,7 @@ export class CardComponent implements OnInit, OnChanges {
         }
     }
 
-    constructor(private sanitizer: DomSanitizer) { }
+    constructor(private sanitizer: DomSanitizer, private dayService: DayService) { }
 
     @Input("event") event: GameEvent;
 
@@ -58,6 +60,7 @@ export class CardComponent implements OnInit, OnChanges {
     imageAnim = false;
     buttonsAnim = false;
 
+
     resetSwipe = false;
 
     emptyText = "       ";
@@ -67,6 +70,8 @@ export class CardComponent implements OnInit, OnChanges {
     showCharOccupation;
     showImage;
     showButtons;
+
+    eveningText = false;
 
     cardStyle = {
     }
@@ -209,6 +214,7 @@ export class CardComponent implements OnInit, OnChanges {
         this.textAnim = false;
         this.showEventText = true;
         this.buttonsAnim = true;
+        this.checkTime()
     }
 
     finishedNameAnim() {
@@ -231,6 +237,17 @@ export class CardComponent implements OnInit, OnChanges {
     finishedButtonsAnim() {
         this.buttonsAnim = false;
         this.showButtons = true;
+    }
+
+
+    checkTime() {
+        let time: dayTimes = this.event.dayTime;
+        let timeNum = this.dayService.dayTimeMap.get(time);
+        if (timeNum > 2) {
+            this.eveningText = true;
+            return;
+        }
+        this.eveningText = false;
     }
 
 }

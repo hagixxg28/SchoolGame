@@ -90,16 +90,24 @@ p {
   opacity: 0;
 }
 
-
-.left-text {
-  color: rgb(39, 99, 72);
-  /* color: cadetblue; */
+.left-text-morning {
+  color: rgb(108, 18, 252);
   z-index: 5;
 }
 
-.right-text {
-  color: rgb(185, 43, 35);
-  /* color: coral; */
+.right-text-morning {
+  color: crimson;
+  z-index: 5;
+}
+
+
+.left-text-evening {
+  color: gold;
+  z-index: 5;
+}
+
+.right-text-evening {
+  color: rgb(0, 195, 255);
   z-index: 5;
 }
 
@@ -187,7 +195,7 @@ p {
     transform: scale(0.4);
   }
 
-  60% {
+  40% {
     transform: scale(1);
     opacity: 1;
   }
