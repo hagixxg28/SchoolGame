@@ -51,6 +51,9 @@ export class MusicService implements OnInit {
   });
 
   switchSound(sound: Howl) {
+    if (sound == this.currentSound) {
+      return;
+    }
     this.currentSound.fade(1, 0, 2500);
     setTimeout(() => {
       sound.play()
@@ -71,6 +74,9 @@ export class MusicService implements OnInit {
     this.checkForSwitch();
   }
   checkForSwitch() {
+    if (this.currentState.time == dayTimes.reaction) {
+      return;
+    }
     if (this.currentState.time == dayTimes.afternoon) {
       this.switchSound(this.eveningSound);
       return;
