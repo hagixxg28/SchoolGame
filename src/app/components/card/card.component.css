@@ -82,7 +82,7 @@ p {
 }
 
 .optionText {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .hiddenOptionText {
@@ -92,13 +92,13 @@ p {
 
 
 .left-text {
-  color: #0074D9;
+  color: rgb(39, 99, 72);
   /* color: cadetblue; */
   z-index: 5;
 }
 
 .right-text {
-  color: #FF4136;
+  color: rgb(185, 43, 35);
   /* color: coral; */
   z-index: 5;
 }
