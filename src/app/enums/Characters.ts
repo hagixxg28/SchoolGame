@@ -12,6 +12,7 @@ export enum Characters {
     Void = "Void",
     Teacher = "Teacher",
     Coach = "Coach",
+    Lela = "Lela",
     Principal = "Principal",
     StressFull = "StressFull",
     StressLess = "StressLess",
