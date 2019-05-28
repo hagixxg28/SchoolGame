@@ -41,7 +41,7 @@ export class LosepageComponent implements OnInit {
       ["GRADESFULL", `Most children who are labeled as geniuses, prodigies or exceptionally gifted end up leading very average lives.
  Most do not become great leaders, musicians, artists, scholars, giants of business or philosophers.`],
 
-      ["GRADESLESS", `Underachievement is a symptom-a symptom with multiple causes.
+      ["GRADESLESS", `Underachievement is a symptom with multiple causes.
  The first step is to diagnose the problem`],
 
    ])
