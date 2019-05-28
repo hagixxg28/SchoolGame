@@ -19,5 +19,8 @@
       src='assets/images/icons/music/sound-on.png'>
     <img *ngIf="muted" (click)="unMuteSound()" title="Press to un-mute" img class="musicIcon"
       src='assets/images/icons/music/sound-off.png'>
+
+    <img (click)="toggleButtons()" title="Press to toggle buttons" img class="musicIcon"
+      src='assets/images/icons/optionIcons/buttonToggle.png'>
     <br>
   </mat-card>

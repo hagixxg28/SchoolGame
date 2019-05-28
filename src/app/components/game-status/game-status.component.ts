@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GameState } from 'src/app/models/gameState';
 import { Status } from 'src/app/enums/Status';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { BarService } from 'src/app/services/bar.service';
 import { dayTimes } from 'src/app/enums/dayTimes';
-import { Perk } from 'src/app/enums/Perks';
 import { PerkDataService } from 'src/app/Data/perk-data.service';
 import { PerkObject } from 'src/app/models/perkObject';
 import { MusicService } from 'src/app/services/music.service';
+import { ToggleService } from 'src/app/services/toggle.service';
 
 const PERK_ICON_SIZE = 20;
 const DEFAULT_ICON_STYLE = {
@@ -21,12 +21,14 @@ const DEFAULT_ICON_STYLE = {
 })
 export class GameStatusComponent implements OnInit {
 
-  constructor(private music: MusicService, private perkData: PerkDataService, private gameStateService: GameStateService, private barService: BarService) { }
+  constructor(private music: MusicService, private perkData: PerkDataService, private gameStateService: GameStateService, private barService: BarService, private toggleService: ToggleService) { }
 
   ngOnInit() {
     this.getState()
     this.mockInitGameState()
   }
+
+
 
 
   gameState: GameState;
@@ -210,5 +212,9 @@ export class GameStatusComponent implements OnInit {
       this.music.unMute();
       this.muted = false;
     }
+  }
+
+  toggleButtons() {
+    this.toggleService.toggleButtons()
   }
 }
