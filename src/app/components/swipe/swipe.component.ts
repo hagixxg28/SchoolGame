@@ -13,7 +13,7 @@ export class SwipeComponent implements OnChanges, OnInit {
     ngOnInit(): void {
         this.windowSize = window.innerWidth;
         if (window.innerWidth < 800) {
-            this.SWIPE_MIN_DELTA = 65;
+            this.SWIPE_MIN_DELTA = 50;
         }
     }
 
