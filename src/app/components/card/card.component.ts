@@ -6,6 +6,7 @@ import { GameEvent } from 'src/app/models/gameEvent';
 import { SwipeComponent } from '../swipe/swipe.component';
 import { DayService } from 'src/app/services/day.service';
 import { dayTimes } from 'src/app/enums/dayTimes';
+import { ToggleService } from 'src/app/services/toggle.service';
 
 @Component({
     selector: 'app-card',
@@ -30,7 +31,7 @@ export class CardComponent implements OnInit, OnChanges {
         }
     }
 
-    constructor(private sanitizer: DomSanitizer, private dayService: DayService) { }
+    constructor(private sanitizer: DomSanitizer, private dayService: DayService, private toggleService: ToggleService) { }
 
     @Input("event") event: GameEvent;
 
@@ -69,7 +70,8 @@ export class CardComponent implements OnInit, OnChanges {
     showCharName;
     showCharOccupation;
     showImage;
-    showButtons;
+    showButtons: boolean;
+    renderButtons: boolean = true;
 
     eveningText = false;
 
@@ -80,6 +82,7 @@ export class CardComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.setStyle()
+        this.getToggleInfo()
     }
 
 
@@ -248,6 +251,20 @@ export class CardComponent implements OnInit, OnChanges {
             return;
         }
         this.eveningText = false;
+    }
+
+    toggleButtons() {
+        console.log('Toggling')
+        if (this.renderButtons) {
+            this.renderButtons = false;
+            return;
+        }
+        this.renderButtons = true;
+    }
+
+    getToggleInfo() {
+        const ob = this.toggleService.toggleObservable;
+        ob.subscribe(() => this.toggleButtons())
     }
 
 }
