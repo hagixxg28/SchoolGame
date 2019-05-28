@@ -35,9 +35,11 @@ export class EventsService {
   includeTeacher = true;
   includeCoach = true;
   includePrincipal = true;
+  includeLela = true;
 
   includeSmoker = false;
   includeDepressed = false;
+  includeGossiper = false;
 
   loseType: string;
 
@@ -60,6 +62,30 @@ export class EventsService {
       "Is she your girlfriend?", "Maybe", "No",
       new Choice(-5, 0, 0, -5),
       new Choice(5, 0, 0, 0)
+    )],
+  ])
+
+  LelaReactionEventMap = new Map<String, GameEvent>([
+    ["walkOut", new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.noon,
+      "Oh are you sure dear?", "Yes", "I think I got confused",
+      new Choice(0, -10, 5, 0),
+      new Choice()
+    )],
+    ["juicyGossip", new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Really!? I didn’t know she’s that kind of girl..", "Yeah I’m surprised as well.", "Make the story even more exaggerated",
+      new Choice(0, -5, 5, 0),
+      new Choice(0, -15, 10, 0, undefined, undefined, Perk.Gossiper)
+    )],
+    ["kissUp", new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Oh stop it you!", "Keep kissing up to her", "Stay silent",
+      new Choice(0, -10, 5, 0),
+      new Choice()
     )],
   ])
 
@@ -128,6 +154,45 @@ export class EventsService {
       ])),
       new Choice(10)
     )
+  ]
+
+  LelaEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.morning,
+      "Good morning students!", "You look lovely today!", "Good morning.",
+      new Choice(0, -5, 5),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.noon,
+      "You see Ms.Lela heading out of the school when she should be teaching", "Tell her about the class", "Ignore",
+      new Choice(0, 0, 0, 0, this.LelaReactionEventMap.get("walkOut")),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Do you know if Stacy has a boyfriend?", "Fabricate a juicy story to please her", "I don’t know",
+      new Choice(0, -5, 5, 0, this.LelaReactionEventMap.get("juicyGossip")),
+      new Choice(0, 0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.noon,
+      "Why aren’t you paying attention?", "I’m sorry ma’am", "I can’t focus with such a hot teacher",
+      new Choice(0, 0, -5),
+      new Choice(0, 0, 10, 0, this.LelaReactionEventMap.get("kissUp"))
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.morning,
+      "You see Ms.Lela walking up the stairs", "Offer to carry her bag", "Keep walking",
+      new Choice(0, -5, 5),
+      new Choice()
+    ),
+
   ]
 
   PrincipalEvents = [
@@ -322,7 +387,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.noon,
       "Courtney is such a slut", "I know right?", "She's alright",
-      new Choice(-5, 10),
+      new Choice(-5, 10, 0, 0, undefined, undefined, Perk.Gossiper),
       new Choice(10, -10)
     ),
 
@@ -338,7 +403,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
       "I got this new Gucci scarf", "It looks great!", "What a waste of money!",
-      new Choice(0, 15, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(0, 15, 0, 0),
       new Choice(-5, -20)
     ),
 
@@ -535,6 +600,23 @@ export class EventsService {
       new Choice(20, -15, 20, 0)
     ),
   ]
+  GossiperEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.noon,
+      "I heard that the principle is into teenage girls", "Spread the rumor", "Keep it to yourself",
+      new Choice(0, 10, -15, 0, undefined, undefined, Perk.Gossiper),
+      new Choice(0, -5)
+    ),
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.morning,
+      "Stacy spread a rumor about you that you harrased her", "That's a lie!", "I turned Stacy down, that's the truth.",
+      new Choice(0, -10),
+      new Choice(0, 10, 0, 0, undefined, undefined, Perk.Gossiper)
+    ),
+  ]
 
   SmokerEvents = [
     new GameEvent(
@@ -685,6 +767,9 @@ export class EventsService {
     if (this.includePrincipal) {
       this.CurrentEvents = this.CurrentEvents.concat(this.PrincipalEvents);
     }
+    if (this.includeLela) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.LelaEvents);
+    }
 
     if (this.includeSmoker) {
       this.CurrentEvents = this.CurrentEvents.concat(this.SmokerEvents)
@@ -692,6 +777,9 @@ export class EventsService {
 
     if (this.includeDepressed) {
       //Push the depressed event array
+    }
+    if (this.includeGossiper) {
+      //Push the gossiper event array
     }
 
   }
@@ -813,6 +901,10 @@ export class EventsService {
       case Perk.Depressed:
         this.includeDepressed = true;
         break;
+
+      case Perk.Gossiper:
+        this.includeGossiper = true;
+        break;
     }
   }
 
@@ -827,6 +919,7 @@ export class EventsService {
   resetAllPerks() {
     this.includeSmoker = false;
     this.includeDepressed = false;
+    this.includeGossiper = false;
   }
 
   //#endregion
