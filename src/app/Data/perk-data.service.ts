@@ -15,6 +15,7 @@ export class PerkDataService {
     [Perk.Depressed, new PerkObject(Perk.Depressed, 5)],
     [Perk.BadStudent, new PerkObject(Perk.BadStudent, 3)],
     [Perk.Strong, new PerkObject(Perk.Strong, 8)],
+    [Perk.Gossiper, new PerkObject(Perk.Gossiper, 4)],
   ])
 
   PerkRecoverDayMap = new Map<Perk, number>([
@@ -22,6 +23,7 @@ export class PerkDataService {
     [Perk.Depressed, 5],
     [Perk.BadStudent, 3],
     [Perk.Strong, 8],
+    [Perk.Gossiper, 4],
   ])
 
 
