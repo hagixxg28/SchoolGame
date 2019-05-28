@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Bar } from '../models/bar';
 
 const stressUrl = "./assets/images/icons/barIcons/stress.png"
-const socialUrl = "./assets/images/icons/barIcons/social.png"
+const socialUrl = "./assets/images/icons/barIcons/social2.png"
 const gradesUrl = "./assets/images/icons/barIcons/grades.png"
-const parentsUrl = "./assets/images/icons/barIcons/parents.png"
+const parentsUrl = "./assets/images/icons/barIcons/parents2.png"
 
 
 @Injectable({
