@@ -11,7 +11,6 @@ import { dayTimes } from '../enums/dayTimes';
 import { Perk } from '../enums/Perks';
 import { choiceWithText } from '../models/choiceWithText';
 import { GameState } from '../models/gameState';
-import { EventReactionService } from './event-reaction.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ import { EventReactionService } from './event-reaction.service';
 export class EventsService {
 
   //#region Include Varriables
-  constructor(private charactersData: CharacterDataService, private reactionService: EventReactionService) { }
+  constructor(private charactersData: CharacterDataService) { }
 
   //Event Booleans:
   includeBully = true;
@@ -36,6 +35,8 @@ export class EventsService {
   includeCoach = true;
   includePrincipal = true;
   includeLela = true;
+  includeShyGirl = true;
+  includeEnviorment = true;
 
   includeSmoker = false;
   includeDepressed = false;
@@ -99,46 +100,124 @@ export class EventsService {
     )],
   ])
 
+  ShyGirlReactionEventMap = new Map<String, GameEvent>([
+    ["look", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.morning,
+      "She quickly looks away", "", "",
+      new Choice(),
+      new Choice()
+    )],
+    ["notBad", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "Not that bad? I need at least an average of 95 if I want to get into a good college!", "What will you get from a good college?", "Wow, that’s alot.",
+      new Choice(0, -5, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad2")),
+      new Choice(0, 5)
+    )],
+    ["notBad2", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "Are you seriously asking that?", "Yeah, I really want to know.", "Forget it",
+      new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad3")),
+      new Choice(0)
+    )],
+    ["notBad3", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "Well, a good college means a good job for the future", "So if you don’t get 95 in all of your tests you basically die", "Oh.",
+      new Choice(0, -10, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad4")),
+      new Choice(0)
+    )],
+    ["notBad4", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "You just don’t get it. It’s not like that.", "It sounds like your worrying too much about this", "Well it’s your life.",
+      new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad5")),
+      new Choice(0)
+    )],
+    ["notBad5", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "*sighs* Maybe I am..", "It’s alright, achieving is good, just don’t overdo it.", "If I were you I would just try to enjoy the moment, we won’t be young forever",
+      new Choice(0, 10),
+      new Choice(0, -5, 0, 0, () => this.ShyGirlReactionEventMap.get('notBad6'))
+    )],
+    ["notBad6", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "No! I need to study!", "Okay", "Alright..",
+      new Choice(),
+      new Choice()
+    )],
+    ["jessyHangout", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.afternoon,
+      "I can’t hang out today.. I got a lot of homework", "Come on, just abit!", "Alright..",
+      new Choice(0, 5, 0, 0, () => this.ShyGirlReactionEventMap.get("jessyHangout2")),
+      new Choice()
+    )],
+    ["jessyHangout2", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.afternoon,
+      "No no… I can’t", "You gotta spice things up abit, the homework can wait", "Okay.",
+      new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("jessyHangout3")),
+      new Choice()
+    )],
+    ["jessyHangout3", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.afternoon,
+      "Alright, I guess I can stay for abit", "Oh yeah!", "On a second thought, forget it.",
+      new Choice(0, 5),
+      new Choice(0, -10)
+    )],
+  ])
+
   PrincipalReactionMap = new Map<String, GameEvent>([
     ["confront", new GameEvent(
       this.charactersData.getCharacter(Characters.Principal),
       dayTimes.afternoon,
       "I did not say such things! You better watch your mouth!", "I’m sorry!", "Don’t try lying! I heard you!",
       new Choice(0, 0, -5),
-      new Choice(0, 0, -10, 0,
-        new GameEvent(
-          this.charactersData.getCharacter(Characters.Principal),
-          dayTimes.afternoon,
-          "You’re just another petty student, you don’t know what you heard.", "Forget it…", "A petty student? You’re a perverted piece of shit!",
-          new Choice(0),
-          new Choice(0, 0, -10, 0,
-            new GameEvent(
-              this.charactersData.getCharacter(Characters.Principal),
-              dayTimes.afternoon,
-              "Watch it, or I’ll make your life within this school a living hell.", "Walk away", "People are going to hear about this.",
-              new Choice(0),
-              new Choice(5, 0, -5, 0,
-                new GameEvent(
-                  this.charactersData.getCharacter(Characters.Principal),
-                  dayTimes.afternoon,
-                  "Oh! You’re threatening me? Even though none will believe you?", "Walk away", "I’m not going to go down alone.",
-                  new Choice(0),
-                  new Choice(0, 0, -10, 0,
-                    new GameEvent(
-                      this.charactersData.getCharacter(Characters.Principal),
-                      dayTimes.afternoon,
-                      "I’m giving you a last chance, walk away and I’ll forget about this.", "Walk away", "I recorded you with my phone (bluff)",
-                      new Choice(0),
-                      new Choice(10, 0, -5, 0,
-                        new GameEvent(
-                          this.charactersData.getCharacter(Characters.Principal),
-                          dayTimes.afternoon,
-                          "You’re right, I’m sorry, I shouldn’t talk like that", "Good boy..", "We’re not done, raise my grades, or else.",
-                          new Choice(0, 20),
-                          new Choice(0, 0, 40, 0))))))))))))
+      new Choice(0, 0, -10, 0, () => this.PrincipalReactionMap.get('confront2'))),],
+    ["confront2",
+      new GameEvent(
+        this.charactersData.getCharacter(Characters.Principal),
+        dayTimes.afternoon,
+        "You’re just another petty student, you don’t know what you heard.", "Forget it…", "A petty student? You’re a perverted piece of shit!",
+        new Choice(0),
+        new Choice(0, 0, -10, 0, () => this.PrincipalReactionMap.get('confront3'))),],
+    ["confront3",
+      new GameEvent(
+        this.charactersData.getCharacter(Characters.Principal),
+        dayTimes.afternoon,
+        "Watch it, or I’ll make your life within this school a living hell.", "Walk away", "People are going to hear about this.",
+        new Choice(0),
+        new Choice(5, 0, -5, 0, () => this.PrincipalReactionMap.get('confront4'))),],
+    ["confront4",
+      new GameEvent(
+        this.charactersData.getCharacter(Characters.Principal),
+        dayTimes.afternoon,
+        "Oh! You’re threatening me? Even though none will believe you?", "Walk away", "I’m not going to go down alone.",
+        new Choice(0),
+        new Choice(0, 0, -10, 0, () => this.PrincipalReactionMap.get('confront5'))),],
+    ["confront5",
+      new GameEvent(
+        this.charactersData.getCharacter(Characters.Principal),
+        dayTimes.afternoon,
+        "I’m giving you a last chance, walk away and I’ll forget about this.", "Walk away", "I recorded you with my phone (bluff)",
+        new Choice(0),
+        new Choice(10, 0, -5, 0, () => this.PrincipalReactionMap.get('confront6'))),],
+    ["confront6",
+      new GameEvent(
+        this.charactersData.getCharacter(Characters.Principal),
+        dayTimes.afternoon,
+        "You’re right, I’m sorry, I shouldn’t talk like that", "Good boy..", "We’re not done, raise my grades, or else.",
+        new Choice(0, 20),
+        new Choice(0, 0, 40, 0))
     ]
   ]);
-  z
+
   //#endregion
 
   //#region Events
@@ -168,14 +247,14 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Lela),
       dayTimes.noon,
       "You see Ms.Lela heading out of the school when she should be teaching", "Tell her about the class", "Ignore",
-      new Choice(0, 0, 0, 0, this.LelaReactionEventMap.get("walkOut")),
+      new Choice(0, 0, 0, 0, () => this.LelaReactionEventMap.get("walkOut")),
       new Choice()
     ),
     new GameEvent(
       this.charactersData.getCharacter(Characters.Lela),
       dayTimes.afternoon,
       "Do you know if Stacy has a boyfriend?", "Fabricate a juicy story to please her", "I don’t know",
-      new Choice(0, -5, 5, 0, this.LelaReactionEventMap.get("juicyGossip")),
+      new Choice(0, -5, 5, 0, () => this.LelaReactionEventMap.get("juicyGossip")),
       new Choice(0, 0, -5)
     ),
     new GameEvent(
@@ -183,7 +262,7 @@ export class EventsService {
       dayTimes.noon,
       "Why aren’t you paying attention?", "I’m sorry ma’am", "I can’t focus with such a hot teacher",
       new Choice(0, 0, -5),
-      new Choice(0, 0, 10, 0, this.LelaReactionEventMap.get("kissUp"))
+      new Choice(0, 0, 10, 0, () => this.LelaReactionEventMap.get("kissUp"))
     ),
     new GameEvent(
       this.charactersData.getCharacter(Characters.Lela),
@@ -230,7 +309,7 @@ export class EventsService {
       dayTimes.afternoon,
       "You hear the principal saying inappropriate things about Stacy’s body", "Ignore it", "Confront him",
       new Choice(),
-      new Choice(0, 0, 0, 0, this.PrincipalReactionMap.get("confront"))
+      new Choice(0, 0, 0, 0, () => this.PrincipalReactionMap.get("confront"))
     ),
   ]
 
@@ -276,13 +355,42 @@ export class EventsService {
     ),
   ]
 
+  ShyGirlEvents = [
+
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.morning,
+      "You see Jessy looking at you with a smile", "Look at her and smile back", "Break eye contact",
+      new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("look")),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "I can’t believe I only got 85 on this test!", "You’ll do better next time", "85 is not that bad",
+      new Choice(0, 5),
+      new Choice(0, -5, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad"))
+    ),
+
+  ]
+
+  EnvoirmentEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.AfternoonView),
+      dayTimes.afternoon,
+      "School has ended", "Head home", "Find someone to hang out with",
+      new Choice(0),
+      new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("jessyHangout"))
+    ),
+  ]
+
   BullyEvents = [
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.noon,
       "Pushes you violently", "Push him back", "Ignore him",
-      new Choice(15, 0, 0, 0, this.BullyReactionEventMap.get("pushBack"), new Map<Perk, choiceWithText>([
+      new Choice(15, 0, 0, 0, () => this.BullyReactionEventMap.get("pushBack"), new Map<Perk, choiceWithText>([
         [Perk.Smoker, new choiceWithText("Wanna smoke?(Smoker)", new Choice())],
         [Perk.Depressed, new choiceWithText("Just beat me up already", new Choice())],
         [Perk.Strong, new choiceWithText("Beat the shit out of him", new Choice())],
@@ -545,7 +653,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Mom),
       dayTimes.afternoon,
       "Who is that cute girl you’re hanging out with?", "Just a Friend", "Nobody",
-      new Choice(5, 0, 0, -5, this.MomReactionEventMap.get("girlfriend")),
+      new Choice(5, 0, 0, -5, () => this.MomReactionEventMap.get("girlfriend")),
       new Choice(0, 0, 0, 0)
     ),
     new GameEvent(
@@ -770,6 +878,13 @@ export class EventsService {
     if (this.includeLela) {
       this.CurrentEvents = this.CurrentEvents.concat(this.LelaEvents);
     }
+    if (this.includeShyGirl) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.ShyGirlEvents);
+    }
+    if (this.includeEnviorment) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.EnvoirmentEvents);
+    }
+
 
     if (this.includeSmoker) {
       this.CurrentEvents = this.CurrentEvents.concat(this.SmokerEvents)
