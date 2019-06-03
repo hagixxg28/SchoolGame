@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef, OnInit, ɵConsole } from '@angular/core';
 
 const SWIPE_ROTATION_X_PER_DEG = 20;
 const SWIPE_DISTANCE_WHEN_DONE = 800
