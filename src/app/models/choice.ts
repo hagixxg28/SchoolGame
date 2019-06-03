@@ -9,7 +9,7 @@ export class Choice {
         public socialBarValue?: number,
         public schoolBarValue?: number,
         public parentsBarValue?: number,
-        public nextEvent?: GameEvent,
+        public nextEvent?: () => GameEvent,
         public perkChoiceMap?: Map<Perk, choiceWithText>,
         public perk?: Perk,
         public skipToTime?: dayTimes,
