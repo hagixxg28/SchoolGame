@@ -4,5 +4,6 @@ export class PerkObject {
     public constructor(
         public perkName: Perk,
         public daysToRecover: number,
+        public noRemakeDay?: boolean
     ) { }
 }    
