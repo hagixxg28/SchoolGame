@@ -13,6 +13,8 @@ export class IconMapService {
     [Perk.Smoker, "../assets/images/icons/perkIcons/Smoker.png"],
     [Perk.Depressed, "../assets/images/icons/perkIcons/Depressed.png"],
     [Perk.Gossiper, "../assets/images/icons/perkIcons/Gossiper.png"],
+    [Perk.Smart, "../assets/images/icons/perkIcons/Smart.png"],
+    [Perk.Cheater, "../assets/images/icons/perkIcons/Cheater.png"],
     [Status.Chill, "../assets/images/icons/statusIcons/chill.png"],
     [Status.DumbDumb, "../assets/images/icons/statusIcons/dumbdumb.png"],
     [Status.LocalCeleb, "../assets/images/icons/statusIcons/localCeleb.png"],
