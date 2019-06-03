@@ -16,6 +16,7 @@ import { MusicService } from 'src/app/services/music.service';
 import { PerkObject } from 'src/app/models/perkObject';
 import { PerkDataService } from 'src/app/Data/perk-data.service';
 import { StatusService } from 'src/app/services/status.service';
+import { PreMadeDayService } from 'src/app/services/pre-made-day.service';
 
 @Component({
   selector: 'app-big-test',
@@ -28,11 +29,11 @@ import { StatusService } from 'src/app/services/status.service';
       state('mid-high', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #467a5e)' })),
       state('mid-low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #242424)' })),
       state('low', style({ opacity: '1', background: 'linear-gradient(to right, #2c2d34, #33ccff)' })),
-      state('morning', style({ opacity: '1', background: 'linear-gradient(to top, #ffffcc 0%, #00ccff 100%)' })),
-      state('noon', style({ opacity: '1', background: 'linear-gradient(to top, #ffffcc 0%, #00ccff 50%)' })),
-      state('afternoon', style({ opacity: '1', background: 'linear-gradient(to top, #ff9999 28%, #0066ff 85%)' })),
-      state('evening', style({ opacity: '1', background: 'linear-gradient(to top, #ffffcc 5%, #003399 24%)' })),
-      state('night', style({ opacity: '1', background: 'linear-gradient(to right, #2980b9, #2c3e50)' })),
+      state('morning', style({ opacity: '1', background: 'linear-gradient(to top, #B2FEFA, #0ED2F7)' })),
+      state('noon', style({ opacity: '1', background: 'linear-gradient(to top, #56CCF2,#2F80ED )' })),
+      state('afternoon', style({ opacity: '1', background: 'linear-gradient(to top, #C06C84 ,#6C5B7B , #355C7D )' })),
+      state('evening', style({ opacity: '1', background: 'linear-gradient(to top,   #004e92,#000428 )' })),
+      state('night', style({ opacity: '1', background: 'linear-gradient(to top,  #243B55, #141E30 )' })),
       state('dream1', style({ opacity: '1', background: 'linear-gradient(to right, #1d4350, #a43931)' })),
       state('dream2', style({ opacity: '1', background: 'linear-gradient(to right, #eecda3, #ef629f)' })),
       state('dream3', style({ opacity: '1', background: 'linear-gradient(to right, #c33764, #1d2671)' })),
@@ -41,7 +42,7 @@ import { StatusService } from 'src/app/services/status.service';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService, private statusService: StatusService) { }
+  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService, private statusService: StatusService, private fixedDay: PreMadeDayService) { }
 
   ngOnInit() {
     this.statusService.ngOnInit()
@@ -128,12 +129,22 @@ export class BigTestComponent implements OnInit {
       return;
     }
     this.perkCountReducer()
-    this.buildDay();
-    this.updateGameStateDay();
-    this.pullFromDay();
+    if (this.currentDay.nextDay) {
+      this.currentDay = this.currentDay.nextDay
+      this.updateGameStateDay();
+      this.pullFromDay();
+    } else {
+      this.updateGameStateDay();
+      this.buildDay();
+      this.pullFromDay();
+    }
   }
   buildDay() {
-    this.currentDay = new Day();
+    if (this.gameState.dayNum == 1) {
+      this.currentDay = this.fixedDay.preTestDay
+      console.log(this.currentDay)
+      return;
+    }
     this.dayService.buildDay();
     this.currentDay = this.dayService.day;
   }
@@ -147,7 +158,7 @@ export class BigTestComponent implements OnInit {
   //#region calculation methods
 
 
-
+  //CHOICEMETHOD
   choiceSort(choice: Choice) {
 
     if (this.loseBoolean) {
@@ -172,9 +183,11 @@ export class BigTestComponent implements OnInit {
 
 
     if (choice.perk && this.isValidPerk(this.perkData.PerksMap.get(choice.perk))) {
-      let newPerk = new PerkObject(choice.perk, this.perkData.getRecoverDay(choice.perk))
+      let newPerk = this.perkData.PerksMap.get(choice.perk)
       this.addPerk(newPerk);
-      this.updateDay();
+      if (!newPerk.noRemakeDay) {
+        this.updateDay();
+      }
     }
 
 
@@ -221,7 +234,7 @@ export class BigTestComponent implements OnInit {
     }
     if (!this.loseBoolean) {
       setTimeout(() => {
-        this.event = choice.nextEvent; this.fullyUpdateAndPushGameState(); this.backgroundByDay();
+        this.event = choice.nextEvent(); this.fullyUpdateAndPushGameState(); this.backgroundByDay(); this.checkForPerkChoice(this.event.leftChoice); this.checkForPerkChoice(this.event.rightChoice);
       }, 1000);
     }
   }
@@ -556,6 +569,9 @@ export class BigTestComponent implements OnInit {
   //#region color methods
 
   checkForPerkChoice(choice: Choice) {
+    if (!choice) {
+      return;
+    }
     if (!choice.perkChoiceMap) {
       return;
     }
