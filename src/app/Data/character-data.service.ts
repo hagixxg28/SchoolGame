@@ -22,6 +22,7 @@ export class CharacterDataService {
     ["Teacher", new Character("Teacher", "Teacher", "#001f3f", "../assets/images/characters/Giovanna.png")],
     ["Principal", new Character("Sebastian", "Principal", "#AAAAAA", "../assets/images/characters/principal2.png")],
     ["Lela", new Character("Ms.Lela", "Teacher", "#3D9970", "../assets/images/characters/teacher.png")],
+    ["ShyGirl", new Character("Jessy", "Overachiever", "rgba(149,151,197,0.65)", "../assets/images/characters/shyGirl2.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
@@ -35,6 +36,8 @@ export class CharacterDataService {
 
     //Void Character
     ["VoidBoi", new Character("", "", "", "")],
+    ["AfternoonView", new Character("", "", "#AAAAAA", "../assets/images/characters/AfternoonView.png")],
+    ["DreamBoi", new Character("????", "??", "#AAAAAA", "../assets/images/characters/dreamBoi.png")],
   ])
 
 

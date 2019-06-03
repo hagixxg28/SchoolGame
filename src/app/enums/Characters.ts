@@ -13,6 +13,7 @@ export enum Characters {
     Teacher = "Teacher",
     Coach = "Coach",
     Lela = "Lela",
+    ShyGirl = "ShyGirl",
     Principal = "Principal",
     StressFull = "StressFull",
     StressLess = "StressLess",
@@ -21,6 +22,8 @@ export enum Characters {
     ParentFull = "ParentFull",
     ParentLess = "ParentLess",
     GradeFull = "GradeFull",
-    GradeEmpty = "GradeEmpty"
+    GradeEmpty = "GradeEmpty",
+    AfternoonView = "AfternoonView",
+    DreamBoi = "DreamBoi",
 
 }

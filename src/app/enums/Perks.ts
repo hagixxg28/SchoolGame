@@ -4,5 +4,7 @@ export enum Perk {
     Depressed = "Depressed",
     Strong = "Strong",
     Gossiper = "Gossiper",
-    BadStudent = "Slacker"
+    BadStudent = "Slacker",
+    Cheater = "Cheater",
+    Smart = "Smart"
 }
