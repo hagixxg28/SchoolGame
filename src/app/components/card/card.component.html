@@ -27,7 +27,7 @@
         {{event.mainText}}
       </p>
     </mat-card-content>
-    <span #buttons *ngIf="renderButtons">
+    <span [ngClass]="{'hideMe': !renderButtons}">
       <button [disabled]="isPressed" mat-raised-button color="primary"
         class="left-button button-margin optionText textButton increaseSize" (click)="swipe.swipeLeft()"
         (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>

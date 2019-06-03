@@ -10,6 +10,10 @@ p {
   top: -0.4vh
 }
 
+.mat-card-image {
+  border-radius: 20px;
+}
+
 
 .example-card {
   display: block;
@@ -33,7 +37,6 @@ p {
   margin-right: auto;
   max-width: 300px;
   height: 36vh;
-  border-radius: 20px;
   /* border: solid rgba(228, 228, 228, 0.25) 10px; */
 }
 
@@ -54,6 +57,10 @@ p {
 
 .eventText {
   font-size: 24px;
+}
+
+.hideMe {
+  display: none;
 }
 
 .hiddenText {
