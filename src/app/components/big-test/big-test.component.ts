@@ -81,7 +81,7 @@ export class BigTestComponent implements OnInit {
 
   pullFromDay() {
     if (this.currentDay.morning) {
-      this.event = this.currentDay.morning
+      this.eventBinder(this.currentDay.morning)
       this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
@@ -97,7 +97,7 @@ export class BigTestComponent implements OnInit {
       return;
     }
     if (this.currentDay.afternoon) {
-      this.event = this.currentDay.afternoon
+      this.eventBinder(this.currentDay.afternoon)
       this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
@@ -105,7 +105,7 @@ export class BigTestComponent implements OnInit {
       return;
     }
     if (this.currentDay.evening) {
-      this.event = this.currentDay.evening
+      this.eventBinder(this.currentDay.evening)
       this.updateGameStateTime()
       this.checkForPerkChoice(this.event.leftChoice)
       this.checkForPerkChoice(this.event.rightChoice)
@@ -140,11 +140,6 @@ export class BigTestComponent implements OnInit {
     }
   }
   buildDay() {
-    if (this.gameState.dayNum == 1) {
-      this.currentDay = this.fixedDay.preTestDay
-      console.log(this.currentDay)
-      return;
-    }
     this.dayService.buildDay();
     this.currentDay = this.dayService.day;
   }
@@ -645,6 +640,12 @@ export class BigTestComponent implements OnInit {
         return;
       }
     }
+  }
+
+  eventBinder(event: GameEvent): void {
+    this.event = this.eventService.getTransitionEvent(event);
+    this.event.leftChoice.nextEvent = () => event;
+    this.event.rightChoice.nextEvent = () => event;
   }
 
   //#endregion
