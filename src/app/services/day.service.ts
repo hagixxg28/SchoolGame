@@ -3,13 +3,14 @@ import { EventsService } from './events.service';
 import { Day } from '../models/day';
 import { dayTimes } from '../enums/dayTimes';
 import { GameEvent } from '../models/gameEvent';
+import { PreMadeDayService } from './pre-made-day.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DayService {
 
-  constructor(private eventService: EventsService) { }
+  constructor(private eventService: EventsService, private preMadeDayService: PreMadeDayService) { }
 
   day: Day = new Day();
   hasMorning = true;
@@ -42,6 +43,13 @@ export class DayService {
 
 
   buildDay(currentTime?) {
+    if (this.rollForPreMadeDay()) {
+      let potentialDay = this.preMadeDayService.pullRandomDay();
+      if (potentialDay != null) {
+        this.day = potentialDay
+        return;
+      }
+    }
     this.day = new Day();
     this.rollForDream();
     this.rollForNight();
@@ -83,6 +91,15 @@ export class DayService {
     }
     this.hasDream = false;
     this.day.dream = undefined;
+  }
+
+  rollForPreMadeDay() {
+    let randomNumber = Math.floor((Math.random() * 100))
+    console.log(randomNumber)
+    if (randomNumber < 33) {
+      return true;
+    }
+    return false;
   }
 
   pickMorningEvent(currentTime?) {
