@@ -8,6 +8,7 @@ export class Day {
         public evening?: GameEvent,
         public night?: GameEvent,
         public dream?: GameEvent,
-        public nextDay?: Day
+        public nextDay?: Day,
+        public wasPicked?: boolean
     ) { }
 }    
