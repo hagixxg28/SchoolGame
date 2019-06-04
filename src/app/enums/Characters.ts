@@ -23,7 +23,12 @@ export enum Characters {
     ParentLess = "ParentLess",
     GradeFull = "GradeFull",
     GradeEmpty = "GradeEmpty",
+    MorningView = "MorningView",
+    MorningView2 = "MorningView2",
     AfternoonView = "AfternoonView",
+    AfternoonView2 = "AfternoonView2",
+    EveningView = "EveningView",
+    EveningView2 = "EveningView2",
     DreamBoi = "DreamBoi",
 
 }
