@@ -479,7 +479,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
       "You're cute!", "Flirt with her", "No thanks.",
-      new Choice(-10, 15, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(-10, 15, 0, 0),
       new Choice(0, -15)
     ),
 
@@ -487,7 +487,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
       "You wear this to school?", "What's wrong with it?", "I'll do better",
-      new Choice(5, -10, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(5, -10, 0, 0),
       new Choice(5, 5)
     ),
 
@@ -770,6 +770,62 @@ export class EventsService {
       new Choice(0, -5)
     ),
   ]
+
+  MorningTransitionEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.MorningView),
+      dayTimes.morning,
+      "The sun is rising once again", "Sleep a little more", "Get up",
+      new Choice(-5, 0, 0, -5),
+      new Choice(5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.MorningView),
+      dayTimes.morning,
+      "Another day begins", "Another day another grade", "I want to sleep..",
+      new Choice(-5, 0, 0),
+      new Choice(5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.MorningView2),
+      dayTimes.morning,
+      "Light shines on your face, waking you up", "Close the window", "Get up",
+      new Choice(-5, 0, 0, -5),
+      new Choice(5)
+    ),
+  ]
+  AfternoonTransitionEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.AfternoonView),
+      dayTimes.afternoon,
+      "The day has come to an end, the sun is over your head", "Enjoy the moment", "Keep going",
+      new Choice(-5),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.AfternoonView2),
+      dayTimes.afternoon,
+      "The sun's going down", "It's about time", "Keep going",
+      new Choice(-5),
+      new Choice()
+    ),
+  ]
+  EveningTransitionEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.EveningView),
+      dayTimes.evening,
+      "Stars begin to shine in the night sky", "Prepare yourself for the next day", "Enjoy the evening",
+      new Choice(10, 0, 5),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.EveningView2),
+      dayTimes.evening,
+      "The night falls on the city", "Prepare yourself for the next day", "Enjoy the evening",
+      new Choice(10, 0, 5),
+      new Choice()
+    ),
+  ]
   CurrentEvents = this.OtherEvents
 
   morningEvents = [];
@@ -904,7 +960,6 @@ export class EventsService {
   }
 
   pullNext() {
-    // let item = this.CurrentEvents[Math.floor(Math.random() * this.CurrentEvents.length)];
     let item = this.CurrentEvents[Math.floor(Math.random() * this.CurrentEvents.length)];
     return item;
   }
@@ -986,6 +1041,25 @@ export class EventsService {
     return this.pullNextFromArray(this.dreamEvents);
   }
 
+  getTransitionEvent(event: GameEvent): GameEvent {
+    let transEvent
+    switch (event.dayTime) {
+      case dayTimes.morning:
+        transEvent = this.pullNextFromArray(this.MorningTransitionEvents);
+        break;
+
+      case dayTimes.afternoon:
+        transEvent = this.pullNextFromArray(this.AfternoonTransitionEvents);
+        break;
+
+      case dayTimes.evening:
+        transEvent = this.pullNextFromArray(this.EveningTransitionEvents);
+        break;
+    }
+    return transEvent
+
+  }
+
 
   resetAllEvents() {
     this.CurrentEvents = []
@@ -1003,10 +1077,6 @@ export class EventsService {
     });
   }
 
-  getPrincipalReactMap(): Map<String, GameEvent> {
-    let map = this.PrincipalReactionMap
-    return map;
-  }
 
   perkIncluder(perk) {
     switch (perk) {

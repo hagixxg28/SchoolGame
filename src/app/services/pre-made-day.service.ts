@@ -36,19 +36,19 @@ export class PreMadeDayService {
       "Fuck off!",
       "You can copy it if you want",
       new Choice(5, -5, 0, 0), new Choice(0, 10))],
-    ['inRoom', new GameEvent(this.charData.getCharacter(Characters.AfternoonView), dayTimes.evening, "You're in your room, what are you going to do?",
+    ['inRoom', new GameEvent(this.charData.getCharacter(Characters.EveningView), dayTimes.evening, "You're in your room, what are you going to do?",
       "Study for the test",
       "Just chill",
       new Choice(5, 0, 0, 0, () => this.preTestDayReactionMap.get('study1')), new Choice(-10, 0))],
-    ['study1', new GameEvent(this.charData.getCharacter(Characters.AfternoonView), dayTimes.evening, "You're studying for the test, you're not having fun",
+    ['study1', new GameEvent(this.charData.getCharacter(Characters.EveningView), dayTimes.evening, "You're studying for the test, you're not having fun",
       "Keep studying",
       "Finish studying",
       new Choice(10, 0, 0, 0, () => this.preTestDayReactionMap.get('study2')), new Choice())],
-    ['study2', new GameEvent(this.charData.getCharacter(Characters.AfternoonView), dayTimes.evening, "You're growing tired as you continue studying",
+    ['study2', new GameEvent(this.charData.getCharacter(Characters.EveningView), dayTimes.evening, "You're growing tired as you continue studying",
       "Keep studying",
       "Finish studying",
       new Choice(5, 0, 0, 0, () => this.preTestDayReactionMap.get('study3')), new Choice())],
-    ['study3', new GameEvent(this.charData.getCharacter(Characters.AfternoonView), dayTimes.evening, "You feel like you covered the important subjects of the test",
+    ['study3', new GameEvent(this.charData.getCharacter(Characters.EveningView), dayTimes.evening, "You feel like you covered the important subjects of the test",
       "That should be enough",
       "I need to study more",
       new Choice(-5, 0, 0, 0, undefined, undefined, Perk.Smart),
@@ -191,5 +191,20 @@ export class PreMadeDayService {
       new Choice(10, 0, 0, 0, () => this.preTestDayReactionMap.get('notReady'))),
     this.testDay
   )
+
+
+  preMadeDays = new Map<number, Day>([
+    [0, this.preTestDay]
+  ])
+
+
+  pullRandomDay(): Day {
+    let day = this.preMadeDays.get(Math.floor(Math.random() * this.preMadeDays.size));
+    if (day.wasPicked) {
+      return null;
+    }
+    day.wasPicked = true;
+    return day;
+  }
 
 }
