@@ -36,7 +36,12 @@ export class CharacterDataService {
 
     //Void Character
     ["VoidBoi", new Character("", "", "", "")],
-    ["AfternoonView", new Character("", "", "#AAAAAA", "../assets/images/characters/AfternoonView.png")],
+    ["MorningView", new Character("", "", "#FFDC00", "../assets/images/characters/MorningView.png")],
+    ["MorningView2", new Character("", "", "#FFDC00", "../assets/images/characters/MorningView2.png")],
+    ["AfternoonView", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView.png")],
+    ["AfternoonView2", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView2.png")],
+    ["EveningView", new Character("", "", "#022d58", "../assets/images/characters/EveningView.png")],
+    ["EveningView2", new Character("", "", "#022d58", "../assets/images/characters/EveningView2.png")],
     ["DreamBoi", new Character("????", "??", "#AAAAAA", "../assets/images/characters/dreamBoi.png")],
   ])
 
