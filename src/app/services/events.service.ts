@@ -64,6 +64,58 @@ export class EventsService {
       new Choice(-5, 0, 0, -5),
       new Choice(5, 0, 0, 0)
     )],
+    ["Tv", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.night,
+      "Close to the tv now", "Just a little bit more!", "Ok..",
+      new Choice(0, 0, 0, -5),
+      new Choice(5, 0, 0, 0)
+    )],
+  ])
+  DreamReactionMap = new Map<String, GameEvent>([
+    ["richer", new GameEvent(
+      this.charactersData.getCharacter(Characters.Rich),
+      dayTimes.dream,
+      "Oh please, I have seen your grades and your parents, you have no chance!", "I’ll show you!", "It’s not fair!",
+      new Choice(5),
+      new Choice(10)
+    )],
+    ["pinkOwl", new GameEvent(
+      this.charactersData.getCharacter(Characters.PinkOwl),
+      dayTimes.dream,
+      "I’m an owl", "What the!?", "Go away!",
+      new Choice(5),
+      new Choice(5)
+    )],
+    ["stay", new GameEvent(
+      this.charactersData.getCharacter(Characters.Hall),
+      dayTimes.dream,
+      "You're in a hall", "Move Forward", "Stay in place.",
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('move')),
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('stay')),
+    )],
+    ["move", new GameEvent(
+      this.charactersData.getCharacter(Characters.DoorMan),
+      dayTimes.dream,
+      "I am the DoorMan, I guard the door.", "Let me through", "Good for you",
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('doorMan')),
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('doorMan')),
+    )],
+    ["doorMan", new GameEvent(
+      this.charactersData.getCharacter(Characters.DoorMan),
+      dayTimes.dream,
+      "If you wish to enter the door you must answer my question!", "What is your question?", "I don’t care.",
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('doorMan2')),
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('doorMan2')),
+    )],
+    ["doorMan2", new GameEvent(
+      this.charactersData.getCharacter(Characters.DoorMan),
+      dayTimes.dream,
+      "“I̴̛͖̠̻͍̺͔̹̦͕͌̃̉̐̒͐͋'̶̬̪̎͆̑̽͗̐̚͘͜l̵̡̛̗͇̳̺̥͇͍̦̂̂̄̌̑͘̕͜͠l̵͇̘̿̀̉͘̚ ̷̡̧̛͖̼̑̓̂ͅh̴̡̲̒̌́͂̂a̷͚͌́̃͑͂͗͆͗v̶̬̺̽̽͛͋̅̐̑͐̑̽ȩ̶͇͉͖̘̤̬̻͓͕̍ ̴͎̑̔̅̐̄̓́͘̕2̶̦͋̓ ̴͕͉̼͍̖̠͙́n̶̗̖͙̑̉̅͗͑̕u̵̳̪͓̥̎̆͆͂̎̕͘m̶̡͎̰̘̜̈́̈́͐́͆̃̆̈́͑͝b̵̜̹̝͖̱̺͊́͊́͌͒̋̀͝e̴̛͈̎̑͆r̶̞̮̙̿̄̋̎͌͠ ̵̮͇̬͓̉̇̊̽̂̉9̸̍̃̿̍͛̓̃̑̈͜͝,̷̯͚̖̠̈́͒͌̈́̈́̈́̇̈́̚̕ ̶̛̙̂̌̊͛̓̕̕̚ǎ̶̼̩̤̫̱̰̺̂̌̆̏͐̍͘͝ ̵̦͇̻̭͔̞̖̖͎͊̊̈̏n̸̹͍̼̓͛́u̸̧̨̗͙̰̗͌̓̄̿m̸̳̰̙͋́b̶̜̲͊ė̴̫́̀r̷̳̅̊̂̈́̈̐̆ ̷̙̻͍̦̻̳̜̮̟̂́̾9̶͔̣͙̻̘͇̊̅͒̀ ̵̖͍͓̺͓̘̙͇͔̾̀̃͒̇͋̕l̸͍̩̈͂̚a̶͎̩̐̓̔͛͋̉r̵̡̧̛̞͚̳͓̩̥͍̄̎̾̌̇͘͠ͅg̷̳͍̪̰̥̱̬͙̖͖̏̇͆̅͒̔̈̿͊͝è̷̡͎͕͕͇͌͗̏”", "Whaaat!?", "Sure thing.",
+      new Choice(10),
+      new Choice(),
+    )],
+
   ])
 
   LelaReactionEventMap = new Map<String, GameEvent>([
@@ -374,13 +426,20 @@ export class EventsService {
 
   ]
 
-  EnvoirmentEvents = [
+  EnviorMentEvents = [
     new GameEvent(
       this.charactersData.getCharacter(Characters.AfternoonView),
       dayTimes.afternoon,
       "School has ended", "Head home", "Find someone to hang out with",
       new Choice(0),
       new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("jessyHangout"))
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Tv),
+      dayTimes.night,
+      "A show you really like is on Tv", "Stay up late to watch it", "Go to sleep",
+      new Choice(-5, 0, 0, -5, () => this.MomReactionEventMap.get("Tv")),
+      new Choice()
     ),
   ]
 
@@ -676,36 +735,54 @@ export class EventsService {
 
   OtherEvents = [
 
-    new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-      dayTimes.dream,
-      "This is my domain", "Nice coding", "Leave me a loan",
-      new Choice(5, 10, -10),
-      new Choice(20, -15, 20, 0)
-    ),
-    new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-      dayTimes.dream,
-      "This is the second dream", "Nice dream", "Damn",
-      new Choice(5, 10, -10),
-      new Choice(20, -15, 20, 0)
-    ),
-    new GameEvent(this.charactersData.getCharacter(Characters.Dad),
-      dayTimes.dream,
-      "This is the second of dad", "Nice dream", "Damn",
-      new Choice(5, 10, -10),
-      new Choice(20, -15, 20, 0)
-    ),
+    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
+    //   dayTimes.dream,
+    //   "This is my domain", "Nice coding", "Leave me a loan",
+    //   new Choice(5, 10, -10),
+    //   new Choice(20, -15, 20, 0)
+    // ),
+    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
+    //   dayTimes.dream,
+    //   "This is the second dream", "Nice dream", "Damn",
+    //   new Choice(5, 10, -10),
+    //   new Choice(20, -15, 20, 0)
+    // ),
+    // new GameEvent(this.charactersData.getCharacter(Characters.Dad),
+    //   dayTimes.dream,
+    //   "This is the second of dad", "Nice dream", "Damn",
+    //   new Choice(5, 10, -10),
+    //   new Choice(20, -15, 20, 0)
+    // ),
 
-    new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-      dayTimes.night,
-      "I was made for testing", "Well you work!", "You don't work...",
-      new Choice(5, 10, -10, undefined),
-      new Choice(20, -15, 20, 0)
+    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
+    //   dayTimes.night,
+    //   "I was made for testing", "Well you work!", "You don't work...",
+    //   new Choice(5, 10, -10, undefined),
+    //   new Choice(20, -15, 20, 0)
+    // ),
+    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
+    //   dayTimes.night,
+    //   "I was made for 2", "Well you work!", "You don't work...",
+    //   new Choice(5, 10, -10, undefined),
+    //   new Choice(20, -15, 20, 0)
+    // ),
+    new GameEvent(this.charactersData.getCharacter(Characters.Rich),
+      dayTimes.dream,
+      "You will never be wealthy as I am!", "Who cares?", "I will be even richer than you!",
+      new Choice(-5),
+      new Choice(10, 0, 0, 0, () => this.DreamReactionMap.get('richer'))
     ),
-    new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-      dayTimes.night,
-      "I was made for 2", "Well you work!", "You don't work...",
-      new Choice(5, 10, -10, undefined),
-      new Choice(20, -15, 20, 0)
+    new GameEvent(this.charactersData.getCharacter(Characters.Owl),
+      dayTimes.dream,
+      "The owl looks at you curiously", "Is it morning already?", "What do you want?",
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('pinkOwl')),
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('pinkOwl'))
+    ),
+    new GameEvent(this.charactersData.getCharacter(Characters.Hall),
+      dayTimes.dream,
+      "You’re in a hall", "Move forward", "Stay in place.",
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('move')),
+      new Choice(0, 0, 0, 0, () => this.DreamReactionMap.get('stay'))
     ),
   ]
   GossiperEvents = [
@@ -793,12 +870,19 @@ export class EventsService {
       new Choice(-5, 0, 0, -5),
       new Choice(5)
     ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Owl),
+      dayTimes.morning,
+      "Yeah hear an owl outside of your house", "Look at it for abit", "Get up",
+      new Choice(-5, 0, 0, -5),
+      new Choice(5)
+    ),
   ]
   AfternoonTransitionEvents = [
     new GameEvent(
       this.charactersData.getCharacter(Characters.AfternoonView),
       dayTimes.afternoon,
-      "The day has come to an end, the sun is over your head", "Enjoy the moment", "Keep going",
+      "The day has come to an end, the sun is setting", "Enjoy the moment", "Keep going",
       new Choice(-5),
       new Choice()
     ),
@@ -809,12 +893,19 @@ export class EventsService {
       new Choice(-5),
       new Choice()
     ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.AfternoonView2),
+      dayTimes.afternoon,
+      "The sun paints the city red before it sets", "I love sunsets", "Keep going",
+      new Choice(-5),
+      new Choice()
+    ),
   ]
   EveningTransitionEvents = [
     new GameEvent(
       this.charactersData.getCharacter(Characters.EveningView),
       dayTimes.evening,
-      "Stars begin to shine in the night sky", "Prepare yourself for the next day", "Enjoy the evening",
+      "Stars begin to shine in the night's sky", "Prepare yourself for the next day", "Enjoy the evening",
       new Choice(10, 0, 5),
       new Choice()
     ),
@@ -823,6 +914,13 @@ export class EventsService {
       dayTimes.evening,
       "The night falls on the city", "Prepare yourself for the next day", "Enjoy the evening",
       new Choice(10, 0, 5),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.EveningView3),
+      dayTimes.evening,
+      "The light tower shines within the darkness", "Never saw it before", "Enjoy the evening",
+      new Choice(),
       new Choice()
     ),
   ]
@@ -938,7 +1036,7 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.ShyGirlEvents);
     }
     if (this.includeEnviorment) {
-      this.CurrentEvents = this.CurrentEvents.concat(this.EnvoirmentEvents);
+      this.CurrentEvents = this.CurrentEvents.concat(this.EnviorMentEvents);
     }
 
 
