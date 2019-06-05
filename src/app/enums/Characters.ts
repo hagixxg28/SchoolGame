@@ -27,8 +27,16 @@ export enum Characters {
     MorningView2 = "MorningView2",
     AfternoonView = "AfternoonView",
     AfternoonView2 = "AfternoonView2",
+    AfternoonView3 = "AfternoonView3",
     EveningView = "EveningView",
     EveningView2 = "EveningView2",
+    EveningView3 = "EveningView3",
     DreamBoi = "DreamBoi",
+    Tv = "Tv",
+    Owl = "Owl",
+    PinkOwl = "PinkOwl",
+    Rich = "Rich",
+    Hall = "Hall",
+    DoorMan = "DoorMan",
 
 }

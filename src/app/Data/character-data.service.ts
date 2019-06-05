@@ -36,13 +36,27 @@ export class CharacterDataService {
 
     //Void Character
     ["VoidBoi", new Character("", "", "", "")],
+
+    //Enviorment Characters
     ["MorningView", new Character("", "", "#FFDC00", "../assets/images/characters/MorningView.png")],
     ["MorningView2", new Character("", "", "#FFDC00", "../assets/images/characters/MorningView2.png")],
     ["AfternoonView", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView.png")],
     ["AfternoonView2", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView2.png")],
+    ["AfternoonView2", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView3.png")],
     ["EveningView", new Character("", "", "#022d58", "../assets/images/characters/EveningView.png")],
     ["EveningView2", new Character("", "", "#022d58", "../assets/images/characters/EveningView2.png")],
+    ["EveningView3", new Character("", "", "#022d58", "../assets/images/characters/EveningView2.png")],
+
+    //Objects and Animals
+    ["Owl", new Character("", "", "#FFDC00", "../assets/images/characters/Owl.png")],
+    ["Tv", new Character("Tv", "in room", "#AAAAAA", "../assets/images/characters/Tv.png")],
+    ["Hall", new Character("??", "???", "#022d58", "../assets/images/characters/Hall.png")],
+
+    //Dream Characters
     ["DreamBoi", new Character("????", "??", "#AAAAAA", "../assets/images/characters/dreamBoi.png")],
+    ["Rich", new Character("Rich", "Wealthy", "#FF851B", "../assets/images/characters/Rich.png")],
+    ["PinkOwl", new Character("???", "??", "#AAAAAA", "../assets/images/characters/PinkOwl.png")],
+    ["DoorMan", new Character("DoorMan", "Guardian", "#FF851B", "../assets/images/characters/DoorMan.png")],
   ])
 
 
