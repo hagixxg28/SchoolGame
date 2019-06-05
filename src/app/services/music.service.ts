@@ -15,11 +15,12 @@ export class MusicService implements OnInit {
   ngOnInit(): void {
     this.getState();
     this.playMusic();
+    this.mute();
   }
 
   playMusic() {
     this.morningSound.play();
-    this.morningSound.volume(0.8)
+    this.morningSound.volume(0.7)
     this.currentSound = this.morningSound;
   }
 

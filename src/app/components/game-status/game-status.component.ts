@@ -33,7 +33,7 @@ export class GameStatusComponent implements OnInit {
 
   gameState: GameState;
   lastState: GameState;
-  muted = false;
+  muted = true;
   currentStatus = "Normie";
 
   lastStatus = "";
