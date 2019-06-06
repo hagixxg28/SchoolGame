@@ -45,7 +45,7 @@ export class CharacterDataService {
     ["AfternoonView2", new Character("", "", "#85144b", "../assets/images/characters/AfternoonView3.png")],
     ["EveningView", new Character("", "", "#022d58", "../assets/images/characters/EveningView.png")],
     ["EveningView2", new Character("", "", "#022d58", "../assets/images/characters/EveningView2.png")],
-    ["EveningView3", new Character("", "", "#022d58", "../assets/images/characters/EveningView2.png")],
+    ["EveningView3", new Character("", "", "#022d58", "../assets/images/characters/EveningView3.png")],
 
     //Objects and Animals
     ["Owl", new Character("", "", "#FFDC00", "../assets/images/characters/Owl.png")],
@@ -55,7 +55,7 @@ export class CharacterDataService {
     //Dream Characters
     ["DreamBoi", new Character("????", "??", "#AAAAAA", "../assets/images/characters/dreamBoi.png")],
     ["Rich", new Character("Rich", "Wealthy", "#FF851B", "../assets/images/characters/Rich.png")],
-    ["PinkOwl", new Character("???", "??", "#AAAAAA", "../assets/images/characters/PinkOwl.png")],
+    ["PinkOwl", new Character("???", "??", "#F012BE", "../assets/images/characters/PinkOwl.png")],
     ["DoorMan", new Character("DoorMan", "Guardian", "#FF851B", "../assets/images/characters/DoorMan.png")],
   ])
 
