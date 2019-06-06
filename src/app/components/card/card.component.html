@@ -2,6 +2,17 @@
   [ngClass]="{'short': isLeftShortText, 'left-text-evening':eveningText}">{{event.leftText}}</span>
 <span *ngIf="isSwipeRight" class="absolute-center right-text-morning text-fade-in"
   [ngClass]="{'short': isRightShortText, 'right-text-evening':eveningText}">{{event.rightText}}</span>
+
+
+<span *ngIf="isHoverRight" class="absolute-right right-text-morning increaseSize"
+  [ngClass]="{'short': isRightShortText, 'right-text-evening':eveningText,'decreaseSize' : rightTextFade, 'long' : isRightLongText}"
+  (animationend)="hideTextRightEnd($event)">{{event.rightText}}</span>
+
+<span *ngIf="isHoverLeft" class="absolute-left left-text-morning increaseSize"
+  [ngClass]="{'short': isLeftShortText, 'left-text-evening':eveningText, 'decreaseSize' : leftTextFade, 'long' : isLeftLongText}"
+  (animationend)="hideTextLeftEnd($event)">{{event.leftText}}</span>
+
+
 <app-swipe #swipe (previewSwipeLeft)="showSwipeTextLeft()" (previewSwipeRight)="showSwipeTextRight()"
   (hidePreviewSwipeLeft)="hideSwipeTextLeft()" (hidePreviewSwipeRight)="hideSwipeTextRight()"
   (swipedLeft)="makeChoiceLeft()" (swipedRight)="makeChoiceRight()" [resetSwipe]="resetSwipe"
@@ -28,22 +39,25 @@
       </p>
     </mat-card-content>
     <span [ngClass]="{'hideMe': !renderButtons}">
-      <button [disabled]="isPressed" mat-raised-button color="primary"
+      <!-- <button [disabled]="isPressed" mat-raised-button color="primary"
         class="left-button button-margin optionText textButton increaseSize" (click)="swipe.swipeLeft()"
-        (mouseleave)="hideTextLeft()" *ngIf="isHoverLeft">{{event.leftText}}</button>
+        *ngIf="isHoverLeft">{{event.leftText}}</button> -->
+
       <button mat-raised-button color="primary"
         class="left-button button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
-        [ngClass]="{'textAnim': buttonsAnim}" *ngIf="!isHoverLeft" (mouseenter)="showTextLeft()">
+        [ngClass]="{'textAnim': buttonsAnim}" (mouseenter)="showTextLeft()" (mouseleave)="hideTextLeft2()"
+        (click)="swipe.swipeLeft()">
         {{event.isPerkLeft? "&loz;":"&#171;" }}
       </button>
 
-      <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;"
-        class="right-button button-margin optionText increaseSize" (click)="swipe.swipeRight()" *ngIf="isHoverRight"
-        (mouseleave)="hideTextRight()">{{event.rightText}}</button>
+      <!-- <button [disabled]="isPressed" mat-raised-button color="accent" style="float: right;"
+        class="right-button button-margin optionText increaseSize" (click)="swipe.swipeRight()"
+        *ngIf="isHoverRight">{{event.rightText}}</button> -->
+
       <button mat-raised-button color="accent"
         class="right-button button-margin {{showButtons ? 'optionText' : 'hiddenOptionText'}}"
-        [ngClass]="{'textAnim': buttonsAnim}" *ngIf="!isHoverRight" (mouseenter)="showTextRight()" style="float: right;"
-        (animationend)="finishedButtonsAnim()">
+        [ngClass]="{'textAnim': buttonsAnim}" (mouseenter)="showTextRight()" (mouseleave)="hideTextRight2()"
+        style="float: right;" (animationend)="finishedButtonsAnim()" (click)="swipe.swipeRight()">
         {{event.isPerkRight? "&loz;":" &#187;" }}
 
       </button>

@@ -48,8 +48,19 @@ p {
   animation: increase-font .3s;
 }
 
+.decreaseSize {
+  animation: decrease-font .3s;
+}
+
 @keyframes increase-font {
   0% {
+    font-size: 0;
+  }
+}
+
+@keyframes decrease-font {
+  100% {
+    opacity: 0;
     font-size: 0;
   }
 }
@@ -129,6 +140,26 @@ p {
   top: 35%;
   margin-top: -12px;
   margin-left: -90px;
+}
+
+.absolute-left {
+  font-size: 24px;
+  font-weight: bolder;
+  position: absolute;
+  left: 10%;
+  top: 35%;
+}
+
+.absolute-right {
+  font-size: 24px;
+  font-weight: bolder;
+  position: absolute;
+  left: 70%;
+  top: 35%;
+}
+
+.long {
+  font-size: 20px
 }
 
 .text-fade-in {

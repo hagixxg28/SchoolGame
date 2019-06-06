@@ -23,11 +23,19 @@ export class CardComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const event: SimpleChange = changes.event;
-        if (this.checkLength(event.currentValue.leftText)) {
+        if (this.checkShort(event.currentValue.leftText)) {
             this.isLeftShortText = true;
+            console.log("short text left")
+        } else if (this.checkLong(event.currentValue.leftText)) {
+            this.isLeftLongText = true;
+            console.log("long text left")
         }
-        if (this.checkLength(event.currentValue.rightText)) {
+        if (this.checkShort(event.currentValue.rightText)) {
             this.isRightShortText = true;
+            console.log("short text right")
+        } else if (this.checkLong(event.currentValue.leftText)) {
+            this.isRightLongText = true;
+            console.log("long text right")
         }
     }
 
@@ -54,12 +62,18 @@ export class CardComponent implements OnInit, OnChanges {
     isSwipeRight: boolean = false;
     isLeftShortText: boolean = false;
     isRightShortText: boolean = false;
+    isLeftLongText: boolean = false
+    isRightLongText: boolean = false
     //Animation Variables
     textAnim = false;
     nameFade = false;
     occupationFade = false;
     imageAnim = false;
     buttonsAnim = false;
+    LeftTextShow = false;
+    leftTextFade = false;
+    rightTextShow = false;
+    rightTextFade = false;
 
 
     resetSwipe = false;
@@ -83,6 +97,9 @@ export class CardComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.setStyle()
         this.getToggleInfo()
+        if (window.innerWidth < 800) {
+            this.renderButtons = false;
+        }
     }
 
 
@@ -91,6 +108,7 @@ export class CardComponent implements OnInit, OnChanges {
         if (this.isSwipeRight || this.isSwipeLeft) {
             return;
         }
+        console.log("showing left")
         this.isHoverLeft = true;
         this.previewChoiceLeft()
     }
@@ -100,11 +118,39 @@ export class CardComponent implements OnInit, OnChanges {
         this.hideColor.emit();
     }
 
+    hideTextLeft2() {
+        this.leftTextFade = true;
+        this.hideColor.emit();
+    }
+    hideTextLeftEnd(event: AnimationEvent) {
+        if (event.animationName == "increase-font") {
+            return;
+        }
+        console.log('hiding left')
+        this.leftTextFade = false;
+        this.isHoverLeft = false;
+    }
+    hideTextRight2() {
+        this.rightTextFade = true;
+        this.hideColor.emit();
+    }
+
+    hideTextRightEnd(event: AnimationEvent) {
+        if (event.animationName == "increase-font") {
+            return;
+        }
+        console.log('hiding right')
+        this.rightTextFade = false;
+        this.isHoverRight = false;
+    }
+
+
     showTextRight() {
         //For a case where your courser reaches the button accidently, we don't want to show button text if you swipe.
         if (this.isSwipeRight || this.isSwipeLeft) {
             return;
         }
+        console.log("showing right")
         this.isHoverRight = true;
         this.previewChoiceRight();
     }
@@ -192,8 +238,14 @@ export class CardComponent implements OnInit, OnChanges {
         this.characterImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.event.character.iconPath)
     }
 
-    checkLength(text) {
+    checkShort(text) {
         if (text.length < 15) {
+            return true;
+        }
+        return false;
+    }
+    checkLong(text) {
+        if (text.length > 30) {
             return true;
         }
         return false;
