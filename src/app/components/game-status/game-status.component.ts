@@ -26,15 +26,22 @@ export class GameStatusComponent implements OnInit {
   ngOnInit() {
     this.getState()
     this.mockInitGameState()
+    if (this.checkIfHasLoad()) {
+      this.showLoad = true;
+    }
   }
 
 
-
+  @Output()
+  saveEmitter = new EventEmitter();
+  @Output()
+  loadEmitter = new EventEmitter();
 
   gameState: GameState;
   lastState: GameState;
   muted = true;
   currentStatus = "Normie";
+  showLoad = false;
 
   lastStatus = "";
   lastTime: String = "morning";
@@ -216,5 +223,21 @@ export class GameStatusComponent implements OnInit {
 
   toggleButtons() {
     this.toggleService.toggleButtons()
+  }
+
+  saveGame(): void {
+    this.saveEmitter.emit();
+    this.showLoad = true;
+  }
+
+  loadGame(): void {
+    this.loadEmitter.emit();
+  }
+
+  checkIfHasLoad(): boolean {
+    if (JSON.parse(localStorage.getItem('savedGame')) != null) {
+      return true;
+    }
+    return false;
   }
 }
