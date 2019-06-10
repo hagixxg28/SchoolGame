@@ -43,11 +43,13 @@ export class DayService {
 
 
   buildDay(currentTime?) {
-    if (this.rollForPreMadeDay()) {
-      let potentialDay = this.preMadeDayService.pullRandomDay();
-      if (potentialDay != null) {
-        this.day = potentialDay
-        return;
+    if (!currentTime) {
+      if (this.rollForPreMadeDay()) {
+        let potentialDay = this.preMadeDayService.pullRandomDay();
+        if (potentialDay != null) {
+          this.day = potentialDay
+          return;
+        }
       }
     }
     this.day = new Day();
@@ -96,7 +98,7 @@ export class DayService {
   rollForPreMadeDay() {
     let randomNumber = Math.floor((Math.random() * 100))
     console.log(randomNumber)
-    if (randomNumber < 33) {
+    if (randomNumber < 20) {
       return true;
     }
     return false;
