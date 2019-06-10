@@ -25,13 +25,13 @@ export class EventsService {
 
   //Event Booleans:
   includeBully = true;
+  includeGeek = true;
   includeNerd = true;
   includePopGirl = true;
   includeOther = true;
   includeFreak = true;
   includeCounselor = true;
   includeParents = true;
-  includeTeacher = true;
   includeCoach = true;
   includePrincipal = true;
   includeLela = true;
@@ -67,9 +67,166 @@ export class EventsService {
     ["Tv", new GameEvent(
       this.charactersData.getCharacter(Characters.Mom),
       dayTimes.night,
-      "Close to the tv now", "Just a little bit more!", "Ok..",
+      "Close to the tv now", "Ok..", "Just a little bit more!",
+      new Choice(5, 0, 0, 0),
       new Choice(0, 0, 0, -5),
-      new Choice(5, 0, 0, 0)
+    )],
+  ])
+
+  PopGirlReactionEventMap = new Map<String, GameEvent>([
+    ["fakeFlirt", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "Ha! You really think I'll be into you?", "Stay silent", "You bitch",
+      new Choice(5, -5, 0, 0),
+      new Choice(5, -10),
+    )],
+    ["noThanks", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "No!? Do you know who I am?", "I do. Not impressed.", "A drama queen",
+      new Choice(0, 10, 0, 0, () => this.PopGirlReactionEventMap.get('noThanks2')),
+      new Choice(0, -10, 0, 0, () => this.PopGirlReactionEventMap.get('noThanks2')),
+    )],
+    ["noThanks2", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "*Runs away crying*", "Wait!", "",
+      new Choice(0, -5),
+      new Choice(),
+    )],
+    ["picture", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "Wow you're good at this!", "Thanks!", "Let's take a picture together",
+      new Choice(-5, 5),
+      new Choice(0, 0, 0, 0, () => {
+        if (this.randomizer(50)) {
+          return this.PopGirlReactionEventMap.get('yesPicture');
+        } else {
+          return this.PopGirlReactionEventMap.get('cuteBad');
+        }
+      }),
+    )],
+    ["yesPicture", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "Sure thing!", "We look cute together..", "I need to get going..",
+      new Choice(5, 10, 0, 0, () => {
+        if (this.randomizer(33)) {
+          return this.PopGirlReactionEventMap.get('cuteGood')
+        }
+        return this.PopGirlReactionEventMap.get('cuteBad')
+      }),
+      new Choice(),
+    )],
+    ["cuteGood", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "*smiles at you* Yeah we do..", "Try to kiss her", "Keep looking at her",
+      new Choice(10, 10, 0, 0, () => this.PopGirlReactionEventMap.get('jessyCall')),
+      new Choice(5, 10, 0, 0, () => this.PopGirlReactionEventMap.get('jessyCall')),
+    )],
+    ["cuteBad", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "Eh.. I need to get going", "Okay", "Oh",
+      new Choice(),
+      new Choice(),
+    )],
+    ["jessyCall", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.morning,
+      "We need to get going Stacy!", "", "",
+      new Choice(0, 0, 0, 0, () => this.PopGirlReactionEventMap.get('cuteBad')),
+      new Choice(0, 0, 0, 0, () => this.PopGirlReactionEventMap.get('cuteBad')),
+    )],
+  ])
+
+  NerdReactionEventMap = new Map<String, GameEvent>([
+    ["project", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "R-really? You want to do it with me?", "If you do all the work", "Only if we do it together",
+      new Choice(0, 0, 10, 0, () => this.NerdReactionEventMap.get('project2')),
+      new Choice(-5, -5, 10, 0, () => this.NerdReactionEventMap.get('project2'))
+    )],
+    ["project2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "Oh… Okay…", "", "",
+      new Choice(),
+      new Choice()
+    )],
+    ["retard", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "Come join, I’m the retard", "Sure", "Why are you letting him hit you?",
+      new Choice(0, 5, 0, -5),
+      new Choice(0, -5, 0, 0, () => this.NerdReactionEventMap.get('retard2'))
+    )],
+    ["retard2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "It’s a game.. We’re friends", "Then I’m in.", "Doesn't sound like a real friend",
+      new Choice(0, 5, 0, -5),
+      new Choice(0, -5, 0, 0, () => this.NerdReactionEventMap.get('retard3'))
+    )],
+    ["retard3", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "I-it sounds like you don't have real friends!", "Shut up loser!", "You really need help..",
+      new Choice(5, -5),
+      new Choice(0, -10, 0, 0)
+    )],
+    ["talk", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.morning,
+      "No.. She won’t talk to me", "I guess you’re right.", "Not with that attitude",
+      new Choice(),
+      new Choice(-0, 5, 0, 0)
+    )],
+    ["help", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.morning,
+      "It’s okay, it’s just a joke…", "Sure thing…", "A really bad joke.",
+      new Choice(),
+      new Choice(10, -5, 0, 0, () => this.NerdReactionEventMap.get('joke'))
+    )],
+    ["joke", new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.afternoon,
+      "Mind your own business!", "Walk away", "I don’t like bad jokes",
+      new Choice(),
+      new Choice(0, -5, 0, 0, () => this.NerdReactionEventMap.get('joke2'))
+    )],
+    ["joke2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.afternoon,
+      "Just go, it’s alright!", "Walk away", "Shut up and stand up for yourself!",
+      new Choice(),
+      new Choice(5, 5, 0, 0, () => this.NerdReactionEventMap.get('joke3'))
+    )],
+    ["joke3", new GameEvent(
+      this.charactersData.getCharacter(Characters.Principal),
+      dayTimes.afternoon,
+      "What’s going on around here!?", "Tell him", "Nothing sir…",
+      new Choice(5, -10, 5, 0, () => this.NerdReactionEventMap.get('snitch')),
+      new Choice(10, 10)
+    )],
+    ["snitch", new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.afternoon,
+      "What a snitch!", "You deserve it!", "I don’t care being a snitch!",
+      new Choice(10, -5),
+      new Choice(5, -15)
+    )],
+    ["come", new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.afternoon,
+      "Please come! I’ll let you play all the time, I don’t mind looking", "When you put it that way…", "No thanks.",
+      new Choice(),
+      new Choice()
     )],
   ])
   DreamReactionMap = new Map<String, GameEvent>([
@@ -163,9 +320,9 @@ export class EventsService {
     ["notBad", new GameEvent(
       this.charactersData.getCharacter(Characters.ShyGirl),
       dayTimes.noon,
-      "Not that bad? I need at least an average of 95 if I want to get into a good college!", "What will you get from a good college?", "Wow, that’s alot.",
+      "Not that bad? I need at least an average of 95 if I want to get into a good college!", "Wow, that’s alot.", "What will you get from a good college?",
+      new Choice(0, 5),
       new Choice(0, -5, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad2")),
-      new Choice(0, 5)
     )],
     ["notBad2", new GameEvent(
       this.charactersData.getCharacter(Characters.ShyGirl),
@@ -177,16 +334,16 @@ export class EventsService {
     ["notBad3", new GameEvent(
       this.charactersData.getCharacter(Characters.ShyGirl),
       dayTimes.noon,
-      "Well, a good college means a good job for the future", "So if you don’t get 95 in all of your tests you basically die", "Oh.",
+      "Well, a good college means a good job for the future", "Oh.", "So if you don’t get 95 in all of your tests you basically die",
+      new Choice(0),
       new Choice(0, -10, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad4")),
-      new Choice(0)
     )],
     ["notBad4", new GameEvent(
       this.charactersData.getCharacter(Characters.ShyGirl),
       dayTimes.noon,
-      "You just don’t get it. It’s not like that.", "It sounds like your worrying too much about this", "Well it’s your life.",
+      "You just don’t get it. It’s not like that.", "Well it’s your life.", "It sounds like your worrying too much about this",
+      new Choice(0),
       new Choice(0, 0, 0, 0, () => this.ShyGirlReactionEventMap.get("notBad5")),
-      new Choice(0)
     )],
     ["notBad5", new GameEvent(
       this.charactersData.getCharacter(Characters.ShyGirl),
@@ -266,7 +423,7 @@ export class EventsService {
         dayTimes.afternoon,
         "You’re right, I’m sorry, I shouldn’t talk like that", "Good boy..", "We’re not done, raise my grades, or else.",
         new Choice(0, 20),
-        new Choice(0, 0, 40, 0))
+        new Choice(0, 0, 45, 0))
     ]
   ]);
 
@@ -274,18 +431,6 @@ export class EventsService {
 
   //#region Events
 
-  TeacherEvents = [
-
-    new GameEvent(
-      this.charactersData.getCharacter(Characters.Teacher),
-      dayTimes.noon,
-      "You are late to the class!", "This wont happen again...", "I missed the bus!... Twice!",
-      new Choice(0, 0, -15, -10, undefined, new Map<Perk, choiceWithText>([
-        [Perk.BadStudent, new choiceWithText("Whatever...(Slacker)", new Choice())]
-      ])),
-      new Choice(10)
-    )
-  ]
 
   LelaEvents = [
     new GameEvent(
@@ -491,9 +636,9 @@ export class EventsService {
     ),
   ]
 
-  NerdEvents = [
+  GeekEvents = [
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Nerd),
+      this.charactersData.getCharacter(Characters.Geek),
       dayTimes.morning,
       "I just scored the top grade in the class", "You're still a loser", "Good for you.",
       new Choice(-5, 5, -5, 0, undefined, undefined),
@@ -501,7 +646,7 @@ export class EventsService {
     ),
 
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Nerd),
+      this.charactersData.getCharacter(Characters.Geek),
       dayTimes.noon,
       "Why can't I get a gamer girlfriend?", "Stop acting weird", "I believe in you!",
       new Choice(0, 5, 0, 0, undefined, undefined),
@@ -509,7 +654,7 @@ export class EventsService {
     ),
 
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Nerd),
+      this.charactersData.getCharacter(Characters.Geek),
       dayTimes.afternoon,
       "Do you want to hang out? I'll help you with your project", "Sure thing!", "I'm busy",
       new Choice(-5, -10, 0, +10, undefined, undefined),
@@ -517,7 +662,7 @@ export class EventsService {
     ),
 
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Nerd),
+      this.charactersData.getCharacter(Characters.Geek),
       dayTimes.noon,
       "I'm gonna tell the teacher you cheated on the test!", "Slap him", "But I didn't cheat!",
       new Choice(0, 10, 0, -10, undefined, undefined),
@@ -525,7 +670,7 @@ export class EventsService {
     ),
 
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Nerd),
+      this.charactersData.getCharacter(Characters.Geek),
       dayTimes.morning,
       "You see Miles getting bullied", "Help him against the bully", "Let him handle it by himself",
       new Choice(10, -10),
@@ -541,13 +686,27 @@ export class EventsService {
       new Choice(-10, 15, 0, 0),
       new Choice(0, -15)
     ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "You're cute!", "Flirt with her", "No thanks.",
+      new Choice(-10, -5, 0, 0, () => this.PopGirlReactionEventMap.get('fakeFlirt')),
+      new Choice(0, -10, 0, 0, () => this.PopGirlReactionEventMap.get('noThanks'))
+    ),
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.morning,
-      "You wear this to school?", "What's wrong with it?", "I'll do better",
+      "You wear this to school?", "I'll do better", "What's wrong with it?",
+      new Choice(5, 5),
       new Choice(5, -10, 0, 0),
-      new Choice(5, 5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.morning,
+      "Can you take a picture of me?", "Sure", "I'm busy",
+      new Choice(0, 5, 0, 0, () => this.PopGirlReactionEventMap.get('picture')),
+      new Choice(0, -10),
     ),
 
     new GameEvent(
@@ -578,8 +737,8 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.evening,
       "Let's throw a party at your house!", "Let's do it!", "My parents will be mad",
-      new Choice(10, 30, 0, -20),
-      new Choice(15, -20, 0, 10)
+      new Choice(10, 25, 0, -15),
+      new Choice(15, -15, 0, 10)
     ),
 
   ]
@@ -623,6 +782,44 @@ export class EventsService {
       "Throw a rock into the teacher's lounge!", "Throw a rock", "You do it",
       new Choice(20, 30, -10, -25),
       new Choice(5, -10)
+    ),
+  ]
+
+  NerdEvents = [
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.noon,
+      "Wanna do this project with me? I promise I’ll do all the work.", "Okay?", "No thanks",
+      new Choice(0, 0, 0, 0, () => this.NerdReactionEventMap.get('project')),
+      new Choice()
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.noon,
+      "Hey! Let's play hit the retard?", "What?", "No",
+      new Choice(0, 0, 0, 0, () => this.NerdReactionEventMap.get('retard')),
+      new Choice(0, -5, 0, 0, () => this.NerdReactionEventMap.get('retard')),
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.morning,
+      "Jessy is so pretty.. I think you should try talking to her", "Maybe I will..", "Why won’t you try?",
+      new Choice(),
+      new Choice(0, 0, 0, 0, () => this.NerdReactionEventMap.get('talk')),
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.afternoon,
+      "You see the nerd getting bullied", "Ignore", "Go help him",
+      new Choice(),
+      new Choice(5, -5, 0, 0, () => this.NerdReactionEventMap.get('help')),
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Nerd),
+      dayTimes.afternoon,
+      "Hey want to come to my house and play on my new Computer?", "Okay.", "I think I’ll pass",
+      new Choice(0, -5),
+      new Choice(0, 0, 0, 0, () => this.NerdReactionEventMap.get('come')),
     ),
   ]
 
@@ -734,38 +931,6 @@ export class EventsService {
   //#endregion
 
   OtherEvents = [
-
-    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-    //   dayTimes.dream,
-    //   "This is my domain", "Nice coding", "Leave me a loan",
-    //   new Choice(5, 10, -10),
-    //   new Choice(20, -15, 20, 0)
-    // ),
-    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-    //   dayTimes.dream,
-    //   "This is the second dream", "Nice dream", "Damn",
-    //   new Choice(5, 10, -10),
-    //   new Choice(20, -15, 20, 0)
-    // ),
-    // new GameEvent(this.charactersData.getCharacter(Characters.Dad),
-    //   dayTimes.dream,
-    //   "This is the second of dad", "Nice dream", "Damn",
-    //   new Choice(5, 10, -10),
-    //   new Choice(20, -15, 20, 0)
-    // ),
-
-    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-    //   dayTimes.night,
-    //   "I was made for testing", "Well you work!", "You don't work...",
-    //   new Choice(5, 10, -10, undefined),
-    //   new Choice(20, -15, 20, 0)
-    // ),
-    // new GameEvent(this.charactersData.getCharacter(Characters.Hagi),
-    //   dayTimes.night,
-    //   "I was made for 2", "Well you work!", "You don't work...",
-    //   new Choice(5, 10, -10, undefined),
-    //   new Choice(20, -15, 20, 0)
-    // ),
     new GameEvent(this.charactersData.getCharacter(Characters.Rich),
       dayTimes.dream,
       "You will never be wealthy as I am!", "Who cares?", "I will be even richer than you!",
@@ -997,6 +1162,10 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.BullyEvents);
     }
 
+    if (this.includeGeek) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.GeekEvents);
+    }
+
     if (this.includeNerd) {
       this.CurrentEvents = this.CurrentEvents.concat(this.NerdEvents);
     }
@@ -1020,9 +1189,6 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.OtherEvents);
     }
 
-    if (this.includeTeacher) {
-      this.CurrentEvents = this.CurrentEvents.concat(this.TeacherEvents);
-    }
     if (this.includeCoach) {
       this.CurrentEvents = this.CurrentEvents.concat(this.CoachEvents);
     }
@@ -1203,6 +1369,13 @@ export class EventsService {
     this.includeSmoker = false;
     this.includeDepressed = false;
     this.includeGossiper = false;
+  }
+
+  randomizer(successRate: number): boolean {
+    if (Math.random() < successRate / 100) {
+      return true;
+    }
+    return false;
   }
 
   //#endregion
