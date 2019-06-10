@@ -2,6 +2,7 @@
 export enum Characters {
     Hagi = "Hagi",
     Bully = "Bully",
+    Geek = "Geek",
     Nerd = "Nerd",
     PopGirl = "PopGirl",
     Freak = "Freak",

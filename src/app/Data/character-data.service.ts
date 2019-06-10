@@ -11,7 +11,7 @@ export class CharacterDataService {
   CharactersMap = new Map([
     ["Hagi", new Character("Hagi", "Developer", "brown", "../assets/images/characters/Mischief.png")],
     ["Bully", new Character("Bront", "Local Bully", "rgba(57, 204, 204,0.65)", "../assets/images/characters/Bully.jpeg")],
-    ["Nerd", new Character("Miles", "Local Nerd", "rgba(177, 13, 201,0.65)", "../assets/images/characters/GeekPic.PNG")],
+    ["Geek", new Character("Miles", "Local Geek", "rgba(177, 13, 201,0.65)", "../assets/images/characters/GeekPic.PNG")],
     ["PopGirl", new Character("Stacy", "Popular", "rgba(255, 220, 0,0.65)", "../assets/images/characters/PopularGirl.png")],
     ["Freak", new Character("Jason", "Freak", "rgba(54, 163, 127, 0.65)", "../assets/images/characters/FreakBoy.png")],
     ["Counselor", new Character("Henry", "Counselor", "rgba(255, 220, 0, 0.65)", "../assets/images/characters/Counceller.jpg")],
@@ -23,6 +23,7 @@ export class CharacterDataService {
     ["Principal", new Character("Sebastian", "Principal", "#AAAAAA", "../assets/images/characters/principal2.png")],
     ["Lela", new Character("Ms.Lela", "Teacher", "#3D9970", "../assets/images/characters/teacher.png")],
     ["ShyGirl", new Character("Jessy", "Overachiever", "rgba(149,151,197,0.65)", "../assets/images/characters/shyGirl2.png")],
+    ["Nerd", new Character("Larry", "Local Nerd", "rgba(149,151,197,0.65)", "../assets/images/characters/shmukKid.png")],
 
     //End Game characters
     ["StressFull", new Character("", "", "red", "../assets/images/LoseImages/StressFullLose.jpg")],
