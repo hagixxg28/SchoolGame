@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GameEvent } from 'src/app/models/gameEvent';
 import { Choice } from 'src/app/models/choice';
 import { Bar } from 'src/app/models/bar';
@@ -17,6 +17,7 @@ import { PerkObject } from 'src/app/models/perkObject';
 import { PerkDataService } from 'src/app/Data/perk-data.service';
 import { StatusService } from 'src/app/services/status.service';
 import { PreMadeDayService } from 'src/app/services/pre-made-day.service';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-big-test',
@@ -57,7 +58,7 @@ export class BigTestComponent implements OnInit {
 
 
 
-
+  @ViewChild('card') card: CardComponent;
 
   fadeOut: boolean = false;
   fadeOutUp: boolean = false;
@@ -434,7 +435,7 @@ export class BigTestComponent implements OnInit {
 
   }
   //#region color methods
-  backgroundColorChanger() {
+  backgroundColorChanger(currentTime?) {
     if (this.allBarsSum >= 0 && this.allBarsSum <= 160) {
       this.backGroundState = 'low'
       return;
@@ -649,5 +650,33 @@ export class BigTestComponent implements OnInit {
   }
 
   //#endregion
+  saveGame() {
+    this.gameState.day = this.currentDay;
+    this.gameState.event = this.event
+    localStorage.setItem("savedGame", JSON.stringify(this.gameState))
+  }
+  checkForColorChange() {
+    for (let index = 0; index < this.Bars.length; index++) {
+      this.colorChanger(index)
+    }
+  }
 
+  loadGame() {
+    let save: GameState = JSON.parse(localStorage.getItem('savedGame'))
+    if (save == null) {
+      console.log("No saved game")
+      return;
+    }
+    this.gameState = save
+    this.event = save.event
+    this.currentDay = this.gameState.day
+    this.Bars[0].value = save.stressVal;
+    this.Bars[1].value = save.socialVal;
+    this.Bars[2].value = save.schoolVal;
+    this.Bars[3].value = save.parentsVal;
+    this.pushGameState()
+    this.checkForColorChange()
+    this.backgroundByDay()
+    this.card.setStyle(this.event)
+  }
 }

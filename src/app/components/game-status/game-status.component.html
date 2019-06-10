@@ -15,12 +15,17 @@
       </span>
     </span>
     <br>
-    <img *ngIf="!muted" (click)="muteSound()" title="Press to mute" img class="musicIcon"
+    <img *ngIf="!muted" (click)="muteSound()" title="Press to mute" img class="musicIcon fadeInUp"
       src='assets/images/icons/music/sound-on.png'>
-    <img *ngIf="muted" (click)="unMuteSound()" title="Press to un-mute" img class="musicIcon"
+    <img *ngIf="muted" (click)="unMuteSound()" title="Press to un-mute" img class="musicIcon fadeInUp"
       src='assets/images/icons/music/sound-off.png'>
 
-    <img (click)="toggleButtons()" title="Press to toggle buttons" img class="musicIcon"
+    <img (click)="toggleButtons()" title="Press to toggle buttons" img class="musicIcon fadeInUp"
       src='assets/images/icons/optionIcons/buttonToggle.png'>
+
+    <img (click)="saveGame()" title="Press to save the game" img class="musicIcon fadeInUp"
+      src='assets/images/icons/optionIcons/save.png'>
+    <img *ngIf="showLoad" (click)="loadGame()" title="Press to load the game" img class="musicIcon fadeInUp"
+      src='assets/images/icons/optionIcons/load.png'>
     <br>
   </mat-card>

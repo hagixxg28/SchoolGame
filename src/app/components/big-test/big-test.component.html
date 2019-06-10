@@ -12,12 +12,13 @@
 
 
     <div *ngIf="showCard">
-      <app-card [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)"
+      <app-card #card [event]=event (choiceEvent)="choiceSort($event)" (choicePreviewEvent)="choicePreview($event)"
         (hideColor)="hideColor()"></app-card>
     </div>
     <div #gameStatusDiv class="{{showGameStatus ? 'shown' : 'hidden'}}" [ngClass]="{'fadeOut': fadeOut}"
       (animationend)="fadeOutEnd($event,gameStatusDiv)">
-      <app-game-status></app-game-status>
+      <app-game-status (saveEmitter)="saveGame()" (loadEmitter)="loadGame()">
+      </app-game-status>
     </div>
   </div>
 

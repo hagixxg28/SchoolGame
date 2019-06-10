@@ -231,7 +231,14 @@ export class CardComponent implements OnInit, OnChanges {
         this.choicePreviewEvent.emit(this.event.rightChoice);
     }
 
-    setStyle() {
+    setStyle(event?: GameEvent) {
+        if (event) {
+            this.cardStyle = {
+                'background-color': event.character.backgroundColor
+            }
+            this.characterImage = this.sanitizer.bypassSecurityTrustResourceUrl(event.character.iconPath)
+            return;
+        }
         this.cardStyle = {
             'background-color': this.event.character.backgroundColor
         }
@@ -317,6 +324,12 @@ export class CardComponent implements OnInit, OnChanges {
     getToggleInfo() {
         const ob = this.toggleService.toggleObservable;
         ob.subscribe(() => this.toggleButtons())
+    }
+
+    updateEvent(event: GameEvent) {
+        setTimeout(() => {
+            this.setStyle(event);
+        }, 1000);
     }
 
 }
