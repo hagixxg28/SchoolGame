@@ -71,6 +71,41 @@ export class EventsService {
       new Choice(5, 0, 0, 0),
       new Choice(0, 0, 0, -5),
     )],
+    ["really", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.morning,
+      "Yes! Your generation doesn't know how to have fun!", "How did you have fun back in the day?", "I think we have fun in our own way.",
+      new Choice(0, 0, 0, 5, () => this.MomReactionEventMap.get('fun')),
+      new Choice(0, 0, 0, -5, () => this.MomReactionEventMap.get('ownWay')),
+    )],
+    ["fun", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.morning,
+      "We used to go out! You kids never go out! Your faces are buried deep within the screen!", "You’re right.", "You're exhaturating",
+      new Choice(0, 0, 0, 5),
+      new Choice(0, 0, 0, -10),
+    )],
+    ["ownWay", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.morning,
+      "Your own way!? You just stick your face into the screen all of the day!", "You’re right.", "You're exhaturating",
+      new Choice(0, 0, 0, 5),
+      new Choice(0, 0, 0, -10),
+    )],
+    ["wait", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.afternoon,
+      "No you don’t get it, you need to get a degree fast! The earlier you start the earlier you’ll be done with it!", "Maybe you have a point.", "I get it, but I want some time for myself before I start",
+      new Choice(0, 0, 0, 5),
+      new Choice(0, 0, 0, -10),
+    )],
+    ["time", new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.afternoon,
+      "I’m going to tell your dad about this, he will straighten you out.", "Okay mom…", "He’s not going to change my mind.",
+      new Choice(5, 0, 0, 5),
+      new Choice(-5, 0, 0, -10),
+    )],
   ])
 
   PopGirlReactionEventMap = new Map<String, GameEvent>([
@@ -491,7 +526,7 @@ export class EventsService {
       dayTimes.noon,
       "If you’ll act nicely next to the inspector I’ll raise your average", "You got a deal!", "I’d rather spit on him",
       new Choice(0, 0, 10),
-      new Choice(0, 10, 10, -10)
+      new Choice(0, 10, -10, -10)
     ),
     new GameEvent(
       this.charactersData.getCharacter(Characters.Principal),
@@ -926,6 +961,27 @@ export class EventsService {
       new Choice(-5, 5, 0, -10),
       new Choice(0, 0, 0, 5)
     ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.morning,
+      "You know, when I was your age, everything was different", "Really?", "I’m busy mom",
+      new Choice(0, 0, 0, 5, () => this.MomReactionEventMap.get('really')),
+      new Choice(0, 0, 0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.afternoon,
+      "Can you fix the tv for me?", "Sure", "Do it yourself, I already showed you how to",
+      new Choice(5, 0, 0, 5),
+      new Choice(0, 0, 0, -10)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Mom),
+      dayTimes.afternoon,
+      "You need to get a degree right after you finish high school!", "I know, that’s why I study hard!", "I think I’ll want to have some time off after graduation",
+      new Choice(0, 0, 0, 10),
+      new Choice(0, 0, 0, -5, () => this.MomReactionEventMap.get('wait'))
+    ),
 
   ]
   //#endregion
@@ -1181,10 +1237,9 @@ export class EventsService {
     if (this.includeCounselor) {
       this.CurrentEvents = this.CurrentEvents.concat(this.CounselorEvents);
     }
-    if (this.includeCounselor) {
+    if (this.includeParents) {
       this.CurrentEvents = this.CurrentEvents.concat(this.ParentsEvents);
     }
-
     if (this.includeOther) {
       this.CurrentEvents = this.CurrentEvents.concat(this.OtherEvents);
     }
