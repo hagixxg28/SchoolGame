@@ -25,17 +25,13 @@ export class CardComponent implements OnInit, OnChanges {
         const event: SimpleChange = changes.event;
         if (this.checkShort(event.currentValue.leftText)) {
             this.isLeftShortText = true;
-            console.log("short text left")
         } else if (this.checkLong(event.currentValue.leftText)) {
             this.isLeftLongText = true;
-            console.log("long text left")
         }
         if (this.checkShort(event.currentValue.rightText)) {
             this.isRightShortText = true;
-            console.log("short text right")
         } else if (this.checkLong(event.currentValue.leftText)) {
             this.isRightLongText = true;
-            console.log("long text right")
         }
     }
 

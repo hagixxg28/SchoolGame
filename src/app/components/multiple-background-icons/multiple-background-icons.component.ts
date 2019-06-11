@@ -74,7 +74,6 @@ export class MultipleBackgroundIconsComponent implements OnInit {
     state.perks.forEach(perk => {
       this.iconArray.push(perk.perkName)
     });
-    console.log(this.iconArray)
   }
 
   getRandomX(): number {
