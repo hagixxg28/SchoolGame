@@ -97,6 +97,13 @@ export class BigTestComponent implements OnInit {
       this.currentDay.noon = undefined
       return;
     }
+    if (this.currentDay.midNoon) {
+      this.event = this.currentDay.midNoon
+      this.checkForPerkChoice(this.event.leftChoice)
+      this.checkForPerkChoice(this.event.rightChoice)
+      this.currentDay.midNoon = undefined
+      return;
+    }
     if (this.currentDay.afternoon) {
       this.eventBinder(this.currentDay.afternoon)
       this.updateGameStateTime()
@@ -652,7 +659,10 @@ export class BigTestComponent implements OnInit {
   //#endregion
   saveGame() {
     this.gameState.day = this.currentDay;
-    this.gameState.event = this.event
+    this.gameState.event = this.event;
+    this.gameState.event.leftChoice.nextEvent = this.event.leftChoice.nextEvent;
+    this.gameState.event.rightChoice.nextEvent = this.event.rightChoice.nextEvent;
+
     localStorage.setItem("savedGame", JSON.stringify(this.gameState))
   }
   checkForColorChange() {
@@ -669,6 +679,8 @@ export class BigTestComponent implements OnInit {
     }
     this.gameState = save
     this.event = save.event
+    this.event.leftChoice.nextEvent = save.event.leftChoice.nextEvent
+    this.event.rightChoice.nextEvent = save.event.rightChoice.nextEvent
     this.currentDay = this.gameState.day
     this.Bars[0].value = save.stressVal;
     this.Bars[1].value = save.socialVal;
