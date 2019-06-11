@@ -146,6 +146,7 @@ export class PreMadeDayService {
       new Choice())),
     (new GameEvent(this.charData.getCharacter(Characters.AfternoonView), dayTimes.noon, "The first question of the test seems simple", "Answer it", "Try to copy off someone else", new Choice(0, 0, 5, 0, () => this.testDayReactionMap.get('question2')),
       new Choice(0, 0, 0, 0, () => this.testDayReactionMap.get('question2')))),
+    undefined,
     (new GameEvent(this.charData.getCharacter(Characters.Geek), dayTimes.afternoon, "This test was so easy!", "Shut up loser", "Ignore him",
       new Choice(-5, 5, -5, 0, undefined,
         new Map<Perk, choiceWithText>([
@@ -166,6 +167,7 @@ export class PreMadeDayService {
     new GameEvent(this.charData.getCharacter(Characters.Principal), dayTimes.morning, "The big math test is tomorrow, and you all better get good grades!", "We're having a test tomorrow!?", "Okay..", new Choice(5), new Choice()),
 
     new GameEvent(this.charData.getCharacter(Characters.Geek), dayTimes.noon, "This test is going to be so easy!", "Stop showing off!", "Can you hook me up with a cheat sheet?", new Choice(-5, 5), new Choice(0, 0, 0, 0, () => this.preTestDayReactionMap.get('cheatSheet'))),
+    undefined,
 
     new GameEvent(this.charData.getCharacter(Characters.Bully), dayTimes.afternoon, "Did you get a cheat sheet from him?", "Even if he gave me I wouldn't give it to you", "No",
       new Choice(-5, -5, 0, 0, undefined,
