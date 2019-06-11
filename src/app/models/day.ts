@@ -4,6 +4,7 @@ export class Day {
     public constructor(
         public morning?: GameEvent,
         public noon?: GameEvent,
+        public midNoon?: GameEvent,
         public afternoon?: GameEvent,
         public evening?: GameEvent,
         public night?: GameEvent,

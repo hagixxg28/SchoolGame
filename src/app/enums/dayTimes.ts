@@ -2,6 +2,7 @@
 export enum dayTimes {
     morning = "morning",
     noon = "noon",
+    midNoon = "midNoon",
     afternoon = "afternoon",
     evening = "evening",
     night = "night",
