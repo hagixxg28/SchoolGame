@@ -9,17 +9,14 @@ export class CharacterDataService {
   constructor() { }
 
   CharactersMap = new Map([
-    ["Hagi", new Character("Hagi", "Developer", "brown", "../assets/images/characters/Mischief.png")],
     ["Bully", new Character("Bront", "Local Bully", "rgba(57, 204, 204,0.65)", "../assets/images/characters/Bully.jpeg")],
     ["Geek", new Character("Miles", "Local Geek", "rgba(177, 13, 201,0.65)", "../assets/images/characters/GeekPic.PNG")],
     ["PopGirl", new Character("Stacy", "Popular", "rgba(255, 220, 0,0.65)", "../assets/images/characters/PopularGirl.png")],
     ["Freak", new Character("Jason", "Freak", "rgba(54, 163, 127, 0.65)", "../assets/images/characters/FreakBoy.png")],
     ["Counselor", new Character("Henry", "Counselor", "rgba(255, 220, 0, 0.65)", "../assets/images/characters/Counceller.jpg")],
-    ["Stoner", new Character("Frank", "Stoner", "rgb(49, 145, 92)", "../assets/images/characters/StonerBoy.png")],
     ["Mom", new Character("Mom", "Parent", "rgba(240, 18, 190,0.65)", "../assets/images/characters/Mother.png")],
     ["Dad", new Character("Dad", "Parent", "rgba(165, 42, 42,0.65)", "../assets/images/characters/Father.png")],
     ["Coach", new Character("David", "Coach", "rgba(99, 22, 200, 0.65)", "../assets/images/characters/gymTeacher.png")],
-    ["Teacher", new Character("Teacher", "Teacher", "#001f3f", "../assets/images/characters/Giovanna.png")],
     ["Principal", new Character("Sebastian", "Principal", "#AAAAAA", "../assets/images/characters/principal2.png")],
     ["Lela", new Character("Ms.Lela", "Teacher", "#3D9970", "../assets/images/characters/teacher.png")],
     ["ShyGirl", new Character("Jessy", "Overachiever", "rgba(149,151,197,0.65)", "../assets/images/characters/shyGirl2.png")],
@@ -54,6 +51,7 @@ export class CharacterDataService {
     ["Hall", new Character("??", "???", "#022d58", "../assets/images/characters/Hall.png")],
 
     //Dream Characters
+    ["Hagi", new Character("Hagi", "Developer", "brown", "../assets/images/characters/Mischief.png")],
     ["DreamBoi", new Character("????", "??", "#AAAAAA", "../assets/images/characters/dreamBoi.png")],
     ["Rich", new Character("Rich", "Wealthy", "#FF851B", "../assets/images/characters/Rich.png")],
     ["PinkOwl", new Character("???", "??", "#F012BE", "../assets/images/characters/PinkOwl.png")],
