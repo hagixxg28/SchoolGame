@@ -176,6 +176,13 @@ export class EventsService {
       new Choice(0, 0, 0, 0, () => this.PopGirlReactionEventMap.get('cuteBad')),
       new Choice(0, 0, 0, 0, () => this.PopGirlReactionEventMap.get('cuteBad')),
     )],
+    ["askSmoke", new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.noon,
+      "Hmm.. Sure here you go", "Smoke with her", "Nevermind..",
+      new Choice(-10, 10, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(0, -10),
+    )],
   ])
 
   NerdReactionEventMap = new Map<String, GameEvent>([
@@ -332,6 +339,20 @@ export class EventsService {
       new Choice(0, -10, 5, 0),
       new Choice()
     )],
+    ["jessyPregnant", new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Oh my! Maybe I should inform her parents", "Just don't tell them you heard it from me..", "It's okay! Her parents already know!",
+      new Choice(0, -10, 5, 0, undefined, undefined, Perk.Gossiper),
+      new Choice(0, 0, -5, 0, () => this.LelaReactionEventMap.get('jessyPregnant2'))
+    )],
+    ["jessyPregnant2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Are you sure dear? I'm worried about her", "Yeah, don't worry", "On a second thought, maybe you should talk to them",
+      new Choice(0, 0, -5),
+      new Choice(0, -10, 5, 0, undefined, undefined, Perk.Gossiper)
+    )],
   ])
 
   BullyReactionEventMap = new Map<String, GameEvent>([
@@ -341,6 +362,102 @@ export class EventsService {
       "Where did you get the balls to push me?", "I'm only starting", "You can't push me for no reason!",
       new Choice(10, 15, 0, -5),
       new Choice(5, -5, 0, 10)
+    )],
+    ["beatJason", new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.morning,
+      "Yeah! I'll make him suffer!", "Let's get more people to help!", "I'll let you handle it then",
+      new Choice(0, 5, 0, 0, () => this.BullyReactionEventMap.get('beatJason2')),
+      new Choice()
+    )],
+    ["beatJason", new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.morning,
+      "Nah, if you'll tell more people he will know it's comming", "I'll stay silent then", "I still gotta tell them about this",
+      new Choice(0, 5, 0, 0, () => this.BullyReactionEventMap.get('beatJason2')),
+      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Gossiper)
+    )],
+    ["thankForCig", new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.afternoon,
+      "Nah, if you'll tell more people he will know it's comming", "I'll stay silent then", "I still gotta tell them about this",
+      new Choice(0, 5, 0, 0, () => this.BullyReactionEventMap.get('beatJason2')),
+      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Gossiper)
+    )],
+  ])
+
+  FreakReactionMap = new Map<String, GameEvent>([
+    ["notTrue", new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.noon,
+      "Not true!? There's a video man!", "That's disgusting!", "Do you have it?",
+      new Choice(0, 10, 0, 0, undefined, undefined, Perk.Gossiper),
+      new Choice(0, -5, 0, 0, () => this.FreakReactionMap.get('notTrue2'))
+    )],
+    ["notTrue2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.noon,
+      "I don't have it, but I heard somebody does", "We should get the video!", "Then I don't believe you",
+      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Gossiper),
+      new Choice(5, -5)
+    )],
+    ["yesCig", new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.afternoon,
+      "Yeah man", "Smoke with him", "On a second thought, I shouldn't smoke",
+      new Choice(-5, 5, 0, 0, undefined, undefined, Perk.Smoker),
+      new Choice(10, -5)
+    )],
+    ["noCig", new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.afternoon,
+      "You always ask me!", "I'm sorry man..", "Screw you it's just a ciggarete!",
+      new Choice(5, 5),
+      new Choice(10, -5)
+    )],
+  ])
+  CoachReactionMap = new Map<String, GameEvent>([
+    ["caughtSmoke", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "Are you smoking son?", "Try to cover it up", "Yes I am...",
+      new Choice(5, 0, -10, 0, () => this.CoachReactionMap.get('cover')),
+      new Choice(10, 0, 0, 0, () => this.FreakReactionMap.get('confess'))
+    )],
+    ["cover", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "Don't try lying to me! I am used to smoking teenagers by now!", "I'm sorry", "But I'm not smoking!",
+      new Choice(10, 0, 0, 0, () => this.FreakReactionMap.get('confess')),
+      new Choice(5, 0, -10, 0, () => this.CoachReactionMap.get('cover2'))
+    )],
+    ["cover2", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "Keep living in a lie! It's your health in the end! *walks away*", "", "",
+      new Choice(),
+      new Choice(),
+    )],
+    ["confess", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "Listen to me, You don't have to go down this path. You still have a chance to stop", "You're right! I'll try!", "I don't think I can stop..",
+      new Choice(-10, 0, 5, 0, () => this.CoachReactionMap.get('tryToStop')),
+      new Choice(5, 0, 0, 0, () => this.CoachReactionMap.get('cantStop')),
+    )],
+    ["cantStop", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "I used to smoke for 15 years untilI stopped, my brother died because of those darn things...", "If you stopped, maybe I can stop too!", "I'm still young, I'll stop in the future",
+      new Choice(-10, 0, 5, 0, () => this.CoachReactionMap.get('tryToStop')),
+      new Choice(5, 0, -5, 0, () => this.CoachReactionMap.get('cover2')),
+    )],
+    ["tryToStop", new GameEvent(
+      this.charactersData.getCharacter(Characters.Coach),
+      dayTimes.afternoon,
+      "That's the spirit! I believe in you!", "Thank you sir", "Let's hope I will make it",
+      new Choice(-10, 0, 5),
+      new Choice(5),
     )],
   ])
 
@@ -412,6 +529,20 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.ShyGirl),
       dayTimes.afternoon,
       "Alright, I guess I can stay for abit", "Oh yeah!", "On a second thought, forget it.",
+      new Choice(0, 5),
+      new Choice(0, -10)
+    )],
+    ["jessyConfess", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "Smoking is kinda disgusting, I don't get why you smoke", "I need to quit.", "It's fun",
+      new Choice(5, 5),
+      new Choice(-5, 0)
+    )],
+    ["jessyLie", new GameEvent(
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "I know you wouldn't smoke! I'm so happy", "Hehe.. Thanks?", "Smoking is disgusting!",
       new Choice(0, 5),
       new Choice(0, -10)
     )],
@@ -551,24 +682,24 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Coach),
       dayTimes.noon,
       "We’re doing a 2km run today", "Alright Coach", "I can’t run I don’t feel so good!",
-      new Choice(0, 0, +5),
-      new Choice(0, -5, -5)
+      new Choice(0, 0, +5, 0, undefined, undefined),
+      new Choice(0, -5, -5, 0, undefined, undefined)
     ),
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.Coach),
       dayTimes.noon,
       "Where’s the rest of the class?", "I’ll call them", "I don’t know",
-      new Choice(0, -10, +10),
-      new Choice(0, 0, -5)
+      new Choice(0, -10, +10, 0, undefined, undefined),
+      new Choice(0, 0, -5, 0, undefined, undefined)
     ),
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.Coach),
       dayTimes.afternoon,
       "Can you fill the attendance for me?", "Fill it honestly", "Lie to cover up others",
-      new Choice(),
-      new Choice(0, 10)
+      new Choice(0, 0, 0, 0, undefined, undefined),
+      new Choice(0, 10, 0, 0, undefined, undefined)
     ),
     new GameEvent(
       this.charactersData.getCharacter(Characters.Coach),
@@ -630,7 +761,7 @@ export class EventsService {
       dayTimes.noon,
       "Pushes you violently", "Push him back", "Ignore him",
       new Choice(15, 0, 0, 0, () => this.BullyReactionEventMap.get("pushBack"), new Map<Perk, choiceWithText>([
-        [Perk.Smoker, new choiceWithText("Wanna smoke?(Smoker)", new Choice())],
+        [, new choiceWithText("Wanna smoke?(Smoker)", new Choice())],
         [Perk.Depressed, new choiceWithText("Just beat me up already", new Choice())],
         [Perk.Strong, new choiceWithText("Beat the shit out of him", new Choice())],
       ])),
@@ -641,7 +772,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.noon,
       "What are you looking at?", "Why do you care?", "Nothing..",
-      new Choice(10),
+      new Choice(10, 0, 0, 0, undefined, undefined),
       new Choice(5)
     ),
 
@@ -649,7 +780,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.noon,
       "Can I copy your homework?", "Why would I help you?", "Let him copy",
-      new Choice(-10, -5),
+      new Choice(-10, -5, 0, 0, undefined, undefined),
       new Choice(0, 10)
     ),
 
@@ -666,7 +797,7 @@ export class EventsService {
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.afternoon,
       "You see the bully sitting by himself crying", "Try to cheer him up", "Let him cry by himself  ",
-      new Choice(-5, 5),
+      new Choice(-5, 5, 0, 0, undefined, undefined),
       new Choice(-10)
     ),
   ]
@@ -751,13 +882,20 @@ export class EventsService {
       new Choice(-5, 10, 0, 0, undefined, undefined, Perk.Gossiper),
       new Choice(10, -10)
     ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.PopGirl),
+      dayTimes.noon,
+      "You see Stacy smoking outside of the school", "Can I smoke with you?", "Ignore her",
+      new Choice(0, 0, 0, 0, () => this.PopGirlReactionEventMap.get('askSmoke')),
+      new Choice()
+    ),
 
     new GameEvent(
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.afternoon,
       "Can you like my latest post?", "Sure thing!", "No way.",
-      new Choice(0, 10),
-      new Choice(0, -15)
+      new Choice(0, 5),
+      new Choice(0, -10)
     ),
 
     new GameEvent(
@@ -790,8 +928,8 @@ export class EventsService {
     new GameEvent(
       this.charactersData.getCharacter(Characters.Freak),
       dayTimes.afternoon,
-      "Let's get pierced!", "Alright", "No thanks.",
-      new Choice(5, 10, 0, -10),
+      "Wanna smoke with me?", "Alright", "No thanks.",
+      new Choice(-10, 10, 0, 0, undefined, undefined, Perk.Smoker),
       new Choice(5, -10)
     ),
 
@@ -831,7 +969,7 @@ export class EventsService {
     new GameEvent(
       this.charactersData.getCharacter(Characters.Bully),
       dayTimes.noon,
-      "Hey! Let's play hit the retard?", "What?", "No",
+      "Hey! Let's play hit the retard!", "What?", "No",
       new Choice(0, 0, 0, 0, () => this.NerdReactionEventMap.get('retard')),
       new Choice(0, -5, 0, 0, () => this.NerdReactionEventMap.get('retard')),
     ),
@@ -1010,7 +1148,7 @@ export class EventsService {
     new GameEvent(
       this.charactersData.getCharacter(Characters.PopGirl),
       dayTimes.noon,
-      "I heard that the principle is into teenage girls", "Spread the rumor", "Keep it to yourself",
+      "I heard that the principle was caught peeking at the girl's locker room", "Spread the rumor", "Keep it to yourself",
       new Choice(0, 10, -15, 0, undefined, undefined, Perk.Gossiper),
       new Choice(0, -5)
     ),
@@ -1018,54 +1156,73 @@ export class EventsService {
     new GameEvent(
       this.charactersData.getCharacter(Characters.Freak),
       dayTimes.morning,
-      "Stacy spread a rumor about you that you harrased her", "That's a lie!", "I turned Stacy down, that's the truth.",
+      "Stacy spread a rumor about you that you harrased her", "I turned Stacy down, that's the truth.", "That's a lie!",
+      new Choice(0, 10, 0, 0, undefined, undefined, Perk.Gossiper),
       new Choice(0, -10),
-      new Choice(0, 10, 0, 0, undefined, undefined, Perk.Gossiper)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Lela),
+      dayTimes.afternoon,
+      "Is it true that Jessy is pregnant?", "Yes! Nobody knows who's the father though!", "That's just a nasty rumor ma'am",
+      new Choice(0, -5, 10, 0, () => this.LelaReactionEventMap.get('jessyPregnant'), undefined, Perk.Gossiper),
+      new Choice(0, 5, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Freak),
+      dayTimes.afternoon,
+      "I heard that Larry its' his own bugger!", "How disgusting!", "I don't think that's true",
+      new Choice(0, 5, 0, 0, undefined, undefined, Perk.Gossiper),
+      new Choice(0, -5, 0, 0, () => this.FreakReactionMap.get('notTrue'))
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.morning,
+      "Did you hear that Jason killed a cat!?", "We should beat him up!", "Jason loves cat, he certainly won't kill one",
+      new Choice(5, 5, 0, 0, () => this.BullyReactionEventMap.get('beatJason')),
+      new Choice(0, -5)
+    ),
+    new GameEvent(
+      this.charactersData.getCharacter(Characters.Geek),
+      dayTimes.noon,
+      "Go tell everyone that the class is cancelled", "I'm on it!", "The teacher will do it",
+      new Choice(0, 5, -10, 0, undefined, undefined, Perk.Gossiper),
+      new Choice()
     ),
   ]
 
   SmokerEvents = [
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Freak),
-      dayTimes.noon,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
-    ),
-    new GameEvent(
-      this.charactersData.getCharacter(Characters.Freak),
-      dayTimes.morning,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
+      this.charactersData.getCharacter(Characters.Bully),
+      dayTimes.afternoon,
+      "Do you have a ciggarete for me?", "Here you go", "No I can't spare",
+      new Choice(-5, 5, 0, 0, () => this.BullyReactionEventMap.get('thankForCig')),
+      new Choice(5, -10)
     ),
     new GameEvent(
       this.charactersData.getCharacter(Characters.Freak),
       dayTimes.afternoon,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
+      "You're in a need for ciggarete and you see Jason smoking", "Ask him for a ciggarete", "Leave him be",
+      new Choice(0, -5, 0, 0, () => {
+        if (this.randomizer(50)) {
+          return this.FreakReactionMap.get('yesCig')
+        }
+        return this.FreakReactionMap.get('noCig')
+      }),
+      new Choice(10)
     ),
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Freak),
-      dayTimes.night,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
+      this.charactersData.getCharacter(Characters.AfternoonView2),
+      dayTimes.afternoon,
+      "You have a sudden urge for a ciggarete", "Smoke now", "Smoke later",
+      new Choice(-5, 0, 0, 0, () => this.CoachReactionMap.get('caughtSmoke'), undefined, Perk.Smoker),
+      new Choice(5)
     ),
     new GameEvent(
-      this.charactersData.getCharacter(Characters.Freak),
-      dayTimes.dream,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
-    ),
-    new GameEvent(
-      this.charactersData.getCharacter(Characters.Freak),
-      dayTimes.evening,
-      "Smoke smoke smoke?!", "Okay?", "You sound cool!",
-      new Choice(),
-      new Choice(0, -5)
+      this.charactersData.getCharacter(Characters.ShyGirl),
+      dayTimes.noon,
+      "I heard that you're smoking..", "I am ", "That's a lie!",
+      new Choice(5, -5, 0, 0, () => this.ShyGirlReactionEventMap.get('jessyConfess')),
+      new Choice(5, 0, 0, 0, () => this.ShyGirlReactionEventMap.get('lieSmoke')),
     ),
   ]
 
@@ -1260,16 +1417,15 @@ export class EventsService {
       this.CurrentEvents = this.CurrentEvents.concat(this.EnviorMentEvents);
     }
 
-
     if (this.includeSmoker) {
       this.CurrentEvents = this.CurrentEvents.concat(this.SmokerEvents)
+    }
+    if (this.includeGossiper) {
+      this.CurrentEvents = this.CurrentEvents.concat(this.GossiperEvents)
     }
 
     if (this.includeDepressed) {
       //Push the depressed event array
-    }
-    if (this.includeGossiper) {
-      //Push the gossiper event array
     }
 
   }
