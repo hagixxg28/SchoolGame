@@ -27,21 +27,20 @@ export class DayService {
   dayTimeMap = new Map([
     [dayTimes.morning, 1],
     [dayTimes.noon, 2],
-    [dayTimes.midNoon, 3],
-    [dayTimes.afternoon, 4],
-    [dayTimes.evening, 5],
-    [dayTimes.night, 6],
-    [dayTimes.dream, 7],
+    [dayTimes.midNoon, 2],
+    [dayTimes.afternoon, 3],
+    [dayTimes.evening, 4],
+    [dayTimes.night, 5],
+    [dayTimes.dream, 6],
   ])
 
   reverseDayTimeMap = new Map([
     [1, this.day.morning],
     [2, this.day.noon],
-    [3, this.day.midNoon],
-    [4, this.day.afternoon],
-    [5, this.day.evening],
-    [6, this.day.night],
-    [7, this.day.dream],
+    [3, this.day.afternoon],
+    [4, this.day.evening],
+    [5, this.day.night],
+    [6, this.day.dream],
   ])
 
 
@@ -114,7 +113,7 @@ export class DayService {
 
   rollForPreMadeDay() {
     let randomNumber = Math.floor((Math.random() * 100))
-    if (randomNumber < 20) {
+    if (randomNumber < 10) {
       return true;
     }
     return false;
@@ -172,7 +171,7 @@ export class DayService {
       potentialEvent = this.eventService.pullNoonEvent();
     }
     this.day.midNoon = potentialEvent;
-    if (currentTime > 3) {
+    if (currentTime > 2) {
       //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
       return;
     }
@@ -192,7 +191,7 @@ export class DayService {
       potentialEvent = this.eventService.pullAfternoonEvent();
     }
     this.day.afternoon = potentialEvent;
-    if (currentTime > 4) {
+    if (currentTime > 3) {
       //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
       return;
     }
@@ -211,7 +210,7 @@ export class DayService {
       potentialEvent = this.eventService.pullEveningEvent();
     }
     this.day.evening = potentialEvent;
-    if (currentTime > 5) {
+    if (currentTime > 4) {
       //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
       return;
     }
@@ -230,7 +229,7 @@ export class DayService {
       potentialEvent = this.eventService.pullNightEvent();
     }
     this.day.night = potentialEvent;
-    if (currentTime > 6) {
+    if (currentTime > 5) {
       //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
       return;
     }
@@ -249,14 +248,13 @@ export class DayService {
       potentialEvent = this.eventService.pullDreamEvent();
     }
     this.day.dream = potentialEvent;
-    if (currentTime > 7) {
+    if (currentTime > 6) {
       //Cutting the sequence and not refreshing the map if you added a perk, in order to make the illusion we did not rebuild the day
       return;
     }
     this.dayMap2.set('dream', this.dayMap.get('dream'));
     this.dayMap.set('dream', potentialEvent);
   }
-
 
 
   timeSkipper(currentTimeNumber: number, targetTimeNumber: number) {
@@ -286,24 +284,22 @@ export class DayService {
 
       case 2:
         this.day.noon = undefined;
-        break;
-      case 3:
         this.day.midNoon = undefined;
         break;
 
-      case 4:
+      case 3:
         this.day.afternoon = undefined
         break;
 
-      case 5:
+      case 4:
         this.day.evening = undefined
         break;
 
-      case 6:
+      case 5:
         this.day.night = undefined
         break;
 
-      case 7:
+      case 6:
         this.day.dream = undefined
         break;
     }
@@ -313,36 +309,42 @@ export class DayService {
     switch (dayTime) {
       case dayTimes.morning:
         if (this.dayMap.get('morning') === event || this.dayMap.get('morning').character === event.character || this.dayMap2.get('morning') === event) {
+          console.log('loop morning')
           return true;
         }
         break;
 
       case dayTimes.noon:
         if (this.dayMap.get('noon') === event || this.dayMap.get('noon').character === event.character || this.dayMap2.get('noon') === event) {
+          console.log('loop noon')
           return true;
         }
         break;
       //For midnoon I need to check it's not the same event of noon from this CURRENT DAY
       case dayTimes.noon:
         if (this.dayMap.get('midNoon') === event || this.dayMap.get('midNoon').character === event.character || this.dayMap2.get('midNoon') === event || this.dayMap.get('noon') === event) {
+          console.log('loop noon')
           return true;
         }
         break;
 
       case dayTimes.afternoon:
         if (this.dayMap.get('afternoon') === event || this.dayMap.get('afternoon').character === event.character || this.dayMap2.get('afternoon') === event) {
+          console.log('loop afternoon')
           return true;
         }
         break;
 
       case dayTimes.evening:
         if (this.dayMap.get('evening') === event || this.dayMap.get('evening').character === event.character || this.dayMap2.get('evening') === event) {
+          console.log('loop evening')
           return true;
         }
         break;
 
       case dayTimes.night:
-        if (this.dayMap.get('night') === event || this.dayMap.get('night').character === event.character || this.dayMap2.get('night') === event) {
+        if (this.dayMap.get('night') === event || this.dayMap.get('night').character === event.character) {
+          console.log('loop night')
           return true;
         }
         break;
@@ -361,7 +363,7 @@ export class DayService {
     this.buildDay(currentTimeNum)
     let currentTimeNumber = this.dayTimeMap.get(currentTime);
     let targetTimeNumber = currentTimeNumber + 1;
-    this.timeSkipper(currentTimeNumber, targetTimeNumber)
+    this.timeSkipper(1, targetTimeNumber)
   }
 
 
