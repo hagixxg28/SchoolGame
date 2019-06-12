@@ -229,7 +229,7 @@ export class BigTestComponent implements OnInit {
 
     messageDelay += messageDuration;
     //Waiting for animation to end
-    if (!this.loseBoolean && !choice.nextEvent) {
+    if (!this.loseBoolean && !choice.nextEvent && !choice.storedEvent) {
       setTimeout(() => {
         this.pullFromDay(); this.fullyUpdateAndPushGameState(); this.backgroundByDay();
       }, 1000);
@@ -237,7 +237,15 @@ export class BigTestComponent implements OnInit {
     }
     if (!this.loseBoolean) {
       setTimeout(() => {
-        this.event = choice.nextEvent(); this.fullyUpdateAndPushGameState(); this.backgroundByDay(); this.checkForPerkChoice(this.event.leftChoice); this.checkForPerkChoice(this.event.rightChoice);
+        if (choice.storedEvent) {
+          this.event = choice.storedEvent
+        } else {
+          this.event = choice.nextEvent();
+        }
+        this.fullyUpdateAndPushGameState();
+        this.backgroundByDay();
+        this.checkForPerkChoice(this.event.leftChoice);
+        this.checkForPerkChoice(this.event.rightChoice);
       }, 1000);
     }
   }
@@ -604,9 +612,7 @@ export class BigTestComponent implements OnInit {
 
   perkCountReducer() {
     this.gameState.perks.forEach(perk => {
-      console.log("reducing from ", perk.perkName)
       perk.daysToRecover--;
-      console.log(perk.daysToRecover)
       if (perk.daysToRecover === 0) {
         this.removePerk(perk)
       }
@@ -631,9 +637,7 @@ export class BigTestComponent implements OnInit {
   renewPerk(renewedPerk: PerkObject) {
     this.gameState.perks.forEach(perk => {
       if (perk.perkName == renewedPerk.perkName) {
-        console.log("renewing perk counter ", perk.perkName, perk.daysToRecover)
         perk.daysToRecover = this.perkData.PerkRecoverDayMap.get(perk.perkName);
-        console.log("now its ", perk.daysToRecover)
         return;
       }
     });
@@ -643,7 +647,6 @@ export class BigTestComponent implements OnInit {
     for (let index = 0; index < this.gameState.perks.length; index++) {
       let perk = this.gameState.perks[index];
       if (perk === oldPerk) {
-        console.log("removing ", perk)
         this.gameState.perks.splice(index)
         return;
       }
@@ -660,11 +663,18 @@ export class BigTestComponent implements OnInit {
   saveGame() {
     this.gameState.day = this.currentDay;
     this.gameState.event = this.event;
-    this.gameState.event.leftChoice.nextEvent = this.event.leftChoice.nextEvent;
-    this.gameState.event.rightChoice.nextEvent = this.event.rightChoice.nextEvent;
+    if (this.event.leftChoice.nextEvent) {
+      let leftEvent = this.event.leftChoice.nextEvent();
+      this.gameState.event.leftChoice.storedEvent = leftEvent;
+    }
+    if (this.event.rightChoice.nextEvent) {
+      let rightEvent = this.event.rightChoice.nextEvent();
+      this.gameState.event.rightChoice.storedEvent = rightEvent;
+    }
 
-    localStorage.setItem("savedGame", JSON.stringify(this.gameState))
+    localStorage.setItem("savedGame", JSON.stringify(this.gameState));
   }
+
   checkForColorChange() {
     for (let index = 0; index < this.Bars.length; index++) {
       this.colorChanger(index)
@@ -679,8 +689,8 @@ export class BigTestComponent implements OnInit {
     }
     this.gameState = save
     this.event = save.event
-    this.event.leftChoice.nextEvent = save.event.leftChoice.nextEvent
-    this.event.rightChoice.nextEvent = save.event.rightChoice.nextEvent
+    // this.event.leftChoice.nextEvent = () => save.event.leftChoice.nextEvent();
+    // this.event.rightChoice.nextEvent = () => save.event.rightChoice.nextEvent();
     this.currentDay = this.gameState.day
     this.Bars[0].value = save.stressVal;
     this.Bars[1].value = save.socialVal;
@@ -691,4 +701,5 @@ export class BigTestComponent implements OnInit {
     this.backgroundByDay()
     this.card.setStyle(this.event)
   }
+
 }
