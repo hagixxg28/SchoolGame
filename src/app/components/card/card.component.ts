@@ -94,7 +94,7 @@ export class CardComponent implements OnInit, OnChanges {
         this.setStyle()
         this.getToggleInfo()
         if (window.innerWidth < 800) {
-            this.renderButtons = false;
+            // this.renderButtons = false;
         }
     }
 
