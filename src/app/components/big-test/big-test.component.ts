@@ -18,6 +18,7 @@ import { PerkDataService } from 'src/app/Data/perk-data.service';
 import { StatusService } from 'src/app/services/status.service';
 import { PreMadeDayService } from 'src/app/services/pre-made-day.service';
 import { CardComponent } from '../card/card.component';
+import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
   selector: 'app-big-test',
@@ -43,7 +44,7 @@ import { CardComponent } from '../card/card.component';
 })
 export class BigTestComponent implements OnInit {
 
-  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService, private statusService: StatusService, private fixedDay: PreMadeDayService) { }
+  constructor(private perkData: PerkDataService, private musicService: MusicService, private eventService: EventsService, private gameManager: GameManagerService, private dayService: DayService, private gameStateService: GameStateService, private statusService: StatusService, private fixedDay: PreMadeDayService, private tutorial: TutorialService) { }
 
   ngOnInit() {
     this.statusService.ngOnInit()
@@ -52,14 +53,21 @@ export class BigTestComponent implements OnInit {
     this.eventService.setUpGameEvents();
     this.initGameState();
     this.eventService.eventSorter();
-    this.buildDay();
-    this.pullFromDay();
+    if (this.tutorial.checkIfTutorial()) {
+      this.onTutorial = true;
+      this.currentDay = this.tutorial.getTutorial();
+      this.pullFromDay()
+    } else {
+      this.buildDay();
+      this.pullFromDay();
+    }
   }
 
 
 
   @ViewChild('card') card: CardComponent;
 
+  onTutorial = true;
   fadeOut: boolean = false;
   fadeOutUp: boolean = false;
   gameState: GameState;
@@ -148,6 +156,10 @@ export class BigTestComponent implements OnInit {
     }
   }
   buildDay() {
+    if (this.onTutorial) {
+      this.onTutorial = false;
+      this.tutorial.finishTutorial()
+    }
     this.dayService.buildDay();
     this.currentDay = this.dayService.day;
   }
@@ -654,6 +666,10 @@ export class BigTestComponent implements OnInit {
   }
 
   eventBinder(event: GameEvent): void {
+    if (this.onTutorial) {
+      this.event = event
+      return;
+    }
     this.event = this.eventService.getTransitionEvent(event);
     this.event.leftChoice.nextEvent = () => event;
     this.event.rightChoice.nextEvent = () => event;
