@@ -13,6 +13,7 @@ export class Choice {
         public perkChoiceMap?: Map<Perk, choiceWithText>,
         public perk?: Perk,
         public skipToTime?: dayTimes,
-        public storedEvent?: GameEvent
+        public storedEvent?: GameEvent,
+        public restartDay?: boolean
     ) { }
 }    

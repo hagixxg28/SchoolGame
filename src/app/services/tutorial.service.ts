@@ -22,6 +22,12 @@ export class TutorialService {
       "No, I swiped left",
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canHear')),
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('lying')))],
+    ['cantHearComp', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning, "I said- you swiped right didn’t you?",
+      "Maybe",
+      "No, I swiped left",
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canHearComp')),
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('lyingComp')))],
+
     ['computerControls', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning, "Hmm.. It says you’re playing this from your computer so… I think you can make choices with the buttons on the card, and with the A and D keys, give it a try!",
       "I get it",
       "I’ll pass",
@@ -34,34 +40,39 @@ export class TutorialService {
       "Yeah",
       new Choice(0, 0, 0, 0),
       new Choice(0, 0, 0, 0))],
+    ['lyingComp', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning,
+      "Stop lying! You swiped right I can see it! Whatever, that means you know how to swipe!",
+      "What now",
+      "Yeah",
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('computerControls')),
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('computerControls')))],
+
     ['canHear', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning,
       "Good! that means you know how to make a choice in this game! Which makes me very happy!",
       "What now",
+      "Good?")],
+
+    ['canHearComp', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning,
+      "Good! that means you know how to make a choice in this game! Which makes me very happy!",
+      "What now",
       "Good?",
-      new Choice(0, 0, 0, 0, () => {
-        if (window.innerWidth > 800) {
-          return this.tutorialReactionMap.get('computerControls')
-        }
-        return this.tutorialPhone[1]
-      }),
-      new Choice(0, 0, 0, 0, () => {
-        if (window.innerWidth > 800) {
-          return this.tutorialReactionMap.get('computerControls')
-        }
-        return this.tutorialPhone[1]
-      }))],
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('computerControls')),
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('computerControls')))],
+
     ['okay', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.evening,
       "How do you do that you ask? I’m glad you asked! With your choices! They make a difference!",
       "Raise Stress and Social",
       "Lower School and Parents",
       new Choice(10, 10, 0, 0),
       new Choice(0, 0, -10, -10))],
+
     ['how', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.evening,
       "I’m glad you asked! With your choices! They make a difference!",
       "Raise Stress and Social",
       "Lower School and Parents",
       new Choice(10, 10, 0, 0),
       new Choice(0, 0, -10, -10))],
+
     ['know', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.night,
       "Oh yeah! Some choices will give you a perk, a perk will affect your choices you can make and the things that happen to you!",
       "Gain a perk",
@@ -75,7 +86,8 @@ export class TutorialService {
       "I can’t see it!",
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canSee'),
         new Map<Perk, choiceWithText>([
-          [Perk.Smart, new choiceWithText("I can see it! I am smart!", new Choice())]
+          [Perk.Smart, new choiceWithText("I can see it! I am smart!",
+            new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canSee')))]
         ])),
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('cantSee')))],
     ['noPerk', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.night,
@@ -105,7 +117,7 @@ export class TutorialService {
       "Eh… I’ll just send you back in time then!",
       "What?",
       "No no! I get it now!",
-      new Choice(0, 0, 0, 0, () => this.getTutorialFirstEvent()),
+      new Choice(0, 0, 0, 0, undefined, undefined, undefined, undefined, undefined, true),
       new Choice(0, 0, 0, 0))],
   ])
 
@@ -165,8 +177,8 @@ export class TutorialService {
       "Hi there! Swipe the card left if you can hear me!",
       "I can hear you",
       "What did you say?",
-      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canHear')),
-      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('cantHear'),
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canHearComp')),
+      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('cantHearComp'),
       )
     ),
     new GameEvent(
@@ -218,10 +230,8 @@ export class TutorialService {
   getTutorial(): Day {
     if (window.innerWidth > 800) {
       // IS computer 
-      console.log(this.tutorialComp)
       return this.tutorialComp;
     } else {
-      console.log(this.tutorialPhone)
       return this.tutorialPhone;
     }
   }
