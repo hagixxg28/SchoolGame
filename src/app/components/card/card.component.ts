@@ -7,6 +7,8 @@ import { SwipeComponent } from '../swipe/swipe.component';
 import { DayService } from 'src/app/services/day.service';
 import { dayTimes } from 'src/app/enums/dayTimes';
 import { ToggleService } from 'src/app/services/toggle.service';
+import { HostListener } from '@angular/core';
+
 
 @Component({
     selector: 'app-card',
@@ -35,6 +37,17 @@ export class CardComponent implements OnInit, OnChanges {
         }
     }
 
+    @HostListener('document:keypress', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        if (event.code === "KeyA") {
+            this.KeyBoardPreviewLeft();
+            return;
+        }
+        if (event.code === "KeyD") {
+            this.KeyBoardPreviewRight()
+            return;
+        }
+    }
     constructor(private sanitizer: DomSanitizer, private dayService: DayService, private toggleService: ToggleService) { }
 
     @Input("event") event: GameEvent;
@@ -48,7 +61,7 @@ export class CardComponent implements OnInit, OnChanges {
     @Output()
     hideColor = new EventEmitter();
 
-    @ViewChild("Swipe")
+    @ViewChild("swipe")
     private SwipeComponent: SwipeComponent;
 
     isPressed: boolean = false;
@@ -100,13 +113,40 @@ export class CardComponent implements OnInit, OnChanges {
 
 
 
+
     showTextLeft() {
         if (this.isSwipeRight || this.isSwipeLeft) {
             return;
         }
-        console.log("showing left")
+        this.isHoverRight = false
         this.isHoverLeft = true;
         this.previewChoiceLeft()
+    }
+
+    KeyBoardPreviewLeft() {
+        if (!this.isHoverLeft) {
+            this.hideColor.emit()
+            this.showTextLeft();
+            this.previewChoiceLeft()
+            return;
+        }
+        this.KeyBoardReset()
+        this.SwipeComponent.swipeLeft()
+    }
+    KeyBoardPreviewRight() {
+        if (!this.isHoverRight) {
+            this.hideColor.emit()
+            this.showTextRight();
+            this.previewChoiceRight()
+            return;
+        }
+        this.KeyBoardReset()
+        this.SwipeComponent.swipeRight()
+    }
+
+    KeyBoardReset() {
+        this.isHoverLeft = false
+        this.isHoverRight = false;
     }
 
     hideTextLeft() {
@@ -146,7 +186,7 @@ export class CardComponent implements OnInit, OnChanges {
         if (this.isSwipeRight || this.isSwipeLeft) {
             return;
         }
-        console.log("showing right")
+        this.isHoverLeft = false
         this.isHoverRight = true;
         this.previewChoiceRight();
     }
@@ -327,5 +367,6 @@ export class CardComponent implements OnInit, OnChanges {
             this.setStyle(event);
         }, 1000);
     }
+
 
 }
