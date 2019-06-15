@@ -45,6 +45,10 @@ export class MusicService implements OnInit {
     src: ['../assets/sounds/background/night.mp3'],
     loop: true
   });
+  dreamSound = new Howl({
+    src: ['../assets/sounds/background/dream.mp3'],
+    loop: true
+  });
 
   loseSound = new Howl({
     src: ['../assets/sounds/background/lost.mp3'],
@@ -80,6 +84,10 @@ export class MusicService implements OnInit {
     }
     if (this.currentState.time == dayTimes.afternoon) {
       this.switchSound(this.eveningSound);
+      return;
+    }
+    if (this.currentState.time == dayTimes.dream) {
+      this.switchSound(this.dreamSound);
       return;
     }
     if (this.currentState.time == dayTimes.morning && this.currentState.dayNum > 1) {
