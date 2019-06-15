@@ -90,13 +90,14 @@ export class TutorialService {
             new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canSee')))]
         ])),
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('cantSee')))],
+
     ['noPerk', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.night,
       "Too bad! You get a perk! I made you smart! Can you feel it? You can see it at the bottom left at the Perks section.",
       "",
       "I can’t see it!",
-      new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canSee'),
+      new Choice(0, 0, 0, 0, undefined,
         new Map<Perk, choiceWithText>([
-          [Perk.Smart, new choiceWithText("I can see it! I am smart!", new Choice())]
+          [Perk.Smart, new choiceWithText("I can see it! I am smart!", new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('canSee')))]
         ])),
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('cantSee')))],
 
@@ -106,6 +107,7 @@ export class TutorialService {
       "Wait! I don't get it!",
       new Choice(0, 0, 0, 0),
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('dontGet')))],
+
     ['cantSee', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.night,
       "Maybe the smart perk didn’t work on you… We got music if you like music, you can enable it at the bottom left corner..",
       "I'm ready to play",
@@ -114,10 +116,10 @@ export class TutorialService {
       new Choice(0, 0, 0, 0, () => this.tutorialReactionMap.get('dontGet')))],
 
     ['dontGet', new GameEvent(this.charData.getCharacter(Characters.Nerd), dayTimes.night,
-      "Eh… I’ll just send you back in time then!",
+      "Eh... I need to get going, good luck!",
       "What?",
-      "No no! I get it now!",
-      new Choice(0, 0, 0, 0, undefined, undefined, undefined, undefined, undefined, true),
+      "Wait! How do I play!?",
+      new Choice(0, 0, 0, 0),
       new Choice(0, 0, 0, 0))],
   ])
 
