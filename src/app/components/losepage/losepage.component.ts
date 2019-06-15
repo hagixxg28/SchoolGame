@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
@@ -18,6 +18,11 @@ export class LosepageComponent implements OnInit {
    fadeInButton = false;
 
    showButton = false;
+
+   hasLoad = false;
+
+   @Output()
+   loadEmitter = new EventEmitter();
 
 
    infoMap = new Map<string, string>([
@@ -48,6 +53,15 @@ export class LosepageComponent implements OnInit {
    ngOnInit() {
       this.loseType = this.eventService.getLoseType();
       this.infoText = this.infoMap.get(this.loseType);
+
+   }
+
+   checkIfSave(): boolean {
+      let save = localStorage.getItem('savedGame')
+      if (save) {
+         return true;
+      }
+      return false;
    }
 
    fadeUpEnd() {
@@ -57,10 +71,17 @@ export class LosepageComponent implements OnInit {
 
    buttonEnd() {
       this.showButton = true;
+      if (this.checkIfSave()) {
+         this.hasLoad = true;
+      }
    }
 
    refresh() {
       window.location.reload();
+   }
+
+   loadGame() {
+      this.loadEmitter.emit()
    }
 }
 

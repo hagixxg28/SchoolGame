@@ -8,5 +8,7 @@
       <br>
       <button (click)="refresh()" class="{{showButton ? 'shown' : 'hidden'}}" [ngClass]="{'fadeInUpFast': fadeInButton}"
         mat-raised-button color="primary" (animationend)="buttonEnd()">Play Again</button>
+      <!-- <button *ngIf="hasLoad" (click)="loadGame()" class="{{showButton ? 'shown' : 'hidden'}}"
+        [ngClass]="{'fadeInUpFast': fadeInButton}" mat-raised-button color="primary">Load Save</button> -->
     </div>
   </div>

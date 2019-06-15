@@ -6,6 +6,10 @@
   text-align: center;
 }
 
+button {
+  margin-left: 10px;
+}
+
 .middle {
   display: inline-block;
   margin-top: 32%;
