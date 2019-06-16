@@ -35,6 +35,9 @@ export class CardComponent implements OnInit, OnChanges {
         } else if (this.checkLong(event.currentValue.leftText)) {
             this.isRightLongText = true;
         }
+        if (this.onPhone) {
+            this.checkLong(event.currentValue.mainText);
+        }
     }
 
     @HostListener('document:keypress', ['$event'])
@@ -73,6 +76,7 @@ export class CardComponent implements OnInit, OnChanges {
     isRightShortText: boolean = false;
     isLeftLongText: boolean = false
     isRightLongText: boolean = false
+    isMainTextLong: boolean = false;
     //Animation Variables
     textAnim = false;
     nameFade = false;
@@ -95,6 +99,7 @@ export class CardComponent implements OnInit, OnChanges {
     showImage;
     showButtons: boolean;
     renderButtons: boolean = true;
+    onPhone: boolean = false;
 
     eveningText = false;
 
@@ -107,7 +112,7 @@ export class CardComponent implements OnInit, OnChanges {
         this.setStyle()
         this.getToggleInfo()
         if (window.innerWidth < 800) {
-            // this.renderButtons = false;
+            this.onPhone = true;
         }
     }
 
@@ -292,6 +297,13 @@ export class CardComponent implements OnInit, OnChanges {
             return true;
         }
         return false;
+    }
+    checkLongMainText(text) {
+        if (text.length > 120) {
+            this.isMainTextLong = true;
+            return;
+        }
+        this.isMainTextLong = false;
     }
 
     resetAnimCycle() {
