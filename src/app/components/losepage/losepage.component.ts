@@ -81,7 +81,8 @@ export class LosepageComponent implements OnInit {
    }
 
    loadGame() {
-      this.loadEmitter.emit()
+      localStorage.setItem('autoLoad', JSON.stringify(true))
+      this.refresh()
    }
 }
 

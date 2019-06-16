@@ -56,12 +56,17 @@ export class BigTestComponent implements OnInit {
     if (this.tutorial.checkIfTutorial()) {
       this.onTutorial = true;
       this.currentDay = this.tutorial.getTutorial();
-      this.pullFromDay()
-    } else {
-      this.buildDay();
       this.pullFromDay();
+      return;
+    }
+    this.buildDay();
+    this.pullFromDay();
+    if (localStorage.getItem('autoLoad')) {
+      localStorage.setItem('autoLoad', JSON.stringify(false))
+      this.loadGame()
     }
   }
+
 
 
 
