@@ -50,7 +50,9 @@ export class TutorialService {
     ['canHear', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning,
       "Good! that means you know how to make a choice in this game! Which makes me very happy!",
       "What now",
-      "Good?")],
+      "Good?",
+      new Choice(),
+      new Choice())],
 
     ['canHearComp', new GameEvent(this.charData.getCharacter(Characters.PopGirl), dayTimes.morning,
       "Good! that means you know how to make a choice in this game! Which makes me very happy!",
