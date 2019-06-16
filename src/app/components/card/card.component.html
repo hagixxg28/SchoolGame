@@ -33,8 +33,8 @@
       [ngClass]="{'fadeInLeft': imageAnim}" (mousedown)="$event.preventDefault()" (animationend)="finishedImageAnim()">
 
     <mat-card-content>
-      <p class="{{showEventText ? 'eventText' : 'hiddenText', 'longMainText':isMainTextLong}}"
-        [ngClass]="{'bounce': textAnim}" (animationend)="finishedAnim()">
+      <p class="{{showEventText ? 'eventText' : 'hiddenText'}}"
+        [ngClass]="{'bounce': textAnim, 'longMainText':isMainTextLong}" (animationend)="finishedAnim()">
         {{event.mainText}}
       </p>
     </mat-card-content>
